@@ -7,6 +7,7 @@ const config = require(__dirname + '/webpack.config.js');
 const fs = require('fs');
 const bodyParser = require('body-parser');
 const mongoApi = require('./mongoApi');
+const session = require('express-session');
 
 const port = 3000;
 const app = express();
@@ -30,6 +31,7 @@ const middleware = webpackMiddleware(compiler, {
 });
 
 app.use(bodyParser.json());
+app.use(session({secret: "secret"}));
 app.use(bodyParser.urlencoded({
     extended: true
 }));
@@ -59,6 +61,10 @@ app.get('/', function response (req, res) {
 app.post("/test", (req, res) => {
     mongoApi.test(req.body.name,req.body.password);
     //res.send(`${req.body.name} ${req.body.password} : success`);
+});
+
+app.post("/session", (req, res) => {
+    res.send(req.session);
 });
 
 app.listen(port, 'localhost', err => {

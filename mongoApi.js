@@ -1,12 +1,17 @@
-const mongodb = require('mongodb').MongoClient;
+const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
 
-const url = 'mongodb://localhost:27017/Blog';
+const url = 'mongodb://localhost:27017';
+const dbName = 'test';
 
-module.exports ={ 
+module.exports ={
+
     test: function (name, password) {
-        mongodb.connect(url, function (err, db) {
-            db.collection('user').insertOne( {
+        MongoClient.connect(url,  (err, client) => {
+            assert.equal(err, null);
+            console.log('successfully connection to db Server');
+            const db = client.db(dbName);
+            db.collection('blog').insertOne( {
                 "name": name,
                 "password": password
             },function(err, result){
