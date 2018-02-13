@@ -1,9 +1,9 @@
 import React from 'react';
 import axios from 'axios'
 import {connect} from 'react-redux'
-import Toolbar from './Toolbar'
-import {changeApi} from '../actions/actions'
+import {changeApi} from '../actions/AppActions'
 import '../less/index.less'
+
 
 class App extends React.Component {
 
@@ -22,32 +22,33 @@ class App extends React.Component {
         axios.post('/session', {}).then(res => console.log(res));
     };
 
-    changeApiOne= () => {
-      this.props.changeApi("api1")
+    changeApiOne = () => {
+        this.props.changeApi("api1")
     };
-    changeApiTwo= () => {
+    changeApiTwo = () => {
         this.props.changeApi("api2")
     };
 
     render() {
         return (
-            <main>
-                <button onClick={this.changeApiOne}>BUTTON</button>
-                <button onClick={this.changeApiTwo}>BUTTON2</button>
-                <span>{this.props.api}</span>
-            </main>
+            <div>
+                <button onClick={this.changeApiOne}>b1</button>
+                <button onClick={this.changeApiTwo}>b2</button>
+                <p>{this.props.simpleReducer.api}</p>
+            </div>
         )
     }
 }
+
 const mapStateToProps = state => {
     return {
-        rootReducer: state.rootReducer
+        simpleReducer: state.simpleReducer
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        changeApi: () => dispatch(changeApi(message))
+        changeApi: message => dispatch(changeApi(message))
     };
 };
 
