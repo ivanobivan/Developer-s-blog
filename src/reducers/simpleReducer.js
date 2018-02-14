@@ -2,7 +2,8 @@ import {
     TEST,
     LOGIN_REQUEST,
     LOGIN_FAILURE,
-    LOGIN_SUCCESS
+    LOGIN_SUCCESS,
+    CHANGE_LOCATION
 } from "../constants/constants";
 
 const initialValue = {
@@ -16,7 +17,10 @@ export default function searchAttributes(state = initialValue, action) {
                 ...state,
                 api : action.api
             };
-        case LOGIN_REQUEST :
+        case CHANGE_LOCATION:
+            return {
+
+            }
 
         default:
             return state;
