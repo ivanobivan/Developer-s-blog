@@ -7,8 +7,9 @@ const config = require(__dirname + '/webpack.config.js');
 const fs = require('fs');
 const bodyParser = require('body-parser');
 const mongoApi = require('./mongoApi');
+const passport = require('passport');
 const session = require('express-session');
-const parseurl = require('parseurl');
+const MongoStore = require('connect-mongo')(session);
 
 const port = 3000;
 const app = express();
@@ -31,7 +32,10 @@ const middleware = webpackMiddleware(compiler, {
     }
 });
 
+/*------------------------------------OPTIONS----------------------------------------------------*/
+
 app.use(bodyParser.json());
+
 app.use(session({
     secret: "secret",
     resave: false,
@@ -40,13 +44,23 @@ app.use(session({
         maxAge: 60000
     }
 }));
+
+app.use(
+    session({
+        store: new MongoStore({
+            url: mongoApi.mongoURL
+        }),
+        secret: "lol",
+        resave: false,
+        saveUninitialized: false
+    })
+);
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
-
 app.use('/node_modules', express.static(__dirname + '/node_modules'));
-//app.use('/images', express.static(__dirname + '/example/images'));
-
 app.use(middleware);
 app.use(webpackHotMiddleware(compiler, {
     watchOptions: {
@@ -54,6 +68,7 @@ app.use(webpackHotMiddleware(compiler, {
         poll: 1000
     }
 }));
+
 
 app.use(function (req, res, next) {
     if (!req.session.views) {
@@ -64,7 +79,8 @@ app.use(function (req, res, next) {
     next();
 });
 
-app.get('/*', function response(req, res) {
+/*------------------------------------REQUESTS----------------------------------------------------*/
+app.get('/', function response(req, res) {
     fs.readFile(__dirname + '/index.html', (err, data) => {
         res.writeHead(200, {
             'Content-Type': 'text/html',
@@ -90,6 +106,8 @@ app.post('/bar', function (req, res, next) {
 app.post("/session", (req, res) => {
     res.send(req.session);
 });
+
+/*------------------------------------SERVER----------------------------------------------------*/
 
 app.listen(port, 'localhost', err => {
     if (err) {
