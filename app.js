@@ -4,16 +4,23 @@ const webpack = require('webpack');
 const webpackMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 const config = require(__dirname + '/webpack.config.js');
+const serverConfig = require('./src/server/config');
 const fs = require('fs');
 const bodyParser = require('body-parser');
-const mongoApi = require('./mongoApi');
-const passport = require('passport');
+const parseurl = require('parseurl');
 const session = require('express-session');
-const MongoStore = require('connect-mongo')(session);
+const mongoose = require('mongoose');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
 
-const port = 3000;
+/*------------------------------------REQUIREMENTS----------------------------------------------------*/
+require('./src/server/models').connect(serverConfig.dbUri);
+
+/*------------------------------------CONSTANTS----------------------------------------------------*/
+const port = 5050;
 const app = express();
 
+/*------------------------------------CUSTOM----------------------------------------------------*/
 const compiler = webpack(config);
 const middleware = webpackMiddleware(compiler, {
     publicPath: config.output.publicPath,
@@ -33,34 +40,18 @@ const middleware = webpackMiddleware(compiler, {
 });
 
 /*------------------------------------OPTIONS----------------------------------------------------*/
-
 app.use(bodyParser.json());
-
-app.use(session({
-    secret: "secret",
-    resave: false,
-    saveUninitialized: true,
-    cookie: {
-        maxAge: 60000
-    }
-}));
-
-app.use(
-    session({
-        store: new MongoStore({
-            url: mongoApi.mongoURL
-        }),
-        secret: "lol",
-        resave: false,
-        saveUninitialized: false
-    })
-);
-app.use(passport.initialize());
-app.use(passport.session());
 app.use(bodyParser.urlencoded({
-    extended: true
+    extended: false
 }));
 app.use('/node_modules', express.static(__dirname + '/node_modules'));
+/*app.use(session({
+    secret: "secret",
+    resave: false,
+    saveUninitialized: true
+}));*/
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(middleware);
 app.use(webpackHotMiddleware(compiler, {
     watchOptions: {
@@ -68,16 +59,17 @@ app.use(webpackHotMiddleware(compiler, {
         poll: 1000
     }
 }));
+const localSignupStrategy = require('./src/server/passport/local-signup');
+const localLoginStrategy = require('./src/server/passport/local-login');
+passport.use('local-signup', localSignupStrategy);
+passport.use('local-login', localLoginStrategy);
+//const authCheckMiddleware = require('./src/server/middleware/auth-check');
+//app.use('/api', authCheckMiddleware);
 
-
-app.use(function (req, res, next) {
-    if (!req.session.views) {
-        req.session.views = {}
-    }
-    const pathname = parseurl(req).pathname;
-    req.session.views[pathname] = (req.session.views[pathname] || 0) + 1;
-    next();
-});
+const authRoutes = require('./src/server/routes/auth');
+const apiRoutes = require('./src/server/routes/api');
+app.use('/auth', authRoutes);
+app.use('/api', apiRoutes);
 
 /*------------------------------------REQUESTS----------------------------------------------------*/
 app.get('/', function response(req, res) {
@@ -89,11 +81,6 @@ app.get('/', function response(req, res) {
         res.write(data);
         res.end();
     });
-});
-
-app.post("/test", (req, res) => {
-    mongoApi.test(req.body.name, req.body.password);
-    //res.send(`${req.body.name} ${req.body.password} : success`);
 });
 
 app.post('/foo', function (req, res, next) {

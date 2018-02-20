@@ -3,11 +3,11 @@ import ReactDom from 'react-dom';
 import {Provider} from "react-redux";
 import {Route} from 'react-router'
 import {ConnectedRouter, routerMiddleware} from 'react-router-redux'
-import App from './components/App'
-import Toolbar from './components/Header/Toolbar'
-import Admin from './components/Admin'
-import Main from './components/Main'
-import configureStore from "./store/configureStore"
+import App from './client/components/App'
+import Toolbar from './client/components/Header/Toolbar'
+import Admin from './client/components/Admin'
+import Main from './client/components/Main'
+import configureStore from "./client/store/configureStore"
 import createHistory from "history/createBrowserHistory";
 
 const history = createHistory();
@@ -19,6 +19,7 @@ ReactDom.render(
         <ConnectedRouter history={history}>
             <div>
                 <Toolbar/>
+                <hr/>
                 <Route exact path="/" component={App}/>
                 <Route path="/main" component={Main}/>
                 <Route path="/admin" component={Admin}/>
