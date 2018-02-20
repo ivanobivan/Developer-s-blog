@@ -8,6 +8,7 @@ const fs = require('fs');
 const bodyParser = require('body-parser');
 const mongoApi = require('./mongoApi');
 const session = require('express-session');
+const parseurl = require('parseurl');
 
 const port = 3000;
 const app = express();
@@ -31,7 +32,14 @@ const middleware = webpackMiddleware(compiler, {
 });
 
 app.use(bodyParser.json());
-app.use(session({secret: "secret"}));
+app.use(session({
+    secret: "secret",
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        maxAge: 60000
+    }
+}));
 app.use(bodyParser.urlencoded({
     extended: true
 }));
@@ -47,7 +55,16 @@ app.use(webpackHotMiddleware(compiler, {
     }
 }));
 
-app.get('/', function response (req, res) {
+app.use(function (req, res, next) {
+    if (!req.session.views) {
+        req.session.views = {}
+    }
+    const pathname = parseurl(req).pathname;
+    req.session.views[pathname] = (req.session.views[pathname] || 0) + 1;
+    next();
+});
+
+app.get('/*', function response(req, res) {
     fs.readFile(__dirname + '/index.html', (err, data) => {
         res.writeHead(200, {
             'Content-Type': 'text/html',
@@ -59,10 +76,17 @@ app.get('/', function response (req, res) {
 });
 
 app.post("/test", (req, res) => {
-    mongoApi.test(req.body.name,req.body.password);
+    mongoApi.test(req.body.name, req.body.password);
     //res.send(`${req.body.name} ${req.body.password} : success`);
 });
 
+app.post('/foo', function (req, res, next) {
+    res.send('you viewed this page ' + req.session.views['/foo'] + ' times')
+});
+
+app.post('/bar', function (req, res, next) {
+    res.send('you viewed this page ' + req.session.views['/bar'] + ' times')
+});
 app.post("/session", (req, res) => {
     res.send(req.session);
 });

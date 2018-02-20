@@ -7,12 +7,10 @@ import {
 import axios from 'axios'
 
 
-export const changeApi = (api) => {
-    return {
-        type: TEST,
-        api: api
-    };
-};
+export const changeApi = (api) => ({
+    type: TEST,
+    api: api
+});
 
 export const asynkTest = (name, password) => {
     return (dispatch, getStore) => {
@@ -28,7 +26,7 @@ export const asynkTest = (name, password) => {
             })
         }).catch(err => {
             dispatch({
-                type:LOGIN_FAILURE,
+                type: LOGIN_FAILURE,
                 error: err
             })
         })

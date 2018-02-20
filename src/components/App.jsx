@@ -29,11 +29,23 @@ class App extends React.Component {
         this.props.changeApi("api2")
     };
 
+    getSession =() => {
+        axios.post("/session").then(res => console.log(res)).catch(err => console.log(err));
+    };
+    getSession1 =() => {
+        axios.post("/bar").then(res => console.log(res)).catch(err => console.log(err));
+    };
+    getSession2 =() => {
+        axios.post("/foo").then(res => console.log(res)).catch(err => console.log(err));
+    };
     render() {
         return (
             <div>
                 <button onClick={this.changeApiOne}>b1</button>
                 <button onClick={this.changeApiTwo}>b2</button>
+                <button onClick={this.getSession}>session</button>
+                <button onClick={this.getSession}>bar</button>
+                <button onClick={this.getSession}>foo</button>
                 <p>{this.props.simpleReducer.api}</p>
             </div>
         )

@@ -9,13 +9,19 @@ class Toolbar extends React.Component {
         this.props.push("/");
     };
     changelocation2 =() => {
+        this.props.push("/main");
+    };
+    changelocation3 =() => {
         this.props.push("/admin");
     };
     render() {
         return(
             <nav>
                 <a onClick={this.changelocation1}>Home</a>
-                <a onClick={this.changelocation2}>Admin</a>
+                {" "}
+                <a onClick={this.changelocation2}>Main</a>
+                {" "}
+                <a onClick={this.changelocation3}>Admin</a>
             </nav>
         )
     }
@@ -27,10 +33,4 @@ const mapStateToProps = state => {
     };
 };
 
-const mapDispatchToProps = dispatch => {
-    return {
-        push: location => dispatch(push(location))
-    };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Toolbar);
+export default connect(mapStateToProps, {push: location => (push(location)) })(Toolbar);
