@@ -14,8 +14,8 @@ class App extends React.Component {
             password: 'test',
             signUpResponse: 'not answer',
             loginResponse: 'not checked',
-            loginName: 'err',
-            loginPassword: 'err'
+            loginName: 'test',
+            loginPassword: 'test'
         }
     }
 
