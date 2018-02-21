@@ -3,43 +3,16 @@ const User = require('mongoose').model('User');
 const PassportLocalStrategy = require('passport-local').Strategy;
 const config = require('../config');
 
-module.exports = new PassportLocalStrategy({
-        usernameField: 'name',
-        passwordField: 'password',
-        session: false,
-        passReqToCallback: true
-    },
-    (req, name, password, done) => {
-        const userData = {
-            name: name,
-            password: password.trim()
-        };
-        return User.findOne({name: userData.name}, (err, user) => {
-            if (err) {
-                return done(err);
-            }
+module.exports = new PassportLocalStrategy(
+    (username, password, done) => {
+        User.findOne({username: username}, (err, user) => {
+            if (err) { return done(err); }
             if (!user) {
-                const error = new Error('Incorrect email or password');
-                error.name = 'IncorrectCredentialsError';
-                return done(error);
+                return done(null, false, { message: 'Incorrect username.' });
             }
-            return user.comparePassword(userData.password, (passwordErr, isMatch) => {
-                if (err) {
-                    return done(err);
-                }
-                if (!isMatch) {
-                    const error = new Error('Incorrect email or password');
-                    error.name = 'IncorrectCredentialsError';
-                    return done(error);
-                }
-                const payload = {
-                    sub: user._id
-                };
-                const token = jwt.sign(payload, config.jwtSecret);
-                const data = {
-                    name: user.name
-                };
-                return done(null, token, data);
-            });
+            if (!user.comparePassword(password)) {
+                return done(null, false, { message: 'Incorrect password.' });
+            }
+            return done(null, user);
         });
     });

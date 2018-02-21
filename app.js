@@ -7,14 +7,10 @@ const config = require(__dirname + '/webpack.config.js');
 const serverConfig = require('./src/server/config');
 const fs = require('fs');
 const bodyParser = require('body-parser');
-const parseurl = require('parseurl');
 const session = require('express-session');
-const mongoose = require('mongoose');
 const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
-
-/*------------------------------------REQUIREMENTS----------------------------------------------------*/
-require('./src/server/models').connect(serverConfig.dbUri);
+const mongoose = require('mongoose');
+const flash = require('connect-flash');
 
 /*------------------------------------CONSTANTS----------------------------------------------------*/
 const port = 5050;
@@ -38,20 +34,14 @@ const middleware = webpackMiddleware(compiler, {
         poll: 1000
     }
 });
-
+/*------------------------------------REQUIREMENTS----------------------------------------------------*/
+require('./src/server/models').connect(serverConfig.dbUri);
 /*------------------------------------OPTIONS----------------------------------------------------*/
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: false
 }));
 app.use('/node_modules', express.static(__dirname + '/node_modules'));
-/*app.use(session({
-    secret: "secret",
-    resave: false,
-    saveUninitialized: true
-}));*/
-app.use(passport.initialize());
-app.use(passport.session());
 app.use(middleware);
 app.use(webpackHotMiddleware(compiler, {
     watchOptions: {
@@ -63,13 +53,30 @@ const localSignupStrategy = require('./src/server/passport/local-signup');
 const localLoginStrategy = require('./src/server/passport/local-login');
 passport.use('local-signup', localSignupStrategy);
 passport.use('local-login', localLoginStrategy);
-//const authCheckMiddleware = require('./src/server/middleware/auth-check');
-//app.use('/api', authCheckMiddleware);
+app.use(session({
+    secret: "secret",
+    resave: false,
+    saveUninitialized: true
+}));
+app.use(passport.initialize());
+app.use(flash());
+app.use(passport.session());
+const User = require('mongoose').model('User');
+passport.serializeUser((user, done) => {
+    done(null, user.username);
+});
 
+passport.deserializeUser((username, done) => {
+    User.findOne({username: username}, (err, user) => {
+        done(err, user);
+    })
+
+});
 const authRoutes = require('./src/server/routes/auth');
 const apiRoutes = require('./src/server/routes/api');
 app.use('/auth', authRoutes);
 app.use('/api', apiRoutes);
+
 
 /*------------------------------------REQUESTS----------------------------------------------------*/
 app.get('/', function response(req, res) {

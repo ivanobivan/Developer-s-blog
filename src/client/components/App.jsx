@@ -54,9 +54,9 @@ class App extends React.Component {
             .then(res => console.log(res))
             .catch(err => console.log(err));
     };
-    signUp = (name, password) => {
+    signUp = (username, password) => {
         axios.post("/auth/signup", {
-            name: name,
+            username: username,
             password: password
         })
             .then(res => {
@@ -68,9 +68,9 @@ class App extends React.Component {
                 this.setState({signUpResponse: err})
             });
     };
-    login = (name, password) => {
+    login = (username, password) => {
         axios.post("/auth/login", {
-            name: name,
+            username: username,
             password: password
         })
             .then(res => {
@@ -96,14 +96,14 @@ class App extends React.Component {
                 <p>The result of testing: [{this.props.simpleReducer.api}] </p>
                 <button onClick={this.getSession}>get express-session</button>
                 <form>
-                    <input type='text' name='name' value={this.state.name} onChange={this.handleChangeName}/>
+                    <input type='text' name='username' value={this.state.name} onChange={this.handleChangeName}/>
                     <input type='text' name='password' value={this.state.password}
                            onChange={this.handleChangePassword}/>
                 </form>
                 <button onClick={this.handleSubmit}>sign up</button>
                 <p>answer from DB: [{this.state.signUpResponse}]</p>
                 <form>
-                    <input type='text' name='name' value={this.state.loginName} onChange={this.handleChangeLoginName}/>
+                    <input type='text' name='username' value={this.state.loginName} onChange={this.handleChangeLoginName}/>
                     <input type='text' name='password' value={this.state.loginPassword}
                            onChange={this.handleChangeLoginPassword}/>
                 </form>
