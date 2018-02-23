@@ -12,7 +12,8 @@ module.exports = new PassportLocalStrategy(
             }
             const userData = new User({
                 password: password.trim(),
-                username: username.trim()
+                username: username.trim(),
+                level: "user"
             });
             userData.save((err) => {
                 if (err) {

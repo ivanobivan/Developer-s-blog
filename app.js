@@ -11,7 +11,7 @@ const session = require('express-session');
 const passport = require('passport');
 const mongoose = require('mongoose');
 const flash = require('connect-flash');
-
+const reactRoutes = require('./src/server/routes/react/index.jsx');
 /*------------------------------------CONSTANTS----------------------------------------------------*/
 const port = 5050;
 const app = express();
@@ -63,20 +63,22 @@ app.use(flash());
 app.use(passport.session());
 const User = require('mongoose').model('User');
 passport.serializeUser((user, done) => {
-    done(null, user.username);
+    done(null,  {
+        username: user.username,
+        level: user.level
+    });
 });
 
-passport.deserializeUser((username, done) => {
-    User.findOne({username: username}, (err, user) => {
-        done(err, user);
+passport.deserializeUser((user, done) => {
+    User.findOne({username: user.username}, (err, user) => {
+         done(err, user);
     })
-
 });
 const authRoutes = require('./src/server/routes/auth');
 const apiRoutes = require('./src/server/routes/api');
 app.use('/auth', authRoutes);
 app.use('/api', apiRoutes);
-
+//app.use('/api',reactRoutes);
 
 /*------------------------------------REQUESTS----------------------------------------------------*/
 app.get('/', function response(req, res) {
@@ -89,18 +91,12 @@ app.get('/', function response(req, res) {
         res.end();
     });
 });
-
-app.post('/foo', function (req, res, next) {
-    res.send('you viewed this page ' + req.session.views['/foo'] + ' times')
+app.get('/logout', (req, res) => {
+    req.logout();
+    res.json({
+        message: 'log out success'
+    })
 });
-
-app.post('/bar', function (req, res, next) {
-    res.send('you viewed this page ' + req.session.views['/bar'] + ' times')
-});
-app.post("/session", (req, res) => {
-    res.send(req.session);
-});
-
 /*------------------------------------SERVER----------------------------------------------------*/
 
 app.listen(port, 'localhost', err => {

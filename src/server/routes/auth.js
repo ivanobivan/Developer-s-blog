@@ -8,20 +8,13 @@ router.post('/signup', (req, res, next) => {
             return next(err);
         }
         if (!user) {
-            return res.json({
-                message: info.message
-            });
+            return res.redirect('/login');
         }
         req.logIn(user, (err) => {
             if (err) {
-                return res.json({
-                    message: err.name
-                });
+                return next(err);
             }
-            return res.json({
-                message: 'success',
-                name: user.username
-            });
+            return res.redirect('/');
         });
     })(req, res, next);
 });
@@ -32,20 +25,13 @@ router.post('/login', (req, res, next) => {
             return next(err);
         }
         if (!user) {
-            return res.json({
-                message: info.message
-            });
+            return res.redirect('/login');
         }
         req.logIn(user, (err) => {
             if (err) {
-                return res.json({
-                    message: err.name
-                });
+                return next(err);
             }
-            return res.json({
-                message: 'success',
-                name: user.username
-            });
+            return res.redirect('/');
         });
     })(req, res, next);
 });

@@ -4,7 +4,8 @@ const passportLocalMongoose = require('passport-local-mongoose');
 
 const UserSchema = new mongoose.Schema({
     password: String,
-    username: String
+    username: { type: String },
+    level: { type: String }
 });
 
 UserSchema.methods.comparePassword = function comparePassword(password, callback) {

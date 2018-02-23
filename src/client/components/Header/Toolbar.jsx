@@ -9,19 +9,14 @@ class Toolbar extends React.Component {
         this.props.push("/");
     };
     changelocation2 =() => {
-        this.props.push("/main");
-    };
-    changelocation3 =() => {
-        this.props.push("/admin");
+        this.props.push("/description");
     };
     render() {
         return(
             <nav>
-                <a onClick={this.changelocation1}>Home</a>
+                <a onClick={this.changelocation1}>Home page</a>
                 {" "}
-                <a onClick={this.changelocation2}>Main</a>
-                {" "}
-                <a onClick={this.changelocation3}>Admin</a>
+                <a onClick={this.changelocation2}>Description</a>
             </nav>
         )
     }
