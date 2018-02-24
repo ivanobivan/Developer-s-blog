@@ -42,6 +42,7 @@ app.use(bodyParser.urlencoded({
     extended: false
 }));
 app.use('/node_modules', express.static(__dirname + '/node_modules'));
+app.use("/public", express.static(path.resolve("public")));
 app.use(middleware);
 app.use(webpackHotMiddleware(compiler, {
     watchOptions: {
