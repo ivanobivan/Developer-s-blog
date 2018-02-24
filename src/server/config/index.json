@@ -1,4 +1,5 @@
 {
   "dbUri": "mongodb://localhost/APPLICATION",
-  "jwtSecret": "secret"
+  "jwtSecret": "secret",
+  "port" : "5050"
 }

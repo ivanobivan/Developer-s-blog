@@ -11,9 +11,9 @@ const session = require('express-session');
 const passport = require('passport');
 const mongoose = require('mongoose');
 const flash = require('connect-flash');
-const reactRoutes = require('./src/server/routes/react/index.jsx');
+const reactRoutes = require('./src/client/route/index.jsx');
 /*------------------------------------CONSTANTS----------------------------------------------------*/
-const port = 5050;
+const port = serverConfig.port;
 const app = express();
 
 /*------------------------------------CUSTOM----------------------------------------------------*/
@@ -78,10 +78,10 @@ const authRoutes = require('./src/server/routes/auth');
 const apiRoutes = require('./src/server/routes/api');
 app.use('/auth', authRoutes);
 app.use('/api', apiRoutes);
-//app.use('/api',reactRoutes);
+app.use(reactRoutes);
 
 /*------------------------------------REQUESTS----------------------------------------------------*/
-app.get('/', function response(req, res) {
+/*app.get('/', function response(req, res) {
     fs.readFile(__dirname + '/index.html', (err, data) => {
         res.writeHead(200, {
             'Content-Type': 'text/html',
@@ -90,7 +90,7 @@ app.get('/', function response(req, res) {
         res.write(data);
         res.end();
     });
-});
+});*/
 app.get('/logout', (req, res) => {
     req.logout();
     res.json({

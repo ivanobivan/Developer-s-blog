@@ -17,7 +17,7 @@ export default class Application extends React.Component {
     render() {
         return (
             <Provider store={store}>
-                <ConnectedRouter history={history}>
+                <ConnectedRouter history={history} location={this.props.location} context={this.props.context}>
                     <div>
                         <Toolbar/>
                         <hr/>
