@@ -1,3 +1,4 @@
+
 const path = require('path');
 const express = require('express');
 const webpack = require('webpack');
@@ -36,6 +37,11 @@ const middleware = webpackMiddleware(compiler, {
 });
 /*------------------------------------REQUIREMENTS----------------------------------------------------*/
 require('./src/server/models').connect(serverConfig.dbUri);
+require('babel-register')({
+    ignore: /\/(build|node_modules)\//,
+    presets: ['env', 'react']
+});
+require('ignore-styles');
 /*------------------------------------OPTIONS----------------------------------------------------*/
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({

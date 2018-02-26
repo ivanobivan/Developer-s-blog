@@ -5,6 +5,7 @@ import Toolbar from '../components/Header/Toolbar'
 import AuthPage from './AuthPage'
 import Description from './Description'
 
+
 export default class App extends React.Component {
     render() {
         return (

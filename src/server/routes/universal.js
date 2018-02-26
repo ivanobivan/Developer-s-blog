@@ -4,10 +4,11 @@ const React = require('react');
 const {Provider} = require('react-redux');
 const {renderToString} = require('react-dom/server');
 const {ConnectedRouter, routerMiddleware} = require('react-router-redux');
-const {default: configureStore} = require('../../../src/client/store/configureStore');
+import configureStore from '../../../src/client/store/configureStore';
 const {default: App} = require('../../../src/client/components/App');
 import createBrowserHistory from "history/createBrowserHistory";
-import createMemoryHistory from 'history/createMemoryHistory';
+import createMemoryHistory from "history/createMemoryHistory";
+const {StaticRouter} = require('react-router-dom')
 
 module.exports = function universalLoader(req, res) {
     const filePath = path.resolve(__dirname,'../../..', 'index.html');
@@ -29,11 +30,9 @@ module.exports = function universalLoader(req, res) {
         );
 
         if (context.url) {
-            // Somewhere a `<Redirect>` was rendered
-            res.redirect(301, context.url)
+            res.redirect(301, context.url);
         } else {
-            // we're good, send the response
-            const RenderedApp = htmlData.replace('{{SSR}}', markup)
+            const RenderedApp = htmlData.replace('{{SSR}}', markup);
             res.send(RenderedApp)
         }
     })
