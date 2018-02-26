@@ -10,10 +10,10 @@ import bodyParser from 'body-parser';
 import session from 'express-session';
 import passport from 'passport';
 import reactRoutes from './src/server/routes/index.js';
+import mongoose from 'mongoose'
 /*------------------------------------CONSTANTS----------------------------------------------------*/
 const port = serverConfig.port;
 const app = express();
-
 /*------------------------------------CUSTOM----------------------------------------------------*/
 const compiler = webpack(config);
 const middleware = webpackMiddleware(compiler, {
@@ -35,10 +35,6 @@ const middleware = webpackMiddleware(compiler, {
 /*------------------------------------REQUIREMENTS----------------------------------------------------*/
 //todo styles .less don't be ignore(WHY?)
 require('./src/server/models').connect(serverConfig.dbUri);
-require('babel-register')({
-    ignore: /\/(build|node_modules)\//,
-    presets: ['env', 'react']
-});
 require('ignore-styles');
 /*------------------------------------OPTIONS----------------------------------------------------*/
 app.use(bodyParser.json());
@@ -54,6 +50,7 @@ app.use(webpackHotMiddleware(compiler, {
         poll: 1000
     }
 }));
+//todo if i use es05 format of code, then i get Mongoose Exception
 const localSignupStrategy = require('./src/server/passport/local-signup');
 const localLoginStrategy = require('./src/server/passport/local-login');
 passport.use('local-signup', localSignupStrategy);
@@ -65,7 +62,7 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-const User = require('mongoose').model('User');
+const User = mongoose.model('User');
 passport.serializeUser((user, done) => {
     done(null,  {
         username: user.username,
@@ -78,8 +75,8 @@ passport.deserializeUser((user, done) => {
          done(err, user);
     })
 });
-const authRoutes = require('./src/server/routes/auth');
-const apiRoutes = require('./src/server/routes/api');
+import authRoutes from './src/server/routes/auth';
+import apiRoutes from './src/server/routes/api';
 app.use('/auth', authRoutes);
 app.use('/api', apiRoutes);
 app.use('/',reactRoutes);
