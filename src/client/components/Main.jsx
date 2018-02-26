@@ -1,7 +1,12 @@
 import React from 'react';
 import axios from 'axios'
 import {connect} from 'react-redux'
+import {changeApi} from '../actions/AppActions'
+import SignUp from './SignUp';
+import LogIn from './LogIn';
+import {Route} from 'react-router'
 import '../less/index.less'
+import {push} from "react-router-redux";
 
 
 class Main extends React.Component {
@@ -31,7 +36,12 @@ class Main extends React.Component {
             .then(res => console.log(res))
             .catch(err => console.log(err));
     };*/
-
+    redirectLogin = () => {
+        this.props.push('/login')
+    };
+    redirectSignUp = () => {
+        this.props.push('/signup')
+    };
     render() {
         return (
             <div>
@@ -46,20 +56,25 @@ class Main extends React.Component {
                 <h1>Blog header</h1>
                 <p>If you haven't an account then you may sign up, else you can log in</p>
                 <p>Just choose</p>
-                <button >Log in</button>
+                <button onClick={this.redirectLogin}>Log in</button>
+                <Route path='/login' component={LogIn}/>
                 <p>OR</p>
-                <button >Sign Up</button>
+                <button onClick={this.redirectSignUp}>Sign Up</button>
+                <Route path='/signup' component={SignUp}/>
             </div>
         )
     }
 }
 
 const mapStateToProps = state => {
-    return {};
+    return {
+    };
 };
 
 const mapDispatchToProps = dispatch => {
-    return {};
+    return {
+           push: location => dispatch(push(location))
+    };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);

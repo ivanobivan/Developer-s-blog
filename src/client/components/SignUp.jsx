@@ -57,7 +57,6 @@ class SignUp extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        simpleReducer: state.simpleReducer
     };
 };
 

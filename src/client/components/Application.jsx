@@ -6,6 +6,8 @@ import Main from './Main'
 import Toolbar from './Toolbar'
 import Description from './Description'
 import test from './test'
+import LogIn from './LogIn'
+import SignUp from './SignUp'
 import configureStore from "../store/configureStore"
 import createHistory from "history/createBrowserHistory";
 
@@ -24,6 +26,8 @@ export default class Application extends React.Component {
                         <Route exact path="/" component={Main}/>
                         <Route path="/description" component={Description}/>
                         <Route path="/test" component={test}/>
+                        <Route path='/login' component={LogIn}/>
+                        <Route path='/signup' component={SignUp}/>
                     </div>
                 </ConnectedRouter>
             </Provider>

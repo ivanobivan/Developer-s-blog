@@ -14,6 +14,9 @@ class Toolbar extends React.Component {
     changelocation3 =() => {
         this.props.push("/test");
     };
+    changelocation4 =() => {
+        this.props.push("/login");
+    };
     render() {
         return(
             <nav>
@@ -22,6 +25,7 @@ class Toolbar extends React.Component {
                 <a onClick={this.changelocation2}>Description</a>
                 {" "}
                 <a onClick={this.changelocation3}>test</a>
+                <a onClick={this.changelocation4}>login</a>
             </nav>
         )
     }
