@@ -1,13 +1,12 @@
 import React from 'react';
 import axios from 'axios'
 import {connect} from 'react-redux'
-import {changeApi} from '../actions/AppActions'
 import '../less/index.less'
 
 
-class App extends React.Component {
+class Main extends React.Component {
 
-    constructor(props) {
+    /*constructor(props) {
         super(props);
         this.state = {
             name: 'test',
@@ -31,33 +30,36 @@ class App extends React.Component {
         axios.get('/logout',{})
             .then(res => console.log(res))
             .catch(err => console.log(err));
-    };
+    };*/
+
     render() {
         return (
             <div>
-                <p>answer from DB: [{this.state.signUpResponse}]</p>
+                {/*<p>answer from DB: [{this.state.signUpResponse}]</p>
                 <p>answer from login request: [{this.state.loginResponse}]</p>
                 <p>User's status: [{this.state.level}]</p>
                 <br/>
                 <button onClick={this.logout}>Log out</button>
                 <br/>
                 <button onClick={this.dashboard}>get dashboard</button>
-                <p>dashboard is [{this.state.dashboard}]</p>
+                <p>dashboard is [{this.state.dashboard}]</p>*/}
+                <h1>Blog header</h1>
+                <p>If you haven't an account then you may sign up, else you can log in</p>
+                <p>Just choose</p>
+                <button >Log in</button>
+                <p>OR</p>
+                <button >Sign Up</button>
             </div>
         )
     }
 }
 
 const mapStateToProps = state => {
-    return {
-        simpleReducer: state.simpleReducer
-    };
+    return {};
 };
 
 const mapDispatchToProps = dispatch => {
-    return {
-        changeApi: message => dispatch(changeApi(message))
-    };
+    return {};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(Main);

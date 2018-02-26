@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDom from 'react-dom';
-import Application from "./client/components/Backup"
-
+import Application from "./client/components/Application"
 
 ReactDom.render(
     <Application/>,
