@@ -1,4 +1,4 @@
-
+import fs from 'fs';
 import path from 'path';
 import express from 'express';
 import webpack from 'webpack';
@@ -9,7 +9,6 @@ import serverConfig from './src/server/config';
 import bodyParser from 'body-parser';
 import session from 'express-session';
 import passport from 'passport';
-import reactRoutes from './src/server/routes/index.js';
 import mongoose from 'mongoose'
 /*------------------------------------CONSTANTS----------------------------------------------------*/
 const port = serverConfig.port;
@@ -35,7 +34,6 @@ const middleware = webpackMiddleware(compiler, {
 /*------------------------------------REQUIREMENTS----------------------------------------------------*/
 //todo styles .less don't be ignore(WHY?)
 require('./src/server/models').connect(serverConfig.dbUri);
-require('ignore-styles');
 /*------------------------------------OPTIONS----------------------------------------------------*/
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -79,10 +77,9 @@ import authRoutes from './src/server/routes/auth';
 import apiRoutes from './src/server/routes/api';
 app.use('/auth', authRoutes);
 app.use('/api', apiRoutes);
-app.use('/',reactRoutes);
 
 /*------------------------------------REQUESTS----------------------------------------------------*/
-/*app.get('/', function response(req, res) {
+app.get('/', function response(req, res) {
     fs.readFile(__dirname + '/index.html', (err, data) => {
         res.writeHead(200, {
             'Content-Type': 'text/html',
@@ -91,7 +88,7 @@ app.use('/',reactRoutes);
         res.write(data);
         res.end();
     });
-});*/
+});
 app.post('/logout', (req, res) => {
     req.logout();
     res.json({
