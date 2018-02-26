@@ -1,7 +1,7 @@
-const React = require('react');
-const router = require('express').Router();
-const universalLoader = require('./universal');
+import React from 'react';
+import express from 'express'
+import universalLoader from './universal';
 
-router.get('*',universalLoader);
+const router = new express.Router();
 
-module.exports = router;
+export default router.get('*', universalLoader);

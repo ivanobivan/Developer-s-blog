@@ -7,8 +7,8 @@
     "test": "jest",
     "dev": "webpack-dev-server --hot --open --port 3000",
     "build": "webpack",
-    "start": "node app.js",
-    "start:babel": "npx babel-node app.js"
+    "start:es03": "node app.js",
+    "start": "babel-node --debug app.js"
   },
   "author": "",
   "license": "ISC",

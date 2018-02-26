@@ -1,14 +1,13 @@
-const path = require('path');
-const fs = require('fs');
-const React = require('react');
-const {Provider} = require('react-redux');
-const {renderToString} = require('react-dom/server');
-const {ConnectedRouter, routerMiddleware} = require('react-router-redux');
+import path  from 'path';
+import fs from 'fs';
+import React from 'react';
+import {Provider} from 'react-redux';
+import {renderToString} from 'react-dom/server';
+import {ConnectedRouter, routerMiddleware} from 'react-router-redux';
 import configureStore from '../../../src/client/store/configureStore';
-const {default: App} = require('../../../src/client/components/App');
+import App from '../../client/components/Application';
 import createBrowserHistory from "history/createBrowserHistory";
 import createMemoryHistory from "history/createMemoryHistory";
-const {StaticRouter} = require('react-router-dom')
 
 module.exports = function universalLoader(req, res) {
     const filePath = path.resolve(__dirname,'../../..', 'index.html');
@@ -28,13 +27,8 @@ module.exports = function universalLoader(req, res) {
                 </ConnectedRouter>
             </Provider>
         );
-
-        if (context.url) {
-            res.redirect(301, context.url);
-        } else {
-            const RenderedApp = htmlData.replace('{{SSR}}', markup);
-            res.send(RenderedApp)
-        }
+        context.url ? res.redirect(301, context.url) :
+            res.send(htmlData.replace('{{SSR}}', markup));
     })
-}
+};
 

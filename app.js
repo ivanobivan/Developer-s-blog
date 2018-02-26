@@ -1,18 +1,15 @@
 
-const path = require('path');
-const express = require('express');
-const webpack = require('webpack');
-const webpackMiddleware = require('webpack-dev-middleware');
-const webpackHotMiddleware = require('webpack-hot-middleware');
-const config = require(__dirname + '/webpack.config.js');
-const serverConfig = require('./src/server/config');
-const fs = require('fs');
-const bodyParser = require('body-parser');
-const session = require('express-session');
-const passport = require('passport');
-const mongoose = require('mongoose');
-const flash = require('connect-flash');
-const reactRoutes = require('./src/server/routes/index.js');
+import path from 'path';
+import express from 'express';
+import webpack from 'webpack';
+import webpackMiddleware from 'webpack-dev-middleware';
+import webpackHotMiddleware from 'webpack-hot-middleware';
+import config from './webpack.config.js';
+import serverConfig from './src/server/config';
+import bodyParser from 'body-parser';
+import session from 'express-session';
+import passport from 'passport';
+import reactRoutes from './src/server/routes/index.js';
 /*------------------------------------CONSTANTS----------------------------------------------------*/
 const port = serverConfig.port;
 const app = express();
@@ -36,6 +33,7 @@ const middleware = webpackMiddleware(compiler, {
     }
 });
 /*------------------------------------REQUIREMENTS----------------------------------------------------*/
+//todo styles .less don't be ignore(WHY?)
 require('./src/server/models').connect(serverConfig.dbUri);
 require('babel-register')({
     ignore: /\/(build|node_modules)\//,
@@ -66,7 +64,6 @@ app.use(session({
     saveUninitialized: true
 }));
 app.use(passport.initialize());
-app.use(flash());
 app.use(passport.session());
 const User = require('mongoose').model('User');
 passport.serializeUser((user, done) => {
