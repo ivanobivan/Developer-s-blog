@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
     devtool: "inline-source-map",
@@ -39,5 +40,10 @@ module.exports = {
     },
     resolve:{
         extensions:['.js','.jsx']
-    }
+    },
+    plugins: [
+        new webpack.DefinePlugin({
+            'process.env.BROWSER': false,
+        })
+    ]
 };

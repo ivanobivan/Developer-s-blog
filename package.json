@@ -8,7 +8,7 @@
     "dev": "webpack-dev-server --hot --open --port 3000",
     "build": "webpack",
     "start": "node app.js",
-    "start:babel": "npx babel-node app.js"
+    "start:babel": "npx babel-nodemon app.js"
   },
   "author": "",
   "license": "ISC",

@@ -11,7 +11,7 @@ const session = require('express-session');
 const passport = require('passport');
 const mongoose = require('mongoose');
 const flash = require('connect-flash');
-const reactRoutes = require('./src/client/route/index.jsx');
+const reactRoutes = require('./src/server/routes/index.js');
 /*------------------------------------CONSTANTS----------------------------------------------------*/
 const port = serverConfig.port;
 const app = express();
@@ -79,7 +79,7 @@ const authRoutes = require('./src/server/routes/auth');
 const apiRoutes = require('./src/server/routes/api');
 app.use('/auth', authRoutes);
 app.use('/api', apiRoutes);
-app.use(reactRoutes);
+app.use('/',reactRoutes);
 
 /*------------------------------------REQUESTS----------------------------------------------------*/
 /*app.get('/', function response(req, res) {
@@ -92,7 +92,7 @@ app.use(reactRoutes);
         res.end();
     });
 });*/
-app.get('/logout', (req, res) => {
+app.post('/logout', (req, res) => {
     req.logout();
     res.json({
         message: 'log out success'
