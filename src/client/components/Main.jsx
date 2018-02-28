@@ -57,9 +57,9 @@ class Main extends React.Component {
                 <p>If you haven't an account then you may sign up, else you can log in</p>
                 <p>Just choose</p>
                 <button onClick={this.redirectLogin}>Log in</button>
-                <Route path='/login' component={LogIn}/>
                 <p>OR</p>
                 <button onClick={this.redirectSignUp}>Sign Up</button>
+                <Route path='/login' component={LogIn}/>
                 <Route path='/signup' component={SignUp}/>
             </div>
         )

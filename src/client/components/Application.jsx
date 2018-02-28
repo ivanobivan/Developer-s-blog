@@ -23,11 +23,10 @@ export default class Application extends React.Component {
                     <div>
                         <Toolbar/>
                         <hr/>
-                        <Route exact path="/" component={Main}/>
+                        <Route path="/" component={Main}/>
                         <Route path="/description" component={Description}/>
                         <Route path="/test" component={test}/>
-                        <Route path='/login' component={LogIn}/>
-                        <Route path='/signup' component={SignUp}/>
+
                     </div>
                 </ConnectedRouter>
             </Provider>
