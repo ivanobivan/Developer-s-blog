@@ -42,7 +42,6 @@ class Login extends React.Component {
     render() {
         return (
             <div>
-                <p>Log in</p>
                 <fieldset>
                     <legend>log in</legend>
                     <input type='text' name="username" value={this.state.loginName}

@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from "axios/index";
-import {changeApi} from "../actions/AppActions";
+import {changeApi} from "../../actions/AppActions";
 import {connect} from "react-redux";
 
 class SignUp extends React.Component {

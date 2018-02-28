@@ -5,27 +5,19 @@ import {push} from 'react-router-redux'
 
 class Toolbar extends React.Component {
 
-    changelocation1 =() => {
-        this.props.push("/");
-    };
-    changelocation2 =() => {
-        this.props.push("/description");
-    };
-    changelocation3 =() => {
-        this.props.push("/test");
-    };
-    changelocation4 =() => {
-        this.props.push("/login");
+    goToTheURL = event => {
+        this.props.push(event.target.attributes.name.nodeValue)
     };
     render() {
         return(
             <nav>
-                <a onClick={this.changelocation1}>Home page</a>
+                <a onClick={this.goToTheURL} name="/">Home</a>
                 {" "}
-                <a onClick={this.changelocation2}>Description</a>
+                <a onClick={this.goToTheURL} name='/posts'>Posts</a>
                 {" "}
-                <a onClick={this.changelocation3}>test</a>
-                <a onClick={this.changelocation4}>login</a>
+                <a onClick={this.goToTheURL} name='/userform'>User Page</a>
+                {" "}
+                <a onClick={this.goToTheURL} name='/aboutme'>About me</a>
             </nav>
         )
     }

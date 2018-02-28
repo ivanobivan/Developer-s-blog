@@ -1,11 +1,11 @@
 import React from 'react';
 import axios from 'axios'
 import {connect} from 'react-redux'
-import {changeApi} from '../actions/AppActions'
+import {changeApi} from '../../actions/AppActions'
 import SignUp from './SignUp';
 import LogIn from './LogIn';
 import {Route} from 'react-router'
-import '../less/index.less'
+import '../../less/index.less'
 import {push} from "react-router-redux";
 
 
@@ -36,11 +36,8 @@ class Main extends React.Component {
             .then(res => console.log(res))
             .catch(err => console.log(err));
     };*/
-    redirectLogin = () => {
-        this.props.push('/login')
-    };
-    redirectSignUp = () => {
-        this.props.push('/signup')
+    goToTheURL = event => {
+        this.props.push(event.target.attributes.name.nodeValue)
     };
     render() {
         return (
@@ -54,13 +51,13 @@ class Main extends React.Component {
                 <button onClick={this.dashboard}>get dashboard</button>
                 <p>dashboard is [{this.state.dashboard}]</p>*/}
                 <h1>Blog header</h1>
-                <p>If you haven't an account then you may sign up, else you can log in</p>
-                <p>Just choose</p>
-                <button onClick={this.redirectLogin}>Log in</button>
-                <p>OR</p>
-                <button onClick={this.redirectSignUp}>Sign Up</button>
-                <Route path='/login' component={LogIn}/>
-                <Route path='/signup' component={SignUp}/>
+                <p>If you haven't an account then you may
+                    <button onClick={this.goToTheURL} name='/userform/signup'>Sign Up</button>,
+                    else you can
+                    <button onClick={this.goToTheURL} name='/userform/login'>Log in</button>
+                </p>
+                <Route path='/userform/login' component={LogIn}/>
+                <Route path='/userform/signup' component={SignUp}/>
             </div>
         )
     }

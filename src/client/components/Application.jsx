@@ -2,12 +2,11 @@ import React from 'react';
 import {Provider} from "react-redux";
 import {Route} from 'react-router'
 import {ConnectedRouter, routerMiddleware} from 'react-router-redux'
-import Main from './Main'
+import UserForm from './UserForm/UserForm'
 import Toolbar from './Toolbar'
-import Description from './Description'
-import test from './test'
-import LogIn from './LogIn'
-import SignUp from './SignUp'
+import Posts from './Posts'
+import Home from "./Home"
+import AboutMe from './AboutMe/AboutMe'
 import configureStore from "../store/configureStore"
 import createHistory from "history/createBrowserHistory";
 
@@ -16,6 +15,7 @@ const middleware = routerMiddleware(history);
 const store = configureStore(middleware);
 
 export default class Application extends React.Component {
+
     render() {
         return (
             <Provider store={store}>
@@ -23,10 +23,10 @@ export default class Application extends React.Component {
                     <div>
                         <Toolbar/>
                         <hr/>
-                        <Route path="/" component={Main}/>
-                        <Route path="/description" component={Description}/>
-                        <Route path="/test" component={test}/>
-
+                        <Route exact path='/' component={Home}/>
+                        <Route path="/userform" component={UserForm}/>
+                        <Route path="/posts" component={Posts}/>
+                        <Route path="/aboutme" component={AboutMe}/>
                     </div>
                 </ConnectedRouter>
             </Provider>

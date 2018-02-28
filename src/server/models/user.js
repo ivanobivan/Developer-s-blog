@@ -9,13 +9,11 @@ const UserSchema = new mongoose.Schema({
 });
 
 UserSchema.methods.comparePassword = function comparePassword(password, callback) {
-    //bcrypt.compare(password, this.password, callback);
-    return this.password === password;
+    return bcrypt.compare(password, this.password, callback);
 };
 
 UserSchema.pre('save', function saveHook(next) {
-    return next();
-    /*const user = this;
+    const user = this;
     if (!user.isModified('password')) {
         return next();
     }
@@ -30,7 +28,7 @@ UserSchema.pre('save', function saveHook(next) {
             user.password = hash;
             return next();
         });
-    });*/
+    });
 });
 
 UserSchema.plugin(passportLocalMongoose);

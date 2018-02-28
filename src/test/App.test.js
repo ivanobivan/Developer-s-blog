@@ -1,5 +1,5 @@
 import React from 'react'
-import Admin from '../client/components/Main'
+import Admin from '../client/components/UserForm/UserForm'
 import renderer  from 'react-test-renderer'
 
 test('Application test', () => {
