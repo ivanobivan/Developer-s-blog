@@ -1,6 +1,8 @@
 export const TEST = "TEST";
-export const LOGIN_REQUEST = "LOGIN_REQUEST";
-export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
-export const LOGIN_FAILURE = "LOGIN_FAILURE";
-export const CHANGE_LOCATION = "CHANGE_LOCATION";
+export const USER_LEVEL =  "USER_LEVEL";
+export const SERVER_ERROR =  "SERVER_ERROR";
+export const SIGN_UP =  "SIGN_UP";
+export const LOG_IN =  "LOG_IN";
+export const REDIRECT =  "REDIRECT";
+
 

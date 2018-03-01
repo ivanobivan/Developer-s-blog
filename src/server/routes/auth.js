@@ -3,18 +3,28 @@ const passport = require('passport');
 const router = new express.Router();
 
 router.post('/signup', (req, res, next) => {
-    passport.authenticate('local-signup', (err, user, info) => {
+    passport.authenticate('local-signup',{
+        badRequestMessage: "User name and password has been not empty"
+    }, (err, user, info) => {
         if (err) {
-            return next(err);
+            return res.json({
+                err: err
+            })
         }
         if (!user) {
-            return res.redirect('/login');
+            return res.json({
+                message: info.message
+            })
         }
         req.logIn(user, (err) => {
             if (err) {
-                return next(err);
+                return res.json({
+                    err: err
+                })
             }
-            return res.redirect('/');
+            return res.json({
+                path: info.path
+            })
         });
     })(req, res, next);
 });

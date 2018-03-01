@@ -3,6 +3,9 @@ const PassportLocalStrategy = require('passport-local').Strategy;
 
 module.exports = new PassportLocalStrategy(
     (username, password, done) => {
+        if(username.length < 6 || password.length < 6) {
+          return done(null, false, {message: "Please, enter user name and password more then 6 symbols"})
+        }
         User.findOne({username: username}, (err, user) => {
             if (err) {
                 return done(err);
@@ -19,7 +22,7 @@ module.exports = new PassportLocalStrategy(
                 if (err) {
                     return done(err);
                 }
-                return done(null, userData, {message: 'Successful sign in'});
+                return done(null, userData, {path: '/'});
             });
         })
     });
