@@ -15,7 +15,10 @@ class Toolbar extends React.Component {
                 {" "}
                 <a onClick={this.goToTheURL} name='/posts'>Posts</a>
                 {" "}
-                <a onClick={this.goToTheURL} name='/userform'>User Page</a>
+                {this.props.level === "unknown" ?
+                    <a onClick={this.goToTheURL} name='/userform'>User Page</a>
+                    : null
+                }
                 {" "}
                 <a onClick={this.goToTheURL} name='/aboutme'>About me</a>
             </nav>
@@ -23,9 +26,8 @@ class Toolbar extends React.Component {
     }
 }
 const mapStateToProps = state => {
-    console.log("state", state);
     return {
-
+        store: state.simpleReducer
     };
 };
 

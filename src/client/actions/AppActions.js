@@ -4,7 +4,8 @@ import {
     SERVER_ERROR,
     SIGN_UP,
     LOG_IN,
-    REDIRECT
+    REDIRECT,
+    LOG_OUT
 } from "../constants/constants";
 import axios from 'axios'
 import {push} from 'react-router-redux'
@@ -13,7 +14,9 @@ export const changeApi = (api) => ({
     type: TEST,
     api: api
 });
+export const logOut = () => {
 
+};
 export const signUp = (username, password) => {
     return (dispatch, getStore) => {
         axios.post("/auth/signup", {
