@@ -11,8 +11,7 @@ import configureStore from "../store/configureStore"
 import createHistory from "history/createBrowserHistory";
 
 const history = createHistory();
-const middleware = routerMiddleware(history);
-const store = configureStore(middleware);
+const store = configureStore(history);
 
 export default class Application extends React.Component {
 
