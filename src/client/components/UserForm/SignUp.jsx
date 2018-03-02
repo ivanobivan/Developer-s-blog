@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from "react-redux";
-import {signUp} from "../../actions/AppActions";
+import {signUp} from "../../actions/serverActions";
 
 class SignUp extends React.Component {
 
@@ -33,7 +33,7 @@ class SignUp extends React.Component {
                            onChange={this.handleChangePassword}/>
                     <button onClick={this.handleSubmit}>sign up</button>
                 </fieldset>
-                <p>Answer from DB [{this.props.store.signUpFailure}]</p>
+                <p>Answer from DB [{this.props.serverRes.signUpFailure}]</p>
             </div>
         )
     }
@@ -41,7 +41,7 @@ class SignUp extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        store: state.simpleReducer
+        serverRes: state.serverReducer
     };
 };
 

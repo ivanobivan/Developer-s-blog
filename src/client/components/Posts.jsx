@@ -6,7 +6,7 @@ class Description extends React.Component {
     render() {
         return(
             <div>
-                <h1>Welcome to the DESCRIPTION page</h1>
+                <h1>Welcome to the Posts page</h1>
                 <hr/>
                 <h3>This page is under development</h3>
                 <hr/>

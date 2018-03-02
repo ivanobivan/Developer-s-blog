@@ -10,12 +10,23 @@ import {
 import axios from 'axios'
 import {push} from 'react-router-redux'
 
-export const changeApi = (api) => ({
-    type: TEST,
-    api: api
-});
 export const logOut = () => {
+    return (dispatch, getStore) => {
+        axios.post("/logout")
+            .then(res => {
+                dispatch({
+                    type: LOG_OUT,
+                    logoutRes: res.data.message
+                })
+            })
+            .catch(err => {
+                dispatch({
+                    type: SERVER_ERROR,
+                    serverError: err
+                })
 
+            })
+    }
 };
 export const signUp = (username, password) => {
     return (dispatch, getStore) => {
@@ -65,23 +76,33 @@ export const checkUser = () => {
     }
 };
 
-export const asynkTest = (name, password) => {
+
+export const logIn = (username, password) => {
     return (dispatch, getStore) => {
-        dispatch({
-            type: LOGIN_REQUEST
-        });
-        axios.post('/login', {
-            name: name,
+        axios.post("/auth/login", {
+            username: username,
             password: password
-        }).then(res => {
-            dispatch({
-                type: LOGIN_SUCCESS
-            })
-        }).catch(err => {
-            dispatch({
-                type: LOGIN_FAILURE,
-                serverError: err
-            })
         })
+            .then(res => {
+                if (res.data.err) {
+                    dispatch({
+                        type: SERVER_ERROR,
+                        serverError: res.data.err
+                    })
+                }else if(res.data.path) {
+                    dispatch(push(res.data.path))
+                } else {
+                    dispatch({
+                        type: LOG_IN,
+                        logInFailure: res.data.message
+                    })
+                }
+            })
+            .catch(err => {
+                dispatch({
+                    type: SERVER_ERROR,
+                    serverError: err
+                })
+            });
     }
 };

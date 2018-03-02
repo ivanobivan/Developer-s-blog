@@ -1,26 +1,21 @@
 import {
-    TEST,
     USER_LEVEL,
     SERVER_ERROR,
     SIGN_UP,
     LOG_IN,
-    REDIRECT
+    LOG_OUT
 } from "../constants/constants";
 
 const initialValue = {
-    api: "api0",
     level: "unknown",
     serverError: "",
     signUpFailure: "",
-    loginResponse: ""
+    logInFailure: "",
+    logoutRes: ""
 };
 
 const searchAttributes = (state = initialValue, action) => {
     switch (action.type) {
-        case TEST:
-            return {
-                api : "123"
-            };
         case USER_LEVEL :
             return {
                 level: action.level
@@ -32,6 +27,15 @@ const searchAttributes = (state = initialValue, action) => {
         case SIGN_UP:
             return {
                 signUpFailure: action.signUpFailure
+            };
+        case LOG_IN:
+            return {
+                logInFailure: action.logInFailure
+            };
+        case LOG_OUT:
+            return {
+                logoutRes: action.logoutRes,
+                level: "unknown"
             };
         default:
             return state;

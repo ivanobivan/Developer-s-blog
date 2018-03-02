@@ -1,7 +1,6 @@
 import React from 'react';
 import axios from 'axios'
 import {connect} from 'react-redux'
-import {changeApi} from '../../actions/AppActions'
 import SignUp from './SignUp';
 import LogIn from './LogIn';
 import {Route} from 'react-router'

@@ -1,9 +1,9 @@
 import {routerReducer} from 'react-router-redux'
-import simpleReducer from "./simpleReducer";
+import serverReducer from "./serverReducer";
 import { combineReducers } from "redux";
 
 export default combineReducers({
-    simpleReducer,
+    serverReducer,
     router: routerReducer
 });
 

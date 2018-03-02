@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux'
 import {push} from 'react-router-redux'
-import {checkUser} from '../actions/AppActions'
+import {checkUser,logOut} from '../actions/serverActions'
 
 class Home extends React.Component {
 
@@ -16,12 +16,14 @@ class Home extends React.Component {
     componentDidMount() {
         this.props.checkUser();
     }
-
+    logOutUser= () => {
+        this.props.logOut();
+    };
     render() {
-        const level = this.props.store.level;
+        const level = this.props.serverRes.level;
         return (
             <div>
-                <h1>Welcome to my Page, you are {this.props.store.level}</h1>
+                <h1>Welcome to my Page, you are {this.props.serverRes.level}</h1>
                 <p>You can view my posts</p>
                 <button onClick={this.goToTheURL} name="/posts">View posts</button>
                 <br/>
@@ -38,7 +40,8 @@ class Home extends React.Component {
                 {level !== 'unknown' ?
                     <div>
                         <p>You may log out</p>
-                        <button >Log out</button>
+                        <button onClick={this.logOutUser}>Log out</button>
+                        <span>{this.props.serverRes.logoutRes}</span>
                     </div>
                     : null
                 }
@@ -49,7 +52,7 @@ class Home extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        store: state.simpleReducer
+        serverRes: state.serverReducer
     };
 };
 
@@ -57,7 +60,7 @@ const mapDispatchToProps = dispatch => {
     return {
         push: location => dispatch(push(location)),
         checkUser: () => dispatch(checkUser()),
-        changeApi: () => dispatch(changeApi())
+        logOut: () => dispatch(logOut())
     };
 };
 
