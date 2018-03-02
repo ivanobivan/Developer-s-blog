@@ -6,6 +6,7 @@ import UserForm from './UserForm/UserForm'
 import Toolbar from './Toolbar'
 import Posts from './Posts'
 import Home from "./Home"
+import Admin from "./Admin/Admin"
 import AboutMe from './AboutMe/AboutMe'
 import configureStore from "../store/configureStore"
 import createHistory from "history/createBrowserHistory";
@@ -26,6 +27,7 @@ export default class Application extends React.Component {
                         <Route path="/userform" component={UserForm}/>
                         <Route path="/posts" component={Posts}/>
                         <Route path="/aboutme" component={AboutMe}/>
+                        <Route path="/admin" component={Admin}/>
                     </div>
                 </ConnectedRouter>
             </Provider>
