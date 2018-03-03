@@ -1,0 +1,27 @@
+@import "../../mixins";
+
+#serverError_root {
+  .h1_h2_h3_p;
+  h1 {
+    font-size: 40px;
+    font-weight: 700;
+    color: #1FA9D6;
+  }
+  p {
+    text-align: left;
+    font-weight: 700;
+    &:nth-child(1) {
+      font-size: 40px;
+      color: #1FA9D6;
+    }
+    &:nth-child(2) {
+      font-size: 35px;
+      color: #0e4e63;
+    }
+    &:nth-child(3) {
+      font-size: 30px;
+      color: #000000;
+      white-space: pre;
+    }
+  }
+}

@@ -6,11 +6,11 @@ class ServerError extends React.Component {
     render() {
         const error = this.props.server.serverError;
         return (
-            <div>
-                <h2>ALARM: Server Error</h2>
-                {error.name ? <p>{error.name}</p> : null}
-                {error.message ? <p>{error.message}</p> : null}
-                {error.stack ? <p>{error.stack}</p> : null}
+            <div id="serverError_root">
+                {error.code ? <h1>{error.code}</h1> : null}
+                {error.name ? <p>The error's name: {error.name}</p> : null}
+                {error.message ? <p>The error's message{error.message}</p> : null}
+                {error.stack ? <p>The error's stack{error.stack}</p> : null}
             </div>
         )
     }

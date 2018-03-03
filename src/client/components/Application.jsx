@@ -1,7 +1,7 @@
 import React from 'react';
 import {Provider} from "react-redux";
 import {Route} from 'react-router'
-import {ConnectedRouter, routerMiddleware} from 'react-router-redux'
+import {ConnectedRouter} from 'react-router-redux'
 import UserForm from './UserForm/UserForm'
 import Toolbar from './Toolbar'
 import Posts from './Posts'
@@ -11,6 +11,7 @@ import AboutMe from './AboutMe/AboutMe'
 import ServerError from './Server/ServerError'
 import configureStore from "../store/configureStore"
 import createHistory from "history/createBrowserHistory";
+import "../less/app/application.less";
 
 const history = createHistory();
 const store = configureStore(history);
@@ -23,7 +24,6 @@ export default class Application extends React.Component {
                 <ConnectedRouter history={history}>
                     <div>
                         <Toolbar/>
-                        <hr/>
                         <Route exact path='/' component={Home}/>
                         <Route path="/userform" component={UserForm}/>
                         <Route path="/posts" component={Posts}/>

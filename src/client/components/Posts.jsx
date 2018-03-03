@@ -5,13 +5,10 @@ class Description extends React.Component {
 
     render() {
         return(
-            <div>
+            <div id="posts_root">
                 <h1>Welcome to the Posts page</h1>
-                <hr/>
                 <h3>This page is under development</h3>
-                <hr/>
                 <p>I am glad to see you on this page
-                    <br/>
                     Please, add this page in favorites and follow the development</p>
             </div>
         )

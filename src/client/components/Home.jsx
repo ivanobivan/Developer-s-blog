@@ -22,11 +22,10 @@ class Home extends React.Component {
     render() {
         const level = this.props.serverRes.level;
         return (
-            <div>
+            <div id="home__root">
                 <h1>Welcome to my Page, you are {this.props.serverRes.level}</h1>
                 <p>You can view my posts</p>
                 <button onClick={this.goToTheURL} name="/posts">View posts</button>
-                <br/>
                 {level === 'unknown' ?
                     <div>
                         <p>You can log in</p>

@@ -11,18 +11,14 @@ class Toolbar extends React.Component {
     render() {
         const level = this.props.serverRes.level;
         return(
-            <nav>
+            <nav id="toolbar__root">
                 <a onClick={this.goToTheURL} name="/">Home</a>
-                {" "}
                 <a onClick={this.goToTheURL} name='/posts'>Posts</a>
-                {" "}
                 {level === "unknown" ?
                     <a onClick={this.goToTheURL} name='/userform'>User</a>
                     : null
                 }
-                {" "}
                 <a onClick={this.goToTheURL} name='/aboutme'>About</a>
-                {" "}
                 {level === "admin" ?
                     <a onClick={this.goToTheURL} name='/admin'>Admin</a>
                     : null

@@ -29,11 +29,10 @@ class Admin extends React.Component {
     render() {
         const {userData, requestError} = this.props.adminRes;
         return (
-            <div>
+            <div id="admin__root">
                 <h1>Admin page</h1>
                 <fieldset>
-                    <legend>Het user from name</legend>
-                    <label>Enter user name</label>
+                    <p>Enter user name</p>
                     <input type="text" name="username" value={this.state.username} onChange={this.handleChangeName}/>
                     <button onClick={this.getUserByName}>Get User</button>
                 </fieldset>

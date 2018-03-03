@@ -25,15 +25,15 @@ class SignUp extends React.Component {
 
     render() {
         return(
-            <div>
+            <div id="signUp__userForm__root">
                 <fieldset>
-                    <legend>Sign up</legend>
+                    <h1>Sign Up</h1>
                     <input type='text' name="username" value={this.state.username} onChange={this.handleChangeName}/>
                     <input type='text' name="username" value={this.state.password}
                            onChange={this.handleChangePassword}/>
                     <button onClick={this.handleSubmit}>sign up</button>
+                    <span>Answer from DB [{this.props.serverRes.signUpFailure}]</span>
                 </fieldset>
-                <p>Answer from DB [{this.props.serverRes.signUpFailure}]</p>
             </div>
         )
     }

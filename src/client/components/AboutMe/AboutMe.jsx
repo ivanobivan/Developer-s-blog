@@ -7,15 +7,11 @@ class AboutMe extends React.Component {
 
     render() {
         return (
-            <div>
-                <p>I am simple developer</p>
+            <div id="aboutMe__root">
                 <Stack/>
                 <Announcements/>
             </div>
-
-
         )
-
     }
 }
 const mapStateToProps = state => {

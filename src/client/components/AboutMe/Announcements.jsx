@@ -10,13 +10,9 @@ class Announcements extends React.Component {
                 <h3>Parts of site in development</h3>
                 <ul>
                     <li>Chat page</li>
-                    <li>...</li>
                 </ul>
             </div>
-
-
         )
-
     }
 }
 const mapStateToProps = state => {

@@ -21,8 +21,11 @@ const serverReducer = (state = initialState, action) => {
                 level: action.level
             };
         case SERVER_ERROR:
+            const status = action.err.response ? action.err.response.status ?
+                action.err.response.status : 500 : 500;
             return {
                 serverError: {
+                    code: status,
                     name: action.err.name || null,
                     message: action.err.message || null,
                     stack: action.err.stack || null
