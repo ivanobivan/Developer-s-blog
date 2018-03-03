@@ -1,11 +1,13 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const passportLocalMongoose = require('passport-local-mongoose');
-
-const UserSchema = new mongoose.Schema({
+const Schema = require('mongoose').Schema;
+const UserSchema = Schema({
     password: String,
-    username: { type: String },
-    level: { type: String }
+    username: {type: String},
+    level: {type: String},
+    date: {type: Date, default: Date.now},
+    ip: {type: String, default:"kek"}
 });
 
 UserSchema.methods.comparePassword = function comparePassword(password, callback) {
@@ -34,3 +36,4 @@ UserSchema.pre('save', function saveHook(next) {
 UserSchema.plugin(passportLocalMongoose);
 
 module.exports = mongoose.model('User', UserSchema);
+//module.exports =  UserSchema;

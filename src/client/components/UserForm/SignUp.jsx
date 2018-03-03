@@ -41,7 +41,7 @@ class SignUp extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        serverRes: state.serverReducer
+        serverRes: state.server
     };
 };
 

@@ -34,7 +34,6 @@ class Home extends React.Component {
                     </div>
                     : null
                 }
-                <br/>
                 <p>You can view page about me and send me letter</p>
                 <button onClick={this.goToTheURL} name="/aboutme">About me</button>
                 {level !== 'unknown' ?
@@ -52,7 +51,7 @@ class Home extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        serverRes: state.serverReducer
+        serverRes: state.server
     };
 };
 

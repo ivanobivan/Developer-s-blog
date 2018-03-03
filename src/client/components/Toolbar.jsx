@@ -9,26 +9,31 @@ class Toolbar extends React.Component {
         this.props.push(event.target.attributes.name.nodeValue)
     };
     render() {
+        const level = this.props.serverRes.level;
         return(
             <nav>
                 <a onClick={this.goToTheURL} name="/">Home</a>
                 {" "}
                 <a onClick={this.goToTheURL} name='/posts'>Posts</a>
                 {" "}
-                {this.props.serverRes.level === "unknown" ?
+                {level === "unknown" ?
                     <a onClick={this.goToTheURL} name='/userform'>User</a>
                     : null
                 }
                 {" "}
                 <a onClick={this.goToTheURL} name='/aboutme'>About</a>
-                <a onClick={this.goToTheURL} name='/admin'>Admin</a>
+                {" "}
+                {level === "admin" ?
+                    <a onClick={this.goToTheURL} name='/admin'>Admin</a>
+                    : null
+                }
             </nav>
         )
     }
 }
 const mapStateToProps = state => {
     return {
-        serverRes: state.serverReducer
+        serverRes: state.server
     };
 };
 

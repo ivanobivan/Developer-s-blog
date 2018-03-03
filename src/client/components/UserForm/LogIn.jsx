@@ -42,7 +42,7 @@ class Login extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        serverRes: state.serverReducer
+        serverRes: state.server
     };
 };
 

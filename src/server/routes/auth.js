@@ -1,16 +1,13 @@
 const express = require('express');
 const passport = require('passport');
 const router = new express.Router();
-const User = require('mongoose').model('User');
 
 router.post('/signup', (req, res, next) => {
-    passport.authenticate('local-signup',{
+    passport.authenticate('local-signup', {
         badRequestMessage: "User name and password has been not empty"
     }, (err, user, info) => {
         if (err) {
-            return res.json({
-                err: err
-            })
+            throw err;
         }
         if (!user) {
             return res.json({
@@ -19,9 +16,7 @@ router.post('/signup', (req, res, next) => {
         }
         req.logIn(user, (err) => {
             if (err) {
-                return res.json({
-                    err: err
-                })
+                throw err;
             }
             return res.json({
                 path: info.path
@@ -31,13 +26,11 @@ router.post('/signup', (req, res, next) => {
 });
 
 router.post('/login', (req, res, next) => {
-    passport.authenticate('local-login',{
+    passport.authenticate('local-login', {
         badRequestMessage: "User name and password has been not empty"
     }, (err, user, info) => {
         if (err) {
-            return res.json({
-                err: err
-            })
+            throw err;
         }
         if (!user) {
             return res.json({
@@ -46,9 +39,7 @@ router.post('/login', (req, res, next) => {
         }
         req.logIn(user, (err) => {
             if (err) {
-                return res.json({
-                    err: err
-                })
+                throw err;
             }
             return res.json({
                 path: info.path

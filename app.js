@@ -32,7 +32,6 @@ const middleware = webpackMiddleware(compiler, {
     }
 });
 /*------------------------------------REQUIREMENTS----------------------------------------------------*/
-//todo styles .less don't be ignore(WHY?)
 require('./src/server/models').connect(serverConfig.dbUri);
 /*------------------------------------OPTIONS----------------------------------------------------*/
 app.use(bodyParser.json());
@@ -60,7 +59,6 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-const User = mongoose.model('User');
 passport.serializeUser((user, done) => {
     done(null,  {
         username: user.username,
@@ -69,15 +67,17 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser((user, done) => {
+    const User = mongoose.model('User');
     User.findOne({username: user.username}, (err, user) => {
          done(err, user);
     })
 });
 import authRoutes from './src/server/routes/auth';
 import apiRoutes from './src/server/routes/api';
+import adminRoutes from './src/server/routes/admin'
 app.use('/auth', authRoutes);
 app.use('/api', apiRoutes);
-
+app.use("/admin", adminRoutes);
 /*------------------------------------REQUESTS----------------------------------------------------*/
 app.get('/', function response(req, res) {
     fs.readFile(__dirname + '/index.html', (err, data) => {

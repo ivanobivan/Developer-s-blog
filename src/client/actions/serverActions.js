@@ -6,7 +6,7 @@ import {
     LOG_IN,
     REDIRECT,
     LOG_OUT
-} from "../constants/constants";
+} from "../constants/serverConstants";
 import axios from 'axios'
 import {push} from 'react-router-redux'
 
@@ -22,7 +22,7 @@ export const logOut = () => {
             .catch(err => {
                 dispatch({
                     type: SERVER_ERROR,
-                    serverError: err
+                    err: err
                 })
 
             })
@@ -35,12 +35,7 @@ export const signUp = (username, password) => {
             password: password
         })
             .then(res => {
-                if (res.data.err) {
-                    dispatch({
-                        type: SERVER_ERROR,
-                        serverError: res.data.err
-                    })
-                }else if(res.data.path) {
+                if (res.data.path) {
                     dispatch(push(res.data.path))
                 } else {
                     dispatch({
@@ -52,8 +47,9 @@ export const signUp = (username, password) => {
             .catch(err => {
                 dispatch({
                     type: SERVER_ERROR,
-                    serverError: err
-                })
+                    err: err
+                });
+                dispatch(push("/serverError"));
             });
     }
 };
@@ -70,8 +66,9 @@ export const checkUser = () => {
             .catch(err => {
                 dispatch({
                     type: SERVER_ERROR,
-                    serverError: err
-                })
+                    err: err
+                });
+                dispatch(push("/serverError"));
             })
     }
 };
@@ -84,12 +81,7 @@ export const logIn = (username, password) => {
             password: password
         })
             .then(res => {
-                if (res.data.err) {
-                    dispatch({
-                        type: SERVER_ERROR,
-                        serverError: res.data.err
-                    })
-                }else if(res.data.path) {
+                if (res.data.path) {
                     dispatch(push(res.data.path))
                 } else {
                     dispatch({
@@ -101,8 +93,9 @@ export const logIn = (username, password) => {
             .catch(err => {
                 dispatch({
                     type: SERVER_ERROR,
-                    serverError: err
-                })
+                    err: err
+                });
+                dispatch(push("/serverError"));
             });
     }
 };

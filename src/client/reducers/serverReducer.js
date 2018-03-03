@@ -4,17 +4,17 @@ import {
     SIGN_UP,
     LOG_IN,
     LOG_OUT
-} from "../constants/constants";
+} from "../constants/serverConstants";
 
-const initialValue = {
+const initialState = {
     level: "unknown",
-    serverError: "",
+    serverError: {},
     signUpFailure: "",
     logInFailure: "",
     logoutRes: ""
 };
 
-const searchAttributes = (state = initialValue, action) => {
+const serverReducer = (state = initialState, action) => {
     switch (action.type) {
         case USER_LEVEL :
             return {
@@ -22,7 +22,11 @@ const searchAttributes = (state = initialValue, action) => {
             };
         case SERVER_ERROR:
             return {
-                serverError: action.err
+                serverError: {
+                    name: action.err.name || null,
+                    message: action.err.message || null,
+                    stack: action.err.stack || null
+                }
             };
         case SIGN_UP:
             return {
@@ -42,4 +46,4 @@ const searchAttributes = (state = initialValue, action) => {
     }
 };
 
-export default searchAttributes;
+export default serverReducer;

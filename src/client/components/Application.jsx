@@ -8,6 +8,7 @@ import Posts from './Posts'
 import Home from "./Home"
 import Admin from "./Admin/Admin"
 import AboutMe from './AboutMe/AboutMe'
+import ServerError from './Server/ServerError'
 import configureStore from "../store/configureStore"
 import createHistory from "history/createBrowserHistory";
 
@@ -28,6 +29,7 @@ export default class Application extends React.Component {
                         <Route path="/posts" component={Posts}/>
                         <Route path="/aboutme" component={AboutMe}/>
                         <Route path="/admin" component={Admin}/>
+                        <Route path="/serverError" component={ServerError}/>
                     </div>
                 </ConnectedRouter>
             </Provider>
