@@ -3,7 +3,6 @@ import path from 'path';
 import express from 'express';
 import webpack from 'webpack';
 import webpackMiddleware from 'webpack-dev-middleware';
-import webpackHotMiddleware from 'webpack-hot-middleware';
 import config from './webpack.config.js';
 import serverConfig from './src/server/config';
 import bodyParser from 'body-parser';
@@ -25,10 +24,6 @@ const middleware = webpackMiddleware(compiler, {
         chunks: false,
         chunkModules: false,
         modules: false
-    },
-    watchOptions: {
-        aggregateTimeout: 300,
-        poll: 1000
     }
 });
 /*------------------------------------REQUIREMENTS----------------------------------------------------*/
@@ -41,12 +36,6 @@ app.use(bodyParser.urlencoded({
 app.use('/node_modules', express.static(__dirname + '/node_modules'));
 app.use("/public", express.static(path.resolve("public")));
 app.use(middleware);
-app.use(webpackHotMiddleware(compiler, {
-    watchOptions: {
-        aggregateTimeout: 300,
-        poll: 1000
-    }
-}));
 //todo if i use es05 format of code, then i get Mongoose Exception
 const localSignupStrategy = require('./src/server/passport/local-signup');
 const localLoginStrategy = require('./src/server/passport/local-login');
