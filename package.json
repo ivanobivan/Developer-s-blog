@@ -10,7 +10,8 @@
     "build:dev": "cross-env NODE_ENV=development webpack --config=./webpack.config",
     "build:check": "cross-env NODE_ENV=production webpack --display-modules --config=./webpack.config",
     "start:es03": "node app.js",
-    "start": "babel-node --inspect app.js"
+    "start": "babel-node --inspect app.js",
+    "storybook": "start-storybook -h 0.0.0.0 -p 9001 -c .storybook"
   },
   "author": "",
   "license": "ISC",
@@ -38,6 +39,7 @@
     "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
+    "@storybook/react": "^3.3.15",
     "autoprefixer": "^7.2.5",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
