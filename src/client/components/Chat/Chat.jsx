@@ -1,37 +1,29 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import socketIOClient from 'socket.io-client'
+import {sendMessage, addMessage} from '../../actions/chatActions'
 
-const socket = socketIOClient('http://0.0.0.0:5050');
-export default class Chat extends React.Component {
+
+class Chat extends React.Component {
     constructor() {
         super();
         this.state = {
-            color: 'white',
-            message: '',
-            messagePull: ['test', 'test2']
-        }
+            message: ''
+        };
+        this.socket = socketIOClient('http://0.0.0.0:5050');
+        this.socket.on('forward_message', (message) => {
+            this.props.addMessage(message);
+        });
     }
 
     handleChangeMessage = event => {
         this.setState({message: event.target.value});
     };
-    send = () => {
-        socket.emit('change color', this.state.color);
-        console.log("send emit");
-    };
     sendMessage = () => {
-        socket.emit('send_message', this.state.message);
-    };
-    setColor = (color) => {
-        this.setState({color})
+        this.props.sendMessage(this.state.message);
     };
 
     render() {
-        const socket = socketIOClient(this.state.endpoint);
-        socket.on('send_message', (message) => {
-            this.setState({messagePull: [...this.state.messagePull, message]});
-        });
         return (
             <div id="chat__root">
                 <div id="test">
@@ -43,8 +35,8 @@ export default class Chat extends React.Component {
 
                     <div className="chatSide__chat">
                         <div className="messagePanel__chatSide">
-                            {this.state.messagePull.map(msg => {
-                                return(
+                            {this.props.chat.message.map(msg => {
+                                return (
                                     <div>{msg}</div>
                                 )
                             })}
@@ -57,9 +49,6 @@ export default class Chat extends React.Component {
                             <button onClick={this.sendMessage}>Send</button>
                         </div>
                     </div>
-                    {/*<button onClick={() => this.send()}>Change Color</button>
-                    <button id="blue" onClick={() => this.setColor('blue')}>Blue</button>
-                    <button id="red" onClick={() => this.setColor('red')}>Red</button>*/}
                 </div>
             </div>
         )
@@ -67,11 +56,16 @@ export default class Chat extends React.Component {
 }
 
 const mapStateToProps = state => {
-    return {};
+    return {
+        chat: state.chat
+    };
 };
 
 const mapDispatchToProps = dispatch => {
-    return {};
+    return {
+        sendMessage: msg => dispatch(sendMessage(msg)),
+        addMessage: msg => dispatch(addMessage(msg))
+    };
 };
 
-//export default connect(mapStateToProps, mapDispatchToProps)(Chat);
+export default connect(mapStateToProps, mapDispatchToProps)(Chat);

@@ -105,7 +105,7 @@ io.on('connection', socket =>{
         io.sockets.emit('change color', color);
     });*/
     socket.on('send_message', message => {
-        io.emit('send_message', message);
+        io.emit('forward_message', message);
     });
     socket.on('disconnect', () => {
         console.log('user disconnected')
