@@ -9,36 +9,17 @@ import Home from "./Home"
 import Admin from "./Admin/Admin"
 import AboutMe from './AboutMe/AboutMe'
 import ServerError from './Server/ServerError'
-import Chat from './chat/Chat'
+import Chat from './Chat/Chat'
 import configureStore from "../store/configureStore"
 import createHistory from "history/createBrowserHistory";
-import socketIOClient from 'socket.io-client'
 import "../less/app/application.less";
 
 const history = createHistory();
 const store = configureStore(history);
 
 export default class Application extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            endpoint: "http://0.0.0.0:5050",
-            color: 'white'
-        }
-    }
-    send = () => {
-        const socket = socketIOClient(this.state.endpoint);
-        socket.emit('change color', this.state.color);
-        console.log("send emit");
-    };
-    setColor = (color) => {
-        this.setState({ color })
-    };
+
     render() {
-        const socket = socketIOClient(this.state.endpoint);
-        socket.on('change color', (color) => {
-            document.body.style.backgroundColor = color
-        });
         return (
             <Provider store={store}>
                 <ConnectedRouter history={history}>
@@ -51,9 +32,6 @@ export default class Application extends React.Component {
                         <Route path="/admin" component={Admin}/>
                         <Route path="/serverError" component={ServerError}/>
                         <Route path="/chat" component={Chat}/>
-                        <button onClick={() => this.send()}>Change Color</button>
-                        <button id="blue" onClick={() => this.setColor('blue')}>Blue</button>
-                        <button id="red" onClick={() => this.setColor('red')}>Red</button>
                     </div>
                 </ConnectedRouter>
             </Provider>

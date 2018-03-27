@@ -87,7 +87,7 @@ app.post('/logout', (req, res) => {
     })
 });
 
-/*------------------------------------CHAT----------------------------------------------------*/
+/*------------------------------------CHAT&&SERVER----------------------------------------------------*/
 const server = http.createServer(app).listen(port, '0.0.0.0', err => {
     if (err) {
         console.log(err);
@@ -100,22 +100,17 @@ const io = socketIo.listen(server);
 
 io.on('connection', socket =>{
     console.log('a user connected');
-    socket.on('change color', (color) => {
+    /*socket.on('change color', (color) => {
         console.log('Color Changed to: ', color);
         io.sockets.emit('change color', color);
+    });*/
+    socket.on('send_message', message => {
+        io.emit('send_message', message);
     });
     socket.on('disconnect', () => {
         console.log('user disconnected')
     });
 });
-/*------------------------------------SERVER----------------------------------------------------*/
-/*app.listen(port, '0.0.0.0', err => {
-    if (err) {
-        console.log(err);
-    }
-    console.info(`==> 🌎 Listening on port %s.
-    Open up http://0.0.0.0:%s/ in your browser.`, port, port);
-});*/
 
 
 
