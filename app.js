@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import http from 'http'
 import express from 'express';
 import webpack from 'webpack';
 import webpackMiddleware from 'webpack-dev-middleware';
@@ -9,6 +10,7 @@ import bodyParser from 'body-parser';
 import session from 'express-session';
 import passport from 'passport';
 import mongoose from 'mongoose'
+import socketIo from 'socket.io'
 /*------------------------------------CONSTANTS----------------------------------------------------*/
 const port = serverConfig.port;
 const app = express();
@@ -84,12 +86,36 @@ app.post('/logout', (req, res) => {
         message: 'log out success'
     })
 });
-/*------------------------------------SERVER----------------------------------------------------*/
 
-app.listen(port, '0.0.0.0', err => {
+/*------------------------------------CHAT----------------------------------------------------*/
+const server = http.createServer(app).listen(port, '0.0.0.0', err => {
     if (err) {
         console.log(err);
     }
     console.info(`==> 🌎 Listening on port %s.
     Open up http://0.0.0.0:%s/ in your browser.`, port, port);
 });
+
+const io = socketIo.listen(server);
+
+io.on('connection', socket =>{
+    console.log('a user connected');
+    socket.on('change color', (color) => {
+        console.log('Color Changed to: ', color);
+        io.sockets.emit('change color', color);
+    });
+    socket.on('disconnect', () => {
+        console.log('user disconnected')
+    });
+});
+/*------------------------------------SERVER----------------------------------------------------*/
+/*app.listen(port, '0.0.0.0', err => {
+    if (err) {
+        console.log(err);
+    }
+    console.info(`==> 🌎 Listening on port %s.
+    Open up http://0.0.0.0:%s/ in your browser.`, port, port);
+});*/
+
+
+

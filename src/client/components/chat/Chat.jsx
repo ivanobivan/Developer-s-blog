@@ -1,24 +1,28 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-
 export default class Chat extends React.Component {
 
     render() {
         return (
             <div id="chat__root">
                 <div id="test">
-                    <aside className="usersPanel__chat">
+
+                    <div className="usersPanel__chat">
                         users
-                    </aside>
-                    <section className="chatSide__chat">
-                        <section className="messagePanel__chatSide">
+                    </div>
+
+
+                    <div className="chatSide__chat">
+                        <div className="messagePanel__chatSide">
                             message
-                        </section>
-                        <section className="inputPanel__chatSide">
+                        </div>
+
+
+                        <div className="inputPanel__chatSide">
                             input
-                        </section>
-                    </section>
+                        </div>
+                    </div>
 
                 </div>
             </div>
