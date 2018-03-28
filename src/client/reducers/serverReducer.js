@@ -1,5 +1,6 @@
 import {
     USER_LEVEL,
+    USER_NAME,
     SERVER_ERROR,
     SIGN_UP,
     LOG_IN,
@@ -7,6 +8,7 @@ import {
 } from "../constants/serverConstants";
 
 const initialState = {
+    username: null,
     level: "unknown",
     serverError: {},
     signUpFailure: "",
@@ -18,12 +20,19 @@ const serverReducer = (state = initialState, action) => {
     switch (action.type) {
         case USER_LEVEL :
             return {
+                ...state,
                 level: action.level
+            };
+        case USER_NAME :
+            return {
+                ...state,
+                username: action.username
             };
         case SERVER_ERROR:
             const status = action.err.response ? action.err.response.status ?
                 action.err.response.status : 500 : 500;
             return {
+                ...state,
                 serverError: {
                     code: status,
                     name: action.err.name || null,
@@ -33,16 +42,20 @@ const serverReducer = (state = initialState, action) => {
             };
         case SIGN_UP:
             return {
+                ...state,
                 signUpFailure: action.signUpFailure
             };
         case LOG_IN:
             return {
+                ...state,
                 logInFailure: action.logInFailure
             };
         case LOG_OUT:
             return {
+                ...state,
                 logoutRes: action.logoutRes,
-                level: "unknown"
+                level: "unknown",
+                username: null
             };
         default:
             return state;

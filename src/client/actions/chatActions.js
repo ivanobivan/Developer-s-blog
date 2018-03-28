@@ -1,4 +1,9 @@
-import {SEND_MESSAGE,FORWARD_MESSAGE} from "../constants/chatConstants";
+import {
+    SEND_MESSAGE,
+    FORWARD_MESSAGE,
+    GET_USERS_LIST,
+    SET_USER_PULL
+} from "../constants/chatConstants";
 import socketIOClient from "socket.io-client";
 
 const socket = socketIOClient('http://0.0.0.0:5050');
@@ -14,5 +19,18 @@ export const addMessage = message => {
     return {
         type: FORWARD_MESSAGE,
         message: message
+    }
+};
+export const getUsersList = username => {
+    socket.emit('get_users_list', username);
+    return {
+        type: GET_USERS_LIST,
+        username: username
+    }
+};
+export const setUserPull = userPull => {
+    return {
+        type: SET_USER_PULL,
+        userPull: userPull
     }
 };

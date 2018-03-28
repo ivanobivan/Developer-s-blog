@@ -97,18 +97,22 @@ const server = http.createServer(app).listen(port, '0.0.0.0', err => {
 });
 
 const io = socketIo.listen(server);
-
+const userPull = [];
 io.on('connection', socket =>{
+
     console.log('a user connected');
-    /*socket.on('change color', (color) => {
-        console.log('Color Changed to: ', color);
-        io.sockets.emit('change color', color);
-    });*/
     socket.on('send_message', message => {
         io.emit('forward_message', message);
     });
+    socket.on('get_users_list', username => {
+        if(username) {
+            userPull.push(username);
+            io.emit('send_user_list', userPull)
+        }
+    });
     socket.on('disconnect', () => {
-        console.log('user disconnected')
+        console.log('user disconnected');
+        //userPull.splice()
     });
 });
 

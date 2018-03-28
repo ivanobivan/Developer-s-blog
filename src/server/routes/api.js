@@ -6,22 +6,26 @@ router.post('/checkUser', (req, res) => {
         switch (req.user.level) {
             case 'admin' :
                 res.json({
-                    level: 'admin'
+                    level: 'admin',
+                    username: req.user.username
                 });
                 break;
             case 'user' :
                 res.json({
-                    level: 'user'
+                    level: 'user',
+                    username: req.user.username
                 });
                 break;
             default :
                 res.json({
-                    level: 'unknown'
+                    level: 'unknown',
+                    username: null
                 });
         }
     } else {
         res.json({
-            level: 'unknown'
+            level: 'unknown',
+            username: null
         });
     }
 });

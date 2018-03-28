@@ -8,9 +8,10 @@ class Toolbar extends React.Component {
     goToTheURL = event => {
         this.props.push(event.target.attributes.name.nodeValue)
     };
+
     render() {
         const level = this.props.serverRes.level;
-        return(
+        return (
             <nav id="toolbar__root">
                 <a onClick={this.goToTheURL} name="/">Home</a>
                 <a onClick={this.goToTheURL} name='/posts'>Posts</a>
@@ -23,15 +24,20 @@ class Toolbar extends React.Component {
                     <a onClick={this.goToTheURL} name='/admin'>Admin</a>
                     : null
                 }
-                <a onClick={this.goToTheURL} name="/chat">Chat</a>
+                {level !== "unknown" ?
+                    <a onClick={this.goToTheURL} name="/chat">Chat</a>
+                    : null
+                }
+
             </nav>
         )
     }
 }
+
 const mapStateToProps = state => {
     return {
         serverRes: state.server
     };
 };
 
-export default connect(mapStateToProps, {push: location => (push(location)) })(Toolbar);
+export default connect(mapStateToProps, {push: location => (push(location))})(Toolbar);

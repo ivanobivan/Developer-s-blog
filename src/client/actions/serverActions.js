@@ -1,10 +1,9 @@
 import {
-    TEST,
     USER_LEVEL,
+    USER_NAME,
     SERVER_ERROR,
     SIGN_UP,
     LOG_IN,
-    REDIRECT,
     LOG_OUT
 } from "../constants/serverConstants";
 import axios from 'axios'
@@ -61,6 +60,10 @@ export const checkUser = () => {
                 dispatch({
                     type: USER_LEVEL,
                     level: res.data.level
+                });
+                dispatch({
+                    type: USER_NAME,
+                    username: res.data.username
                 })
             })
             .catch(err => {

@@ -7,6 +7,11 @@ module.exports = {
             exclude: [/node_modules/],
             loader: 'babel-loader'
         },
+        /*{
+            test: /\.jsx?$/,
+            enforce: "pre",
+            loader: "eslint-loader"
+        },*/
         {
             test: /\.(less|css)$/,
             use: [

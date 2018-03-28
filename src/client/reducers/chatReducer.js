@@ -1,10 +1,12 @@
 import {
     SEND_MESSAGE,
-    FORWARD_MESSAGE
+    FORWARD_MESSAGE,
+    SET_USER_PULL
 } from "../constants/chatConstants";
 
 const initialState = {
-    message: []
+    message: [],
+    userPull: []
 };
 
 const chatReducer = (state = initialState, action) => {
@@ -13,7 +15,13 @@ const chatReducer = (state = initialState, action) => {
             return state;
         case FORWARD_MESSAGE:
             return {
-                message: [...state.message,action.message]
+                ...state,
+                message: [...state.message, action.message]
+            };
+        case SET_USER_PULL:
+            return {
+                ...state,
+                userPull: action.userPull
             };
         default:
             return state;
