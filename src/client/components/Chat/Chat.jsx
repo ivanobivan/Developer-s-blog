@@ -4,7 +4,7 @@ import socketIOClient from 'socket.io-client'
 import {sendMessage, addMessage, setUserPull} from '../../actions/chatActions'
 
 
-const socket = socketIOClient('http://0.0.0.0:5050');
+const socket = socketIOClient('http://192.168.1.2:5050');
 class Chat extends React.Component {
     constructor() {
         super();

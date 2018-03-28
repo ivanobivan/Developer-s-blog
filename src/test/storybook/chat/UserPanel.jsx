@@ -3,7 +3,7 @@ import React from 'react';
 export default class UserPanel extends React.Component {
     render() {
         return (
-            <div className="usersPanel__chat">
+            <div id="usersPanel__chat">
                 {this.props.userPull && this.props.userPull.length ?
                     this.props.userPull.map(username => {
                         return (

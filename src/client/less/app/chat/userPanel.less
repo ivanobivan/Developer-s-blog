@@ -1,0 +1,51 @@
+
+#usersPanel__chat {
+  flex:1;
+  display: flex;
+  flex-wrap: wrap;
+  border-right: 1px solid black;
+  height: 100vh;
+  overflow-y: scroll;
+  flex-direction: row;
+  align-content: flex-start;
+  .userNameItem__usersPanel {
+    display: flex;
+    padding: 5px;
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+    cursor: pointer;
+    width: 100%;
+    &:hover {
+      background-color: #ffdff1;
+    }
+    &:active {
+      background-color: lightpink;
+    }
+    .nameInCircle__usersPanel {
+      width: 50px;
+      height: 50px;
+      border:1px solid lightblue;
+      background-color: lightblue;
+      border-radius: 50%;
+      margin: auto 0;
+      .user__nameInCircle, .admin__nameInCircle {
+        display: block;
+        width: 32px;
+        font: normal 16px Arial, sans-serif;
+        margin: 30% auto 0 auto;
+      }
+      .admin__nameInCircle {
+        width: 43px;
+      }
+    }
+    .username__usersPanel {
+      margin: auto 0 auto 10px;
+      text-overflow: ellipsis;
+      max-width: 200px;
+      overflow-wrap: break-word;
+    }
+  }
+  .noUsers__usersPanel {
+    margin: 25px auto;
+    font: bold 22px Arial, sans-serif;
+  }
+}

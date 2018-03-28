@@ -6,7 +6,7 @@ import {
 } from "../constants/chatConstants";
 import socketIOClient from "socket.io-client";
 
-const socket = socketIOClient('http://0.0.0.0:5050');
+const socket = socketIOClient('http://192.168.1.2:5050');
 
 export const sendMessage = message => {
     socket.emit('send_message', message);

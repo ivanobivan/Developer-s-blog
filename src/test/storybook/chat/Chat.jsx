@@ -1,5 +1,6 @@
 import React from 'react'
 import UserPanel from './UserPanel'
+import InputPanel from './InputPanel'
 //import {connect} from 'react-redux'
 //import socketIOClient from 'socket.io-client'
 //import {sendMessage, addMessage, setUserPull} from '../../actions/chatActions'
@@ -47,7 +48,7 @@ export default class Chat extends React.Component {
                             })}
                         </div>
 
-
+                        <InputPanel/>
                         <div className="inputPanel__chatSide">
                             <input type='text' name='message' value={this.state.message}
                                    onChange={this.handleChangeMessage}/>
