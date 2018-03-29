@@ -1,6 +1,7 @@
 import React from 'react'
 import UserPanel from './UserPanel'
 import InputPanel from './InputPanel'
+import MessagePanel from './MessagePanel'
 //import {connect} from 'react-redux'
 //import socketIOClient from 'socket.io-client'
 //import {sendMessage, addMessage, setUserPull} from '../../actions/chatActions'
@@ -19,14 +20,10 @@ export default class Chat extends React.Component {
                     />
 
                     <div className="chatSide__chat">
-                        <div className="messagePanel__chatSide">
-                            {this.props.message.map(msg => {
-                                return (
-                                    <div>{msg}</div>
-                                )
-                            })}
-                        </div>
-
+                        <MessagePanel
+                            message={this.props.message}
+                            username={this.props.username}
+                        />
                         <InputPanel/>
                     </div>
                 </div>

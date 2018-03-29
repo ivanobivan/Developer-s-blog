@@ -64,3 +64,28 @@ storiesOf('Chat Page/inputpanel', module)
         >
         </Chat>
     ));
+storiesOf('Chat Page/message', module)
+    .add('no message', () => (
+        <Chat
+            userPull={[]}
+            message={[]}
+            username="test"
+        >
+        </Chat>
+    ))
+    .add('1message', () => (
+        <Chat
+            userPull={[]}
+            message={["test"]}
+            username="test"
+        >
+        </Chat>
+    ))
+    .add('2 message', () => (
+        <Chat
+            userPull={[]}
+            message={["test","test2"]}
+            username="test"
+        >
+        </Chat>
+    ))
