@@ -8,27 +8,6 @@ import InputPanel from './InputPanel'
 
 //const socket = socketIOClient('http://0.0.0.0:5050');
 export default class Chat extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            message: ''
-        };
-       /* socket.on('forward_message', (message) => {
-            this.props.addMessage(message);
-        });
-        socket.on('send_user_list', userPull => {
-            this.props.setUserPull(userPull);
-        })*/
-    }
-    /*componentWillMount() {
-        socket.emit('get_users_list', this.props.server.username);
-    }*/
-    handleChangeMessage = event => {
-        this.setState({message: event.target.value});
-    };
-    /*sendMessage = () => {
-        this.props.sendMessage(this.state.message);
-    };*/
 
     render() {
         return (
@@ -49,11 +28,6 @@ export default class Chat extends React.Component {
                         </div>
 
                         <InputPanel/>
-                        <div className="inputPanel__chatSide">
-                            <input type='text' name='message' value={this.state.message}
-                                   onChange={this.handleChangeMessage}/>
-                            <button onClick={this.sendMessage}>Send</button>
-                        </div>
                     </div>
                 </div>
             </div>

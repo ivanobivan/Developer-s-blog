@@ -1,0 +1,20 @@
+@import '../../mixins';
+
+.inputPanel__chatSide {
+  flex: 1;
+  border-top: 1px solid black;
+  display: flex;
+  input {
+    flex:9;
+    font: normal 24px Arial, sans-serif;
+    padding-left: 5px;
+  }
+  button {
+    flex:1;
+    .button;
+    height: inherit;
+    &:hover {
+      background: lightpink;
+    }
+  };
+}
