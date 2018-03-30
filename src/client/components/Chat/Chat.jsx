@@ -11,19 +11,16 @@ const socket = socketIOClient('http://192.168.1.2:5050');
 class Chat extends React.Component {
     constructor() {
         super();
-        this.state = {
-            message: ''
-        };
         socket.on('forward_message', (req) => {
             this.props.addMessage(req);
         });
         socket.on('send_user_list', userPull => {
             this.props.setUserPull(userPull);
-        })
+        });
     }
 
-    sendMessage = () => {
-        this.props.sendMessage(this.state.message,this.props.server.username);
+    sendMessage = (message) => {
+        this.props.sendMessage(message, this.props.server.username);
     };
 
     render() {
@@ -40,7 +37,7 @@ class Chat extends React.Component {
                         messagePull={this.props.chat.messagePull}
                     />
                     <InputPanel
-                        sendMessage={this.props.sendMessage}
+                        sendMessage={this.sendMessage}
                     />
                 </div>
             </div>

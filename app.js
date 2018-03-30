@@ -98,14 +98,20 @@ io.on('connection', socket =>{
         io.emit('forward_message', res);
     });
     socket.on('get_users_list', username => {
-        if(username) {
+        if(username && userPull.indexOf(username) === -1) {
+            socket.client.username = username;
             userPull.push(username);
             io.emit('send_user_list', userPull)
         }
     });
     socket.on('disconnect', () => {
         console.log('user disconnected');
-        //userPull.splice()
+        const name = socket.client.username;
+        const isInPull = userPull.indexOf(name);
+        if(isInPull !== -1) {
+            userPull.splice(isInPull, 1);
+            io.emit('send_user_list', userPull)
+        }
     });
 });
 

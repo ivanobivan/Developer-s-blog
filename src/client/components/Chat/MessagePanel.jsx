@@ -1,7 +1,12 @@
 import React from 'react';
 
 export default class MessagePanel extends React.Component {
-
+    scrollToBottom = () => {
+        this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+    };
+    componentDidUpdate() {
+        this.scrollToBottom();
+    };
     render() {
         return (
             <div className="messagePanel__chatSide">
@@ -13,6 +18,9 @@ export default class MessagePanel extends React.Component {
                         </div>
                     )
                 })}
+                <div style={{ float:"left", clear: "both" }}
+                     ref={(el) => { this.messagesEnd = el; }}>
+                </div>
             </div>
         )
     }
