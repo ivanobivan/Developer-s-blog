@@ -4,7 +4,7 @@ export default class InputPanel extends React.Component {
     constructor() {
         super();
         this.state = {
-            message: 'test'
+            message: ''
         };
     }
 
@@ -17,7 +17,7 @@ export default class InputPanel extends React.Component {
             <div className="inputPanel__chatSide">
                 <input type='text' name='message' value={this.state.message}
                        onChange={this.handleChangeMessage}/>
-                <button onClick={this.sendMessage}>SEND</button>
+                <button onClick={this.props.sendMessage}>SEND</button>
             </div>
         )
     }

@@ -78,6 +78,12 @@ storiesOf('Chat Page/message', module)
             userPull={[]}
             message={["test"]}
             username="test"
+            pull={[
+                {
+                    name: "test1",
+                    message: 'message1'
+                }
+            ]}
         >
         </Chat>
     ))
@@ -86,6 +92,16 @@ storiesOf('Chat Page/message', module)
             userPull={[]}
             message={["test","test2"]}
             username="test"
+            pull={[
+                {
+                    name: "test1",
+                    message: 'message1'
+                },
+                {
+                    name: "test1",
+                    message: 'message1'
+                }
+            ]}
         >
         </Chat>
     ))

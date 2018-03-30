@@ -94,8 +94,8 @@ const userPull = [];
 io.on('connection', socket =>{
 
     console.log('a user connected');
-    socket.on('send_message', message => {
-        io.emit('forward_message', message);
+    socket.on('send_message', res => {
+        io.emit('forward_message', res);
     });
     socket.on('get_users_list', username => {
         if(username) {

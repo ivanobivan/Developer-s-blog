@@ -1,6 +1,11 @@
 import React from 'react';
 
 export default class UserPanel extends React.Component {
+
+    componentWillMount() {
+        this.props.socket.emit('get_users_list', this.props.username);
+    }
+
     render() {
         return (
             <div id="usersPanel__chat">

@@ -2,62 +2,46 @@ import React from 'react'
 import {connect} from 'react-redux'
 import socketIOClient from 'socket.io-client'
 import {sendMessage, addMessage, setUserPull} from '../../actions/chatActions'
-
+import UserPanel from './UserPanel'
+import InputPanel from './InputPanel'
+import MessagePanel from './MessagePanel'
 
 const socket = socketIOClient('http://192.168.1.2:5050');
+
 class Chat extends React.Component {
     constructor() {
         super();
         this.state = {
             message: ''
         };
-        socket.on('forward_message', (message) => {
-            this.props.addMessage(message);
+        socket.on('forward_message', (req) => {
+            this.props.addMessage(req);
         });
         socket.on('send_user_list', userPull => {
             this.props.setUserPull(userPull);
         })
     }
-    componentWillMount() {
-        socket.emit('get_users_list', this.props.server.username);
-    }
-    handleChangeMessage = event => {
-        this.setState({message: event.target.value});
-    };
+
     sendMessage = () => {
-        this.props.sendMessage(this.state.message);
+        this.props.sendMessage(this.state.message,this.props.server.username);
     };
 
     render() {
         return (
             <div id="chat__root">
-                <div id="test">
-
-                    <div className="usersPanel__chat">
-                        {this.props.chat.userPull.map(username => {
-                            return(
-                                <div>{username}</div>
-                            )
-                        })}
-                    </div>
-
-
-                    <div className="chatSide__chat">
-                        <div className="messagePanel__chatSide">
-                            {this.props.chat.message.map(msg => {
-                                return (
-                                    <div>{msg}</div>
-                                )
-                            })}
-                        </div>
-
-
-                        <div className="inputPanel__chatSide">
-                            <input type='text' name='message' value={this.state.message}
-                                   onChange={this.handleChangeMessage}/>
-                            <button onClick={this.sendMessage}>Send</button>
-                        </div>
-                    </div>
+                <UserPanel
+                    userPull={this.props.chat.userPull}
+                    level={this.props.server.level}
+                    socket={socket}
+                    username={this.props.server.username}
+                />
+                <div className="chatSide__chat">
+                    <MessagePanel
+                        messagePull={this.props.chat.messagePull}
+                    />
+                    <InputPanel
+                        sendMessage={this.props.sendMessage}
+                    />
                 </div>
             </div>
         )
@@ -73,8 +57,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        sendMessage: msg => dispatch(sendMessage(msg)),
-        addMessage: msg => dispatch(addMessage(msg)),
+        sendMessage: (msg, username) => dispatch(sendMessage(msg, username)),
+        addMessage: req => dispatch(addMessage(req)),
         setUserPull: name => dispatch(setUserPull(name))
     };
 };
