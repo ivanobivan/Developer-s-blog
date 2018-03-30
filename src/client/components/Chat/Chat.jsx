@@ -6,7 +6,11 @@ import UserPanel from './UserPanel'
 import InputPanel from './InputPanel'
 import MessagePanel from './MessagePanel'
 
-const socket = socketIOClient('http://192.168.1.2:5050');
+/*local server socket*/
+//const socket = socketIOClient('http://192.168.1.2:5050');
+
+/*public server socket*/
+const socket = socketIOClient('http://185.117.155.32:5050');
 
 class Chat extends React.Component {
     constructor() {

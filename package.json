@@ -10,7 +10,8 @@
     "build:dev": "cross-env NODE_ENV=development webpack --config=./webpack.config",
     "build:check": "cross-env NODE_ENV=production webpack --display-modules --config=./webpack.config",
     "start:es03": "node app.js",
-    "start": "babel-node --inspect app.js",
+    "startDebug": "babel-node --inspect app.js",
+    "start": "babel-node app.js",
     "storybook": "start-storybook -h 0.0.0.0 -p 9001 -c .storybook",
     "lint": "./node_modules/.bin/eslint"
   },
