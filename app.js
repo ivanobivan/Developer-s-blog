@@ -12,22 +12,10 @@ import passport from 'passport';
 import mongoose from 'mongoose'
 import socketIo from 'socket.io'
 /*------------------------------------CONSTANTS----------------------------------------------------*/
+const serverType = process.env.SERVER_TYPE || "local";
 const port = serverConfig.port;
 const app = express();
-/*------------------------------------CUSTOM----------------------------------------------------*/
-//const compiler = webpack(config);
-/*const middleware = webpackMiddleware(compiler, {
-    publicPath: config.output.publicPath,
-    contentBase: 'src',
-    stats: {
-        colors: true,
-        hash: false,
-        timings: true,
-        chunks: false,
-        chunkModules: false,
-        modules: false
-    }
-});*/
+
 /*------------------------------------REQUIREMENTS----------------------------------------------------*/
 require('./src/server/models').connect(serverConfig.dbUri);
 /*------------------------------------OPTIONS----------------------------------------------------*/
@@ -37,7 +25,22 @@ app.use(bodyParser.urlencoded({
 }));
 app.use('/node_modules', express.static(__dirname + '/node_modules'));
 app.use("/public", express.static(path.resolve("public")));
-//app.use(middleware);
+if(serverType === 'local') {
+    const compiler = webpack(config);
+    const middleware = webpackMiddleware(compiler, {
+        publicPath: config.output.publicPath,
+        contentBase: 'src',
+        stats: {
+            colors: true,
+            hash: false,
+            timings: true,
+            chunks: false,
+            chunkModules: false,
+            modules: false
+        }
+    });
+    app.use(middleware);
+}
 //todo if i use es05 format of code, then i get Mongoose Exception
 const localSignupStrategy = require('./src/server/passport/local-signup');
 const localLoginStrategy = require('./src/server/passport/local-login');
