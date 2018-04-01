@@ -51,7 +51,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 passport.serializeUser((user, done) => {
-    done(null,  {
+    done(null, {
         username: user.username,
         level: user.level
     });
@@ -60,12 +60,13 @@ passport.serializeUser((user, done) => {
 passport.deserializeUser((user, done) => {
     const User = mongoose.model('User');
     User.findOne({username: user.username}, (err, user) => {
-         done(err, user);
+        done(err, user);
     })
 });
 import authRoutes from './src/server/routes/auth';
 import apiRoutes from './src/server/routes/api';
 import adminRoutes from './src/server/routes/admin'
+
 app.use('/auth', authRoutes);
 app.use('/api', apiRoutes);
 app.use("/admin", adminRoutes);
@@ -91,14 +92,14 @@ app.post('/logout', (req, res) => {
 const server = http.createServer(app);
 const io = socketIo.listen(server);
 const userPull = [];
-io.on('connection', socket =>{
+io.on('connection', socket => {
 
     console.log('a user connected');
     socket.on('send_message', res => {
         io.emit('forward_message', res);
     });
     socket.on('get_users_list', username => {
-        if(username && userPull.indexOf(username) === -1) {
+        if (username && userPull.indexOf(username) === -1) {
             socket.client.username = username;
             userPull.push(username);
             io.emit('send_user_list', userPull)
@@ -108,13 +109,17 @@ io.on('connection', socket =>{
         console.log('user disconnected');
         const name = socket.client.username;
         const isInPull = userPull.indexOf(name);
-        if(isInPull !== -1) {
+        if (isInPull !== -1) {
             userPull.splice(isInPull, 1);
             io.emit('send_user_list', userPull)
         }
     });
 });
-
+const mongoConnect = mongoose.connection.readyState;
+if (mongoConnect !== 1 && mongoConnect !== 2) {
+    console.log("Error connection with MongoDB: " + mongoConnect);
+    process.exit(1);
+}
 
 
 server.listen(port, '0.0.0.0', err => {
