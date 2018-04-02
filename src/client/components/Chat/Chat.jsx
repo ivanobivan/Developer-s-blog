@@ -9,7 +9,7 @@ import MessagePanel from './MessagePanel'
 let socket = null;
 if (process.env.SERVER_TYPE === 'public') {
     socket = socketIOClient('http://185.117.155.32:5050');
-} else {
+} else if(process.env.SERVER_TYPE === "local") {
     socket = socketIOClient('http://192.168.1.2:5050');
 }
 

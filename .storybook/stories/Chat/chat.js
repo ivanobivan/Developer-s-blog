@@ -1,16 +1,26 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
-import { checkA11y } from '@storybook/addon-a11y';
-//import { withNotes } from '@storybook/addons';
-import Chat from '../../../src/test/storybook/chat/Chat';
+import {storiesOf} from '@storybook/react';
+import {action} from '@storybook/addon-actions';
+import {Provider} from "react-redux";
+import {checkA11y} from '@storybook/addon-a11y';
+import Chat from '../../../src/client/components/Chat/Chat';
 import '../../../src/client/less/app/chat/chat.less'
+import configureStore from "../../../src/client/store/configureStore"
+import createHistory from "history/createBrowserHistory";
+
+const history = createHistory();
+const store = configureStore(history);
+
+
 storiesOf('Chat Page/userpanel', module)
     .addDecorator(checkA11y)
+    .addDecorator(
+        story => <Provider store={store}>{story()}</Provider>
+    )
     .add('users', () => (
         <Chat
-            userPull={['ivan', 'oleg', 'nickolay', '123','321',
-                'ivan', 'oleg', 'nickolay', '123','321']}
+            userPull={['ivan', 'oleg', 'nickolay', '123', '321',
+                'ivan', 'oleg', 'nickolay', '123', '321']}
             message={[]}
             level="user"
         >
@@ -26,7 +36,7 @@ storiesOf('Chat Page/userpanel', module)
     ))
     .add('2user', () => (
         <Chat
-            userPull={['ivan','ivan']}
+            userPull={['ivan', 'ivan']}
             message={[]}
             level="user"
         >
@@ -34,7 +44,7 @@ storiesOf('Chat Page/userpanel', module)
     ))
     .add('admins', () => (
         <Chat
-            userPull={['ivan', 'oleg', 'nickolay', '123','hhh321']}
+            userPull={['ivan', 'oleg', 'nickolay', '123', 'hhh321']}
             message={[]}
             level='admin'
         >
@@ -90,7 +100,7 @@ storiesOf('Chat Page/message', module)
     .add('2 message', () => (
         <Chat
             userPull={[]}
-            message={["test","test2"]}
+            message={["test", "test2"]}
             username="test"
             pull={[
                 {

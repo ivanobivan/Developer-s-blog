@@ -14,7 +14,7 @@
     "start": "cross-env SERVER_TYPE=local NODE_ENV=development babel-node --inspect app.js",
     "startPublic": "cross-env SERVER_TYPE=public babel-node app.js",
     "startLocal": "cross-env SERVER_TYPE=local NODE_ENV=production babel-node app.js",
-    "storybook": "start-storybook -h 0.0.0.0 -p 9001 -c .storybook",
+    "storybook": "cross-env SERVER_TYPE=storybook start-storybook -h 0.0.0.0 -p 9001 -c .storybook",
     "lint": "./node_modules/.bin/eslint"
   },
   "author": "",
@@ -24,6 +24,7 @@
     "babel-preset-es2015": "^6.24.1",
     "bcryptjs": "^2.4.3",
     "connect-flash": "^0.1.1",
+    "dotenv-webpack": "^1.5.5",
     "eslint-loader": "^2.0.0",
     "express": "^4.16.2",
     "history": "^4.7.2",

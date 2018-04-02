@@ -28,7 +28,6 @@ class Toolbar extends React.Component {
                     <a onClick={this.goToTheURL} name="/chat">Chat</a>
                     : null
                 }
-
             </nav>
         )
     }

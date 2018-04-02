@@ -119,6 +119,7 @@ io.on('connection', socket => {
     });
 });
 const mongoConnect = mongoose.connection.readyState;
+console.log("Mongoose connection = " + mongoConnect );
 if (mongoConnect !== 1 && mongoConnect !== 2) {
     console.log("Error connection with MongoDB: " + mongoConnect);
     process.exit(1);

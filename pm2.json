@@ -4,19 +4,19 @@
       "name": "Blog5050",
       "script": "./app.js",
       "watch": true,
-      "interpreter" : "babel-node",
+      "interpreter": "babel-node",
+      "log_date_format": "YYY-MM-DD HH:mm Z",
+      "max_restarts" : "3",
+      "restart_delay" : "10000",
+      "autorestart" : false,
       "env": {
-        "NODE_ENV": "development"
+        "NODE_ENV": "development",
+        "SERVER_TYPE": "local"
       },
       "env_production": {
-        "NODE_ENV": "production"
+        "NODE_ENV": "production",
+        "SERVER_TYPE": "public"
       }
-    },
-    {
-      "name": "api-app",
-      "script": "./api.js",
-      "instances": 4,
-      "exec_mode": "cluster"
     }
   ]
 }

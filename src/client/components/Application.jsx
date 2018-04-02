@@ -16,6 +16,7 @@ import "../less/app/application.less";
 
 const history = createHistory();
 const store = configureStore(history);
+const env = process.env.SERVER_TYPE;
 
 export default class Application extends React.Component {
 
@@ -24,7 +25,7 @@ export default class Application extends React.Component {
             <Provider store={store}>
                 <ConnectedRouter history={history}>
                     <div>
-                        <Toolbar/>
+                        <Toolbar SERVER_TYPE={env}/>
                         <Route exact path='/' component={Home}/>
                         <Route path="/userform" component={UserForm}/>
                         <Route path="/posts" component={Posts}/>
