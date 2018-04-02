@@ -21,3 +21,11 @@ storiesOf('App', module)
     .add('Application', () => (
         <App></App>
     ))
+storiesOf('App/Home', module)
+    .addDecorator(checkA11y)
+    .addDecorator(
+        story => <Provider store={store}>{story()}</Provider>
+    )
+    .add('Home', () => (
+        <Home></Home>
+    ))
