@@ -6,6 +6,7 @@ import UserPanel from './UserPanel'
 import InputPanel from './InputPanel'
 import MessagePanel from './MessagePanel'
 
+const env = process.env.SERVER_TYPE;
 let socket = null;
 if (process.env.SERVER_TYPE === 'public') {
     socket = socketIOClient('http://185.117.155.32:5050');
@@ -17,12 +18,15 @@ if (process.env.SERVER_TYPE === 'public') {
 class Chat extends React.Component {
     constructor() {
         super();
-        socket.on('forward_message', (req) => {
-            this.props.addMessage(req);
-        });
-        socket.on('send_user_list', userPull => {
-            this.props.setUserPull(userPull);
-        });
+        if(env !== 'storybook') {
+            socket.on('forward_message', (req) => {
+                this.props.addMessage(req);
+            });
+            socket.on('send_user_list', userPull => {
+                this.props.setUserPull(userPull);
+            });
+        }
+
     }
 
     sendMessage = (message) => {
@@ -33,6 +37,7 @@ class Chat extends React.Component {
         return (
             <div id="chat__root">
                 <UserPanel
+                    env={env}
                     userPull={this.props.chat.userPull}
                     level={this.props.server.level}
                     socket={socket}
@@ -40,9 +45,11 @@ class Chat extends React.Component {
                 />
                 <div className="chatSide__chat">
                     <MessagePanel
+                        env={env}
                         messagePull={this.props.chat.messagePull}
                     />
                     <InputPanel
+                        env={env}
                         sendMessage={this.sendMessage}
                     />
                 </div>

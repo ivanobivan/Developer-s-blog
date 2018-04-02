@@ -3,7 +3,9 @@ import React from 'react';
 export default class UserPanel extends React.Component {
 
     componentWillMount() {
-        this.props.socket.emit('get_users_list', this.props.username);
+        if(this.props.env !== 'storybook') {
+            this.props.socket.emit('get_users_list', this.props.username);
+        }
     }
 
     render() {

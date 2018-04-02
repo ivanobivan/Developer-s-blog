@@ -22,11 +22,11 @@ class Toolbar extends React.Component {
                 <a onClick={this.goToTheURL} name='/aboutme'>About</a>
                 {level === "admin" ?
                     <a onClick={this.goToTheURL} name='/admin'>Admin</a>
-                    : null
+                    : this.props.env === 'storybook' ? <a onClick={this.goToTheURL} name='/admin'>Admin</a> : null
                 }
                 {level !== "unknown" ?
                     <a onClick={this.goToTheURL} name="/chat">Chat</a>
-                    : null
+                    : this.props.env === 'storybook' ? <a onClick={this.goToTheURL} name="/chat">Chat</a> : null
                 }
             </nav>
         )

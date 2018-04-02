@@ -25,7 +25,7 @@ export default class Application extends React.Component {
             <Provider store={store}>
                 <ConnectedRouter history={history}>
                     <div>
-                        <Toolbar SERVER_TYPE={env}/>
+                        <Toolbar env={env}/>
                         <Route exact path='/' component={Home}/>
                         <Route path="/userform" component={UserForm}/>
                         <Route path="/posts" component={Posts}/>

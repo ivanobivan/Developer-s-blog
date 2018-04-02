@@ -4,6 +4,8 @@ import {getUser} from '../../actions/adminActions'
 import {push} from 'react-router-redux'
 import {checkUser} from "../../actions/serverActions";
 
+const env = process.env.SERVER_TYPE;
+
 class Admin extends React.Component {
 
     constructor(props) {
@@ -13,7 +15,9 @@ class Admin extends React.Component {
         }
     }
     componentWillMount() {
-        this.props.checkUser();
+        if(env !== 'storybook') {
+            this.props.checkUser();
+        }
         if(this.props.serverRes.level !== 'admin') {
             this.props.push("/");
         }
