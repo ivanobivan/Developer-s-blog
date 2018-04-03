@@ -1,10 +1,11 @@
 import React from 'react';
 import {connect} from 'react-redux'
 import {push} from 'react-router-redux'
-import {checkUser,logOut} from '../actions/serverActions'
+import {checkUser, logOut} from '../actions/serverActions'
 
 const env = process.env.SERVER_TYPE;
-class Home extends React.Component {
+
+export class Home extends React.Component {
 
     constructor(props) {
         super(props);
@@ -15,37 +16,33 @@ class Home extends React.Component {
     };
 
     componentDidMount() {
-        if(env !== "storybook") {
+        if (env !== "storybook") {
             this.props.checkUser();
         }
     }
-    logOutUser= () => {
+
+    logOutUser = () => {
         this.props.logOut();
     };
+
     render() {
         const level = this.props.serverRes.level;
         return (
             <div id="home__root">
-                <h1>Welcome to my Page, you are {this.props.serverRes.level}</h1>
-                <p>You can view my posts</p>
-                <button onClick={this.goToTheURL} name="/posts">View posts</button>
-                {level === 'unknown' ?
-                    <div>
-                        <p>You can log in</p>
+                <h1>Welcome to my page</h1>
+                <h2>Please, push the buttons</h2>
+                <div className="buttonGroup__home">
+                    <button onClick={this.goToTheURL} name="/posts">View posts</button>
+                    {level === 'unknown' ?
                         <button onClick={this.goToTheURL} name="/userform">Log in page</button>
-                    </div>
-                    : null
-                }
-                <p>You can view page about me and send me letter</p>
-                <button onClick={this.goToTheURL} name="/aboutme">About me</button>
-                {level !== 'unknown' ?
-                    <div>
-                        <p>You may log out</p>
+                        : null
+                    }
+                    <button onClick={this.goToTheURL} name="/aboutme">About me</button>
+                    {level !== 'unknown' ?
                         <button onClick={this.logOutUser}>Log out</button>
-                        <span>{this.props.serverRes.logoutRes}</span>
-                    </div>
-                    : null
-                }
+                        : null
+                    }
+                </div>
             </div>
         )
     }

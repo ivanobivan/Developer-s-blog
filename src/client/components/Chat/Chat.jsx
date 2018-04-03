@@ -15,7 +15,7 @@ if (process.env.SERVER_TYPE === 'public') {
 }
 
 
-class Chat extends React.Component {
+export class Chat extends React.Component {
     constructor() {
         super();
         if(env !== 'storybook') {

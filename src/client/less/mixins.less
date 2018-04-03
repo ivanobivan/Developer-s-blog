@@ -1,4 +1,7 @@
 
+.default_font(@weight:normal;@size:16px;@family:monospace) {
+  font: @weight @size @family, Calibry, sans-serif;
+}
 .h1_h2_h3_p {
   h1,p,h3, h2 {
     text-align: center;
@@ -8,22 +11,28 @@
     font: 500 20px Calibri, Arial, sans-serif;
   }
 }
-.button {
-  width: 200px;
-  height: 50px;
-  display: block;
-  margin: 0 auto;
-  background: black;
+.button(@width:200px;@margin-right:4rem) {
+  .default_font(400);
+  width: @width;
+  text-decoration: none;
+  display: inline-block;
+  line-height: 1.25;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  user-select: none;
+  margin-right: @margin-right;
+  padding: .75rem 1.5rem;
+  border-radius: .3rem;
+  background: #23A6D5;
   color: white;
-  border: 0;
-  box-shadow: 1px 1px 5px black;
-  cursor: pointer;
+  transition: 0.4s;
+  border: 1px solid rgba(0,0,0,0.2);
   &:hover {
-    background: white;
-    color: black;
+    background: #279bd3;
   }
-  &:active {
-    box-shadow: inset 1px 1px 5px black;
+  &:active{
+    background: #268ac0;
   }
 }
 .ul_li {

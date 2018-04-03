@@ -1,24 +1,30 @@
 #toolbar__root {
-  border-bottom: 1px solid rgba(0,0,0,0.2);
   display: flex;
-  height: 50px;
+  justify-content: space-around;
+  height: 30px;
   flex-flow: row wrap;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   z-index: 1;
-  background: white;
+  color:white;
   a {
-    font: 500 18px Arial, sans-serif;
-    text-align: center;
+    font: 500 16px monospace, sans-serif;
     display: block;
-    border-right: 1px solid rgba(0,0,0,0.2);
-    padding: 15px;
+    padding: 5px 5px;
+    text-align: center;
     cursor: pointer;
+    background: black;
+    flex: 1;
     &:hover {
-      background: lightblue;
+      background: rgba(0,0,0,0.8);
+      font-weight: 800;
+      padding: 8px 5px;
       transition: 0.2s;
+    }
+    &:active {
+      background: rgba(0,0,0,0.6);
     }
   }
 }
