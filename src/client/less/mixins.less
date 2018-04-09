@@ -1,6 +1,52 @@
+@toolbar_height: 30px;
+.height_with_toolbar(){
+  margin-top: @toolbar_height;
+  height: calc(~"100vh - @{toolbar_height}");
+}
+.animated_background() {
+  background: linear-gradient(-45deg, #EE7752, #E73C7E, #23A6D5, #23D5AB);
+  background-size: 400% 400%;
+  -webkit-animation: Gradient 15s ease infinite;
+  -moz-animation: Gradient 15s ease infinite;
+  animation: Gradient 15s ease infinite;
+  @-webkit-keyframes Gradient {
+    0% {
+      background-position: 0% 50%
+    }
+    50% {
+      background-position: 100% 50%
+    }
+    100% {
+      background-position: 0% 50%
+    }
+  }
+  @-moz-keyframes Gradient {
+    0% {
+      background-position: 0% 50%
+    }
+    50% {
+      background-position: 100% 50%
+    }
+    100% {
+      background-position: 0% 50%
+    }
+  }
 
-.default_font(@weight:normal;@size:16px;@family:monospace) {
+  @keyframes Gradient {
+    0% {
+      background-position: 0% 50%
+    }
+    50% {
+      background-position: 100% 50%
+    }
+    100% {
+      background-position: 0% 50%
+    }
+  }
+}
+.default_font(@weight:normal;@size:16px;@family:monospace;@color:white) {
   font: @weight @size @family, Calibry, sans-serif;
+  color: @color;
 }
 .h1_h2_h3_p {
   h1,p,h3, h2 {
@@ -28,6 +74,7 @@
   color: white;
   transition: 0.4s;
   border: 1px solid rgba(0,0,0,0.2);
+  cursor: pointer;
   &:hover {
     background: #279bd3;
   }
@@ -35,17 +82,26 @@
     background: #268ac0;
   }
 }
-.ul_li {
+.list_style() {
   ul {
     list-style: none;
     margin: 0;
     padding: 0;
     li {
+      .default_font(normal;14px;monospace;black);
+      background-color: white;
       height: 50px;
-      background: rgba(0,0,0,0.2);
-      border-top: 1px solid black;
-      border-bottom: 1px solid black;
-      margin-top: 5px;
+      padding: 5px 5px;
+      margin: 10px;
+      box-shadow: 1px 0 10px black;
+      cursor: pointer;
+      &:hover {
+        background-color: rgba(255, 182, 193, 0);
+        box-shadow: none;
+        color: white;
+        padding: 5px 15px;
+        transition: 0.2s;
+      }
     }
   }
 }

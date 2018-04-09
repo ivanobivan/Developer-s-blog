@@ -4,11 +4,14 @@ import {action} from '@storybook/addon-actions';
 import {Provider} from "react-redux";
 import {checkA11y} from '@storybook/addon-a11y';
 import App from '../../src/client/components/Application';
-import Home from '../../src/client/components/Home';
+import {Home} from '../../src/client/components/Home';
+import {AboutMe} from '../../src/client/components/AboutMe/AboutMe';
 import {Chat} from '../../src/client/components/Chat/Chat';
+import {UserForm} from '../../src/client/components/UserForm/UserForm';
 import '../../src/client/less/app/application.less'
 import configureStore from "../../src/client/store/configureStore"
 import createHistory from "history/createBrowserHistory";
+import UserPanel from "../../src/client/components/Chat/UserPanel";
 
 const history = createHistory();
 const store = configureStore(history);
@@ -24,13 +27,25 @@ storiesOf('App', module)
     ))
 storiesOf('App/Home', module)
     .addDecorator(checkA11y)
-    .addDecorator(
-        story => <Provider store={store}>{story()}</Provider>
-    )
     .add('Home', () => (
-        <Home></Home>
-    ))
-
+        <Home
+            serverRes={{
+                level: 'user'
+            }}
+        ></Home>
+    ));
+storiesOf('App/AboutMe', module)
+    .addDecorator(checkA11y)
+    .add('About', () => (
+        <AboutMe
+        ></AboutMe>
+    ));
+storiesOf('App/Login', module)
+    .addDecorator(checkA11y)
+    .add('About', () => (
+        <UserForm
+        ></UserForm>
+    ));
 storiesOf('App/Chat/userpanel', module)
     .add('users', () => (
         <Chat

@@ -1,10 +1,12 @@
 import React from 'react';
 import {connect} from 'react-redux'
 import {push} from 'react-router-redux'
-import Stack from './Stack'
-import Announcements from './Announcements'
-class AboutMe extends React.Component {
-
+import {Stack} from './Stack'
+import {Announcements} from './Announcements'
+export class AboutMe extends React.Component {
+    constructor(props) {
+        super(props);
+    }
     render() {
         return (
             <div id="aboutMe__root">

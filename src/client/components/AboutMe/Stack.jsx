@@ -2,11 +2,11 @@ import React from 'react';
 import {connect} from 'react-redux'
 import {push} from 'react-router-redux'
 
-class Stack extends React.Component {
+export class Stack extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="stack__aboutMe">
                 <p>There are technologies that i use</p>
                 <ul>
                     <li>React</li>

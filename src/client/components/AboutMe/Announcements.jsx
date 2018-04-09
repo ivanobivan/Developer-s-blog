@@ -2,12 +2,12 @@ import React from 'react';
 import {connect} from 'react-redux'
 import {push} from 'react-router-redux'
 
-class Announcements extends React.Component {
+export class Announcements extends React.Component {
 
     render() {
         return (
-            <div>
-                <h3>Parts of site in development</h3>
+            <div className="announcements__aboutMe">
+                <p>Parts of site in development</p>
                 <ul>
                     <li>Chat page</li>
                 </ul>
