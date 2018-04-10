@@ -11,6 +11,7 @@ class SignUp extends React.Component {
             password: ""
         }
     }
+
     handleChangeName = event => {
         this.setState({username: event.target.value});
     };
@@ -24,16 +25,15 @@ class SignUp extends React.Component {
     };
 
     render() {
-        return(
+        return (
             <div id="signUp__userForm__root">
-                <fieldset>
-                    <p>Sign Up</p>
-                    <input type='text' name="username" value={this.state.username} onChange={this.handleChangeName} placeholder="Username*"/>
-                    <input type='password' name="username" value={this.state.password}
-                           onChange={this.handleChangePassword} placeholder="Password*"/>
-                    <button onClick={this.handleSubmit}>sign up</button>
-                    <span>Answer from DB [{this.props.serverRes.signUpFailure}]</span>
-                </fieldset>
+                <p>Sign Up</p>
+                <input type='text' name="username" value={this.state.username} onChange={this.handleChangeName}
+                       placeholder="Username*"/>
+                <input type='password' name="username" value={this.state.password}
+                       onChange={this.handleChangePassword} placeholder="Password*"/>
+                <button className="signUpButton__signUp" onClick={this.handleSubmit}>sign up</button>
+                {/*<span>Answer from DB [{this.props.serverRes.signUpFailure}]</span>*/}
             </div>
         )
     }

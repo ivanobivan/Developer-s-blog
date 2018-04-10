@@ -1,8 +1,9 @@
 @toolbar_height: 30px;
-.height_with_toolbar(){
+.height_with_toolbar() {
   margin-top: @toolbar_height;
   height: calc(~"100vh - @{toolbar_height}");
 }
+
 .animated_background() {
   background: linear-gradient(-45deg, #EE7752, #E73C7E, #23A6D5, #23D5AB);
   background-size: 400% 400%;
@@ -44,12 +45,14 @@
     }
   }
 }
+
 .default_font(@weight:normal;@size:16px;@family:monospace;@color:white) {
   font: @weight @size @family, Calibry, sans-serif;
   color: @color;
 }
+
 .h1_h2_h3_p {
-  h1,p,h3, h2 {
+  h1, p, h3, h2 {
     text-align: center;
     font-family: Arial, sans-serif;
   }
@@ -57,6 +60,7 @@
     font: 500 20px Calibri, Arial, sans-serif;
   }
 }
+
 .button(@width:200px;@margin-right:4rem) {
   .default_font(400);
   width: @width;
@@ -73,22 +77,23 @@
   background: #23A6D5;
   color: white;
   transition: 0.4s;
-  border: 1px solid rgba(0,0,0,0.2);
+  border: 1px solid rgba(0, 0, 0, 0.2);
   cursor: pointer;
   &:hover {
     background: #279bd3;
   }
-  &:active{
+  &:active {
     background: #268ac0;
   }
 }
+
 .list_style() {
   ul {
     list-style: none;
     margin: 0;
     padding: 0;
     li {
-      .default_font(normal;14px;monospace;black);
+      .default_font(normal; 14px; monospace; black);
       background-color: white;
       height: 50px;
       padding: 5px 5px;
@@ -107,24 +112,30 @@
 }
 
 .custom_form {
-  fieldset {
-    display: block;
-    border:none;
-    p{
-      text-align: center;
-      border: 1px solid rgb(36, 166, 213);
-      padding: 0;
-      margin: 0;
-    }
-    input {
-      padding: 15px;
-      border: 1px solid #ccc;
-      border-radius: 3px;
-      margin-bottom: 10px;
-      width: 100%;
-      box-sizing: border-box;
-      color: #2C3E50;
-      font: normal 20px Calibri, Arial,sans-serif;
-    }
+  height: inherit;
+  display: block;
+  border: none;
+  p {
+    text-align: center;
+    padding: 15px;
+    margin: 0 auto;
+    width: 40%;
+    border-top: none;
+    border-radius: 0 0 15px 15px;
+    background: linear-gradient(to bottom, #30a6d5 , #9630d552);
+    color: white;
   }
+  input {
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    width: 400px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    color: #2C3E50;
+    font: normal 20px Calibri, Arial, sans-serif;
+    margin: 10px auto;
+    display: block;
+  }
+
 }

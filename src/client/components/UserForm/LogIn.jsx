@@ -26,16 +26,15 @@ class Login extends React.Component {
     render() {
         return (
             <div id="logIn__userForm__root">
-                <fieldset>
-                    <h1>Log in</h1>
-                    <input type='text' name="username" value={this.state.username}
-                           onChange={this.handleChangeName}/>
-                    <input type='text' name='password' value={this.state.password}
-                           onChange={this.handleChangePassword}/>
-                    <span>Answer from DB [{this.props.serverRes.logInFailure}]</span>
-                    <button onClick={this.handleSubmit}>Log in</button>
-                </fieldset>
-
+                <p>Log in</p>
+                <input type='text' name="username" value={this.state.username}
+                       onChange={this.handleChangeName}
+                       placeholder="Username*"/>
+                <input type='text' name='password' value={this.state.password}
+                       onChange={this.handleChangePassword}
+                       placeholder="Password*"/>
+                {/*<span>Answer from DB [{this.props.serverRes.logInFailure}]</span>*/}
+                <button className="logInButton__logIn" onClick={this.handleSubmit}>Log in</button>
             </div>
         )
     }

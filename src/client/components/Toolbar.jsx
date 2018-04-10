@@ -16,7 +16,7 @@ class Toolbar extends React.Component {
                 <a onClick={this.goToTheURL} name="/">Home</a>
                 <a onClick={this.goToTheURL} name='/posts'>Posts</a>
                 {level === "unknown" ?
-                    <a onClick={this.goToTheURL} name='/userform'>Log in</a>
+                    <a onClick={this.goToTheURL} name='/userform/logIn'>Log in</a>
                     : null
                 }
                 <a onClick={this.goToTheURL} name='/aboutme'>About</a>
