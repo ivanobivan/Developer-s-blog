@@ -27,10 +27,10 @@ class SignUp extends React.Component {
         return(
             <div id="signUp__userForm__root">
                 <fieldset>
-                    <h1>Sign Up</h1>
-                    <input type='text' name="username" value={this.state.username} onChange={this.handleChangeName}/>
-                    <input type='text' name="username" value={this.state.password}
-                           onChange={this.handleChangePassword}/>
+                    <p>Sign Up</p>
+                    <input type='text' name="username" value={this.state.username} onChange={this.handleChangeName} placeholder="Username*"/>
+                    <input type='password' name="username" value={this.state.password}
+                           onChange={this.handleChangePassword} placeholder="Password*"/>
                     <button onClick={this.handleSubmit}>sign up</button>
                     <span>Answer from DB [{this.props.serverRes.signUpFailure}]</span>
                 </fieldset>
