@@ -24,17 +24,30 @@ class Login extends React.Component {
 
 
     render() {
+        const loginFail = this.props.serverRes.logInFailure;
         return (
             <div id="logIn__userForm__root">
                 <p>Log in</p>
-                <input type='text' name="username" value={this.state.username}
-                       onChange={this.handleChangeName}
-                       placeholder="Username*"/>
-                <input type='text' name='password' value={this.state.password}
-                       onChange={this.handleChangePassword}
-                       placeholder="Password*"/>
-                {/*<span>Answer from DB [{this.props.serverRes.logInFailure}]</span>*/}
-                <button className="logInButton__logIn" onClick={this.handleSubmit}>Log in</button>
+                <form>
+                    <input type='text' name="username" autoFocus value={this.state.username}
+                           onChange={this.handleChangeName}
+                           placeholder="Username*"
+                           maxlength="12"
+                           maxlength="6"
+                           pattern="[\d\w][А-Я]{6,12}"
+                           required
+                    />
+                    <input type='text' name='password' value={this.state.password}
+                           onChange={this.handleChangePassword}
+                           placeholder="Password*"
+                           maxlength="12"
+                           maxlength="6"
+                           required
+                    />
+                    <button type="submit" className="logInButton__logIn" onClick={this.handleSubmit}>Log in</button>
+                </form>
+                {loginFail ? <div className="dbAnswer__logIn">Answer from DB [{loginFail}]</div> : null}
+
             </div>
         )
     }

@@ -25,15 +25,19 @@ class SignUp extends React.Component {
     };
 
     render() {
+        const signUpFail = this.props.serverRes.signUpFailure;
         return (
             <div id="signUp__userForm__root">
                 <p>Sign Up</p>
-                <input type='text' name="username" value={this.state.username} onChange={this.handleChangeName}
-                       placeholder="Username*"/>
+                <input type='text' autoFocus
+                       name="username" value={this.state.username} onChange={this.handleChangeName}
+                       placeholder="Username*"
+                       pattern="^[\w\d]{6,12}"
+                />
                 <input type='password' name="username" value={this.state.password}
                        onChange={this.handleChangePassword} placeholder="Password*"/>
                 <button className="signUpButton__signUp" onClick={this.handleSubmit}>sign up</button>
-                {/*<span>Answer from DB [{this.props.serverRes.signUpFailure}]</span>*/}
+                {signUpFail ? <div className="dbAnswer__signUp">Answer from DB [{signUpFail}]</div> : null}
             </div>
         )
     }

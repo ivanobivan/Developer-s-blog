@@ -34,7 +34,7 @@ export class Home extends React.Component {
                 <div className="buttonGroup__home">
                     <button onClick={this.goToTheURL} name="/posts">View posts</button>
                     {level === 'unknown' ?
-                        <button onClick={this.goToTheURL} name="/userform">Log in page</button>
+                        <button onClick={this.goToTheURL} name="/userform/logIn">Log in page</button>
                         : null
                     }
                     <button onClick={this.goToTheURL} name="/aboutme">About me</button>
