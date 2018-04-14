@@ -149,9 +149,43 @@ storiesOf('App/Chat/inputpanel', module)
 storiesOf('App/Chat/message', module)
     .add('no message', () => (
         <Chat
-            userPull={[]}
-            message={[]}
-            username="test"
+            chat={{
+                userPull: [],
+                messagePull: [
+                    {
+                        username:"test",
+                        message: "test"
+                    },
+                    {
+                        username:"test",
+                        message: "test"
+                    },
+                    {
+                        username:"test",
+                        message: "test"
+                    },
+                    {
+                        username:"test",
+                        message: "test"
+                    },
+                    {
+                        username:"test",
+                        message: "test"
+                    },
+                    {
+                        username:"test",
+                        message: "test"
+                    },
+                    {
+                        username:"test",
+                        message: "test"
+                    }
+                ]
+            }}
+            server={{
+                level: "user",
+                username: "test"
+            }}
         >
         </Chat>
     ))

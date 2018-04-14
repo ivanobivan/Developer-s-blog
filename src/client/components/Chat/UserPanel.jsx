@@ -12,9 +12,9 @@ export default class UserPanel extends React.Component {
         return (
             <div id="usersPanel__chat">
                 {this.props.userPull && this.props.userPull.length ?
-                    this.props.userPull.map(username => {
+                    this.props.userPull.map((username, index) => {
                         return (
-                            <div className="userNameItem__usersPanel">
+                            <div key={index} className="userNameItem__usersPanel">
                                 <div title={username} className="nameInCircle__usersPanel">
                                     {this.props.level === 'user' ?
                                         <span className="user__nameInCircle">{this.props.level}</span>

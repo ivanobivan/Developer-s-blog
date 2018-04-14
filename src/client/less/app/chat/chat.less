@@ -1,15 +1,19 @@
 @import "../../mixins";
-@import './userPanel';
-@import './inputPanel';
-@import "./messagePanel";
 
 #chat__root {
+  @import './userPanel';
+  @import './inputPanel';
+  @import "./messagePanel";
   .height_with_toolbar();
   display: flex;
   .chatSide__chat {
     flex:3;
     display: flex;
     flex-direction: column;
+  }
+  .scrollArea_UserPanel__chat {
+    flex: 1;
+    border-right: 1px solid black;
   }
 }
 

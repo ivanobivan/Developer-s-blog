@@ -40,16 +40,16 @@ class Login extends React.Component {
                     <input type='text' name="username" autoFocus value={this.state.username}
                            onChange={this.handleChangeName}
                            placeholder="Username*"
-                           maxlength="12"
-                           minlength="6"
+                           maxLength="12"
+                           minLength="6"
                            pattern="^[\wа-яё]{6,12}$"
                            required
                     />
                     <input type='password' name='password' value={this.state.password}
                            onChange={this.handleChangePassword}
                            placeholder="Password*"
-                           maxlength="12"
-                           minlength="6"
+                           maxLength="12"
+                           minLength="6"
                            pattern="^[\wа-яё]{6,12}$"
                            required
                     />

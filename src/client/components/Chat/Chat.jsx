@@ -5,20 +5,21 @@ import {sendMessage, addMessage, setUserPull} from '../../actions/chatActions'
 import UserPanel from './UserPanel'
 import InputPanel from './InputPanel'
 import MessagePanel from './MessagePanel'
+import ScrollArea from 'react-scrollbar'
 
 const env = process.env.SERVER_TYPE;
 let socket = null;
 if (process.env.SERVER_TYPE === 'public') {
     socket = socketIOClient('http://185.117.155.32:5050');
-} else if(process.env.SERVER_TYPE === "local") {
+} else if (process.env.SERVER_TYPE === "local") {
     socket = socketIOClient('http://192.168.1.5:5050');
 }
 
 
 export class Chat extends React.Component {
-    constructor() {
-        super();
-        if(env !== 'storybook') {
+    constructor(props) {
+        super(props);
+        if (env !== 'storybook') {
             socket.on('forward_message', (req) => {
                 this.props.addMessage(req);
             });
@@ -36,13 +37,19 @@ export class Chat extends React.Component {
     render() {
         return (
             <div id="chat__root">
-                <UserPanel
-                    env={env}
-                    userPull={this.props.chat.userPull}
-                    level={this.props.server.level}
-                    socket={socket}
-                    username={this.props.server.username}
-                />
+                <ScrollArea
+                    speed={0.8}
+                    className="scrollArea_UserPanel__chat"
+                    horizontal={false}
+                >
+                    <UserPanel
+                        env={env}
+                        userPull={this.props.chat.userPull}
+                        level={this.props.server.level}
+                        socket={socket}
+                        username={this.props.server.username}
+                    />
+                </ScrollArea>
                 <div className="chatSide__chat">
                     <MessagePanel
                         env={env}

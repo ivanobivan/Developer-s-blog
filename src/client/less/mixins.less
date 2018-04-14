@@ -70,7 +70,7 @@
   }
 }
 
-.button(@width:200px;@margin-right:4rem) {
+.button(@width:200px;@margin-right:4rem;@border-radius:.3rem) {
   .default_font(400);
   width: @width;
   text-decoration: none;
@@ -82,7 +82,7 @@
   user-select: none;
   margin-right: @margin-right;
   padding: .75rem 1.5rem;
-  border-radius: .3rem;
+  border-radius: @border-radius;
   background: #23A6D5;
   color: white;
   transition: 0.4s;
