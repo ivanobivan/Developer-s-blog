@@ -8,7 +8,17 @@
     display: block;
     border-radius: 5px;
   }
-  .dbAnswer__logIn {
-    .tooltip_preset();
+  .errorsWrapper__logIn {
+    display: flex;
+    position: fixed;
+    right: 20px;
+    top: 50px;
+    flex-direction: column;
+    .dbAnswer__logIn {
+      .tooltip_preset(#fdff6b);
+    }
+    .wrongNameOrPass__logIn {
+      .tooltip_preset(#5bff86);
+    }
   }
 }

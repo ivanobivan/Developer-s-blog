@@ -8,7 +8,8 @@ class SignUp extends React.Component {
         super(props);
         this.state = {
             username: "",
-            password: ""
+            password: "",
+            signUpMessage: ''
         }
     }
 
@@ -21,7 +22,14 @@ class SignUp extends React.Component {
     };
 
     handleSubmit = event => {
-        this.props.signUp(this.state.username, this.state.password);
+        const {username, password} = this.state;
+        if (username && username.length >= 6 && username.length <= 12 && password && password.length >= 6 && password.length <= 12) {
+            this.setState({signUpMessage: ''});
+            this.props.signUp(username, password);
+            event.preventDefault();
+        } else {
+            this.setState({signUpMessage: 'Please, enter the username and password with more then 6 symbols and less then 12, without spaces.'})
+        }
     };
 
     render() {
@@ -32,12 +40,26 @@ class SignUp extends React.Component {
                 <input type='text' autoFocus
                        name="username" value={this.state.username} onChange={this.handleChangeName}
                        placeholder="Username*"
-                       pattern="^[\w\d]{6,12}"
+                       maxlength="12"
+                       minlength="6"
+                       pattern="^[\wа-яё]{6,12}$"
+                       required
                 />
                 <input type='password' name="username" value={this.state.password}
-                       onChange={this.handleChangePassword} placeholder="Password*"/>
-                <button className="signUpButton__signUp" onClick={this.handleSubmit}>sign up</button>
-                {signUpFail ? <div className="dbAnswer__signUp">Answer from DB [{signUpFail}]</div> : null}
+                       onChange={this.handleChangePassword}
+                       placeholder="Password*"
+                       maxlength="12"
+                       minlength="6"
+                       pattern="^[\wа-яё]{6,12}$"
+                       required
+                />
+                <button type="submit" className="signUpButton__signUp" onClick={this.handleSubmit}>sign up</button>
+                <div className="errorsWrapper__signUp">
+                    {signUpFail ? <div className="dbAnswer__signUp">Answer from DB<br/> [{signUpFail}]</div> : null}
+                    {this.state.signUpMessage ?
+                        <div className="wrongNameOrPass__signUp">{this.state.signUpMessage}</div> : null}
+                </div>
+
             </div>
         )
     }

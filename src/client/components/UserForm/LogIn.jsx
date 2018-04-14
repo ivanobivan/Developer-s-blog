@@ -8,7 +8,8 @@ class Login extends React.Component {
         super(props);
         this.state = {
             username: '',
-            password: ''
+            password: '',
+            logInMessage: ''
         }
     }
 
@@ -19,7 +20,14 @@ class Login extends React.Component {
         this.setState({password: event.target.value});
     };
     handleSubmit = event => {
-        this.props.logIn(this.state.username, this.state.password);
+        const {username, password} = this.state;
+        if (username && username.length >= 6 && username.length <= 12 && password && password.length >= 6 && password.length <= 12) {
+            this.setState({signUpMessage: ''});
+            this.props.logIn(username, password);
+            event.preventDefault();
+        } else {
+            this.setState({signUpMessage: 'Please, enter the username and password with more then 6 symbols and less then 12, without spaces.'})
+        }
     };
 
 
@@ -33,21 +41,25 @@ class Login extends React.Component {
                            onChange={this.handleChangeName}
                            placeholder="Username*"
                            maxlength="12"
-                           maxlength="6"
-                           pattern="[\d\w][А-Я]{6,12}"
+                           minlength="6"
+                           pattern="^[\wа-яё]{6,12}$"
                            required
                     />
-                    <input type='text' name='password' value={this.state.password}
+                    <input type='password' name='password' value={this.state.password}
                            onChange={this.handleChangePassword}
                            placeholder="Password*"
                            maxlength="12"
-                           maxlength="6"
+                           minlength="6"
+                           pattern="^[\wа-яё]{6,12}$"
                            required
                     />
                     <button type="submit" className="logInButton__logIn" onClick={this.handleSubmit}>Log in</button>
                 </form>
-                {loginFail ? <div className="dbAnswer__logIn">Answer from DB [{loginFail}]</div> : null}
-
+                <div className="errorsWrapper__logIn">
+                    {loginFail ? <div className="dbAnswer__logIn">Answer from DB<br/> [{loginFail}]</div> : null}
+                    {this.state.signUpMessage ?
+                        <div className="wrongNameOrPass__logIn">{this.state.signUpMessage}</div> : null}
+                </div>
             </div>
         )
     }
