@@ -15,15 +15,8 @@ export default class UserPanel extends React.Component {
                     this.props.userPull.map((username, index) => {
                         return (
                             <div key={index} className="userNameItem__usersPanel">
-                                <div title={username} className="nameInCircle__usersPanel">
-                                    {this.props.level === 'user' ?
-                                        <span className="user__nameInCircle">{this.props.level}</span>
-                                        :
-                                        <span className="admin__nameInCircle">{this.props.level}</span>
-                                    }
-                                </div>
                                 <div className="username__usersPanel">
-                                    {username}
+                                    {username.toUpperCase()}
                                 </div>
                             </div>
                         )
