@@ -33,7 +33,7 @@ class SignUp extends React.Component {
     };
 
     render() {
-        const signUpFail = this.props.serverRes.signUpFailure;
+        const signUpFail = this.props.server.signUpFailure;
         return (
             <div id="signUp__userForm__root">
                 <p>Sign Up</p>
@@ -67,7 +67,7 @@ class SignUp extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        serverRes: state.server
+        server: state.server
     };
 };
 

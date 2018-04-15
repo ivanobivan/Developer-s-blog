@@ -26,7 +26,7 @@ export class Home extends React.Component {
     };
 
     render() {
-        const level = this.props.serverRes.level;
+        const level = this.props.server.level;
         return (
             <div id="home__root">
                 <h1>Welcome to my page</h1>
@@ -50,7 +50,7 @@ export class Home extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        serverRes: state.server
+        server: state.server
     };
 };
 

@@ -6,6 +6,8 @@ import UserPanel from './UserPanel'
 import InputPanel from './InputPanel'
 import MessagePanel from './MessagePanel'
 import ScrollArea from 'react-scrollbar'
+import {checkUser} from "../../actions/serverActions";
+import {push} from "react-router-redux";
 
 const env = process.env.SERVER_TYPE;
 let socket = null;
@@ -22,19 +24,27 @@ export class Chat extends React.Component {
         this.state = {
             errorMessageLength: ''
         };
-        if (env !== 'storybook') {
-            if(!this.props.socketWasInitialized) {
-                socket.on('forward_message', (req) => {
-                    this.props.addMessage(req);
-                });
-                socket.on('send_user_list', userPull => {
-                    this.props.setUserPull(userPull);
-                });
-                this.props.initializeSocket();
-            }
-
+        if (!this.props.socketWasInitialized) {
+            socket.on('forward_message', (req) => {
+                this.props.addMessage(req);
+            });
+            socket.on('send_user_list', userPull => {
+                this.props.setUserPull(userPull);
+            });
+            this.props.initializeSocket();
         }
+    }
 
+    componentDidMount() {
+        const {level, username} = this.props.server;
+        if (!username || level === 'unknown') {
+            this.props.checkUser();
+        }
+        setTimeout(() => {
+            if (!this.props.server.username || this.props.server.level === 'unknown') {
+                this.props.push('/');
+            }
+        }, 500)
     }
 
     sendMessage = (message) => {
@@ -82,7 +92,9 @@ const mapDispatchToProps = dispatch => {
     return {
         sendMessage: (msg, username) => dispatch(sendMessage(msg, username)),
         addMessage: req => dispatch(addMessage(req)),
-        setUserPull: name => dispatch(setUserPull(name))
+        setUserPull: name => dispatch(setUserPull(name)),
+        checkUser: () => dispatch(checkUser()),
+        push: location => dispatch(push(location)),
     };
 };
 

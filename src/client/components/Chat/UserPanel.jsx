@@ -3,9 +3,7 @@ import React from 'react';
 export default class UserPanel extends React.Component {
 
     componentWillMount() {
-        if(this.props.env !== 'storybook') {
-            this.props.socket.emit('get_users_list', this.props.username);
-        }
+        this.props.socket.emit('get_users_list', this.props.username);
     }
 
     render() {
@@ -24,7 +22,6 @@ export default class UserPanel extends React.Component {
                     :
                     <div className="noUsers__usersPanel">NO USERS</div>
                 }
-
             </div>
         )
     }

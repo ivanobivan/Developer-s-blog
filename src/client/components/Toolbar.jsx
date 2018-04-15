@@ -10,7 +10,7 @@ class Toolbar extends React.Component {
     };
 
     render() {
-        const level = this.props.serverRes.level;
+        const level = this.props.server.level;
         return (
             <nav id="toolbar__root">
                 <a onClick={this.goToTheURL} name="/">Home</a>
@@ -35,7 +35,7 @@ class Toolbar extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        serverRes: state.server
+        server: state.server
     };
 };
 

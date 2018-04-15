@@ -15,11 +15,9 @@ class Admin extends React.Component {
         }
     }
     componentWillMount() {
-        if(env !== 'storybook') {
-            this.props.checkUser();
-        }
-        if(this.props.serverRes.level !== 'admin') {
-            this.props.push("/");
+        const {level, username} = this.props.server;
+        if(!username || level !== 'admin') {
+            this.props.push('/');
         }
     }
     handleChangeName = event => {
@@ -58,7 +56,7 @@ class Admin extends React.Component {
 const mapStateToProps = state => {
     return {
         adminRes: state.admin,
-        serverRes: state.server
+        server: state.server
     };
 };
 
