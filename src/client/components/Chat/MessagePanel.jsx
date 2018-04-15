@@ -1,9 +1,7 @@
 import React from 'react';
 
 export default class MessagePanel extends React.Component {
-    constructor(props){
-        super(props);
-    };
+
     scrollToBottom = () => {
         this.messagesEnd.scrollIntoView();
     };

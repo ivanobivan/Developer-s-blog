@@ -11,7 +11,7 @@ import AboutMe from './AboutMe/AboutMe'
 import ServerError from './Server/ServerError'
 import Chat from './Chat/Chat'
 import configureStore from "../store/configureStore"
-import createHistory from "history/createBrowserHistory";
+import createHistory from "history/createHashHistory";
 import "../less/app/application.less";
 
 const history = createHistory();
@@ -19,6 +19,17 @@ const store = configureStore(history);
 const env = process.env.SERVER_TYPE;
 
 export default class Application extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            socketWasInitialized: false
+        }
+    }
+
+    initializeSocket = () => {
+        this.setState({socketWasInitialized: true})
+    };
 
     render() {
         return (
@@ -32,7 +43,9 @@ export default class Application extends React.Component {
                         <Route path="/aboutme" component={AboutMe}/>
                         <Route path="/admin" component={Admin}/>
                         <Route path="/serverError" component={ServerError}/>
-                        <Route path="/chat" component={Chat}/>
+                        <Route path="/chat" render={() =>
+                            <Chat socketWasInitialized={this.state.socketWasInitialized}
+                                  initializeSocket={this.initializeSocket}/>}/>
                     </div>
                 </ConnectedRouter>
             </Provider>

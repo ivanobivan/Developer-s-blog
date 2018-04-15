@@ -23,12 +23,16 @@ export class Chat extends React.Component {
             errorMessageLength: ''
         };
         if (env !== 'storybook') {
-            socket.on('forward_message', (req) => {
-                this.props.addMessage(req);
-            });
-            socket.on('send_user_list', userPull => {
-                this.props.setUserPull(userPull);
-            });
+            if(!this.props.socketWasInitialized) {
+                socket.on('forward_message', (req) => {
+                    this.props.addMessage(req);
+                });
+                socket.on('send_user_list', userPull => {
+                    this.props.setUserPull(userPull);
+                });
+                this.props.initializeSocket();
+            }
+
         }
 
     }
@@ -48,7 +52,6 @@ export class Chat extends React.Component {
                     <UserPanel
                         env={env}
                         userPull={this.props.chat.userPull}
-                        level={this.props.server.level}
                         socket={socket}
                         username={this.props.server.username}
                     />
