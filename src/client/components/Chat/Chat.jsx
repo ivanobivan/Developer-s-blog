@@ -36,15 +36,9 @@ export class Chat extends React.Component {
     }
 
     componentDidMount() {
-        const {level, username} = this.props.server;
-        if (!username || level === 'unknown') {
-            this.props.checkUser();
+        if (!this.props.server.username || this.props.server.level === 'unknown') {
+            this.props.push('/');
         }
-        setTimeout(() => {
-            if (!this.props.server.username || this.props.server.level === 'unknown') {
-                this.props.push('/');
-            }
-        }, 500)
     }
 
     sendMessage = (message) => {

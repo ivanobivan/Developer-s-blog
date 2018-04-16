@@ -6,6 +6,7 @@ import rootReducer from "../reducers"
 import {routerMiddleware} from "react-router-redux";
 import createSagaMiddleware from 'redux-saga'
 const sagaMiddleware = createSagaMiddleware();
+import persistState from 'redux-localstorage'
 
 const configureStore = (history) => {
     const routeMiddleware = routerMiddleware(history);
@@ -15,7 +16,8 @@ const configureStore = (history) => {
             applyMiddleware(thunk),
             applyMiddleware(logger),
             applyMiddleware(sagaMiddleware),
-            applyMiddleware(routeMiddleware)
+            applyMiddleware(routeMiddleware),
+            persistState()
         )
     );
 };

@@ -24,7 +24,8 @@ export default class Application extends React.Component {
         super(props);
         this.state = {
             socketWasInitialized: false
-        }
+        };
+        sessionStorage.setItem("loaded", true);
     }
 
     initializeSocket = () => {
