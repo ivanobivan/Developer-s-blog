@@ -15,7 +15,7 @@ const chatReducer = (state = initialState, action) => {
         case SEND_MESSAGE :
             return state;
         case FORWARD_MESSAGE:
-            const slicePull = state.messagePull.length > 10 ? state.messagePull.slice(0, 5) : state.messagePull;
+            const slicePull = state.messagePull.length > 1000 ? state.messagePull.slice(0, 100) : state.messagePull;
             return {
                 ...state,
                 messagePull: [...slicePull, {
