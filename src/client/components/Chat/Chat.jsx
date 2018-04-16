@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import socketIOClient from 'socket.io-client'
-import {sendMessage, addMessage, setUserPull} from '../../actions/chatActions'
+import {sendMessage, addMessage, setUserPull, clearMessagePull} from '../../actions/chatActions'
 import UserPanel from './UserPanel'
 import InputPanel from './InputPanel'
 import MessagePanel from './MessagePanel'
@@ -58,6 +58,7 @@ export class Chat extends React.Component {
                         userPull={this.props.chat.userPull}
                         socket={socket}
                         username={this.props.server.username}
+                        clearMessagePull={this.props.clearMessagePull}
                     />
                 </ScrollArea>
                 <div className="chatSide__chat">
@@ -88,7 +89,8 @@ const mapDispatchToProps = dispatch => {
         addMessage: req => dispatch(addMessage(req)),
         setUserPull: name => dispatch(setUserPull(name)),
         checkUser: () => dispatch(checkUser()),
-        push: location => dispatch(push(location)),
+        clearMessagePull: () => dispatch(clearMessagePull()),
+        push: location => dispatch(push(location))
     };
 };
 

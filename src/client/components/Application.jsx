@@ -13,7 +13,7 @@ import Chat from './Chat/Chat'
 import configureStore from "../store/configureStore"
 import createHistory from "history/createHashHistory";
 import "../less/app/application.less";
-
+import 'font-awesome/css/font-awesome.css'
 const history = createHistory();
 const store = configureStore(history);
 const env = process.env.SERVER_TYPE;

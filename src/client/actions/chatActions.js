@@ -2,7 +2,8 @@ import {
     SEND_MESSAGE,
     FORWARD_MESSAGE,
     GET_USERS_LIST,
-    SET_USER_PULL
+    SET_USER_PULL,
+    CLEAR_MESSAGE_PULL
 } from "../constants/chatConstants";
 import socketIOClient from "socket.io-client";
 
@@ -42,5 +43,10 @@ export const setUserPull = userPull => {
     return {
         type: SET_USER_PULL,
         userPull: userPull
+    }
+};
+export const clearMessagePull = () => {
+    return {
+        type:CLEAR_MESSAGE_PULL
     }
 };
