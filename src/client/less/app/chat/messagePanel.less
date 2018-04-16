@@ -1,6 +1,7 @@
 .messagePanel__chatSide{
   flex: 11;
   overflow-y: scroll;
+  overflow-x: hidden;
   .oneMessage__messagePanel {
     display: flex;
     border-bottom: 1px solid rgba(0,0,0,0.2);
@@ -21,5 +22,12 @@
     .value__oneMessage {
       margin-left: 5px;
     }
+  }
+  .titleRoom__messagePanel {
+    width: 100%;
+    color: white;
+    background: black;
+    padding: 5px;
+    text-align: center;
   }
 }

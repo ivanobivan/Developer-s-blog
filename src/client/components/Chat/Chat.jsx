@@ -22,7 +22,8 @@ export class Chat extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            errorMessageLength: ''
+            errorMessageLength: '',
+            activeRoom: 'all'
         };
         if (!this.props.socketWasInitialized) {
             socket.on('forward_message', (req) => {
@@ -35,10 +36,17 @@ export class Chat extends React.Component {
         }
     }
 
+    changeActiveRoom = room => {
+        this.setState({activeRoom: room})
+    };
+
     componentDidMount() {
-        if (!this.props.server.username || this.props.server.level === 'unknown') {
+        const {username, level} = this.props.server;
+        const {activeRoom} = this.state;
+        if (!username || level === 'unknown') {
             this.props.push('/');
         }
+        socket.emit('room', activeRoom);
     }
 
     sendMessage = (message) => {
@@ -59,12 +67,14 @@ export class Chat extends React.Component {
                         socket={socket}
                         username={this.props.server.username}
                         clearMessagePull={this.props.clearMessagePull}
+                        changeActiveRoom={this.changeActiveRoom}
                     />
                 </ScrollArea>
                 <div className="chatSide__chat">
                     <MessagePanel
                         env={env}
                         messagePull={this.props.chat.messagePull}
+                        activeRoom={this.state.activeRoom}
                     />
                     <InputPanel
                         env={env}

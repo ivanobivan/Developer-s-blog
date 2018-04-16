@@ -108,6 +108,11 @@ io.on('connection', socket => {
             io.emit('send_user_list', userPull)
         }
     });
+    socket.on('room', (room) => {
+        socket.join(room);
+        io.sockets.in(room).emit('forward_message', 'what is going on, party people?');
+        io.sockets.in('foobar').emit('forward_message', 'anyone in this room yet?');
+    });
     socket.on('disconnect', () => {
         console.log('user disconnected');
         const name = socket.client.username;
