@@ -7,8 +7,14 @@ export default class UserPanel extends React.Component {
         this.props.socket.emit('get_users_list', this.props.username);
     }
 
-    changeActiveRoom = (event) => {
-        this.props.changeActiveRoom(event.target.attributes.name.nodeValue);
+    addRoom = (event) => {
+        const {roomPull} = this.props;
+        const roomName = event.target.innerText.trim();
+        const pull = roomPull.filter(elem => elem.name === roomName);
+        if(!pull.length) {
+            this.props.changeActiveRoom(roomName);
+            this.props.addRoom(roomName);
+        }
     };
 
     render() {
@@ -19,10 +25,10 @@ export default class UserPanel extends React.Component {
                         return (
                             <div key={index}
                                  className="userNameItem__usersPanel"
-                                 name={username}
-                                 onClick={this.changeActiveRoom}>
+                                 onClick={this.addRoom}
+                            >
                                 <div className="username__usersPanel">
-                                    {username.toUpperCase()}
+                                    {username}
                                 </div>
                             </div>
                         )

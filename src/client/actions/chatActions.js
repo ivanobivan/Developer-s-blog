@@ -3,7 +3,8 @@ import {
     FORWARD_MESSAGE,
     GET_USERS_LIST,
     SET_USER_PULL,
-    CLEAR_MESSAGE_PULL
+    CLEAR_MESSAGE_PULL,
+    ADD_ROOM
 } from "../constants/chatConstants";
 import socketIOClient from "socket.io-client";
 
@@ -48,5 +49,11 @@ export const setUserPull = userPull => {
 export const clearMessagePull = () => {
     return {
         type:CLEAR_MESSAGE_PULL
+    }
+};
+export const addRoom = room => {
+    return {
+        type: ADD_ROOM,
+        room: room
     }
 };

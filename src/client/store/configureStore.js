@@ -16,8 +16,7 @@ const configureStore = (history) => {
             applyMiddleware(thunk),
             applyMiddleware(logger),
             applyMiddleware(sagaMiddleware),
-            applyMiddleware(routeMiddleware),
-            persistState()
+            applyMiddleware(routeMiddleware)
         )
     );
 };

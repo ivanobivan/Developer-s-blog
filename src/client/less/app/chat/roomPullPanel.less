@@ -1,0 +1,19 @@
+@import '../../variables';
+
+.@{roomPanel}@{_}@{messagePanel} {
+  display: flex;
+  flex-wrap: wrap;
+  .@{titleRoom}@{_}@{roomPanel} {
+    color: white;
+    background: black;
+    padding: 5px 15px;
+    cursor: pointer;
+    &:hover {
+      background-color: #2a5979;
+      transition: 200ms;
+    }
+    .@{closeRoom}@{_}@{roomPanel} {
+      margin-left: 5px;
+    }
+  }
+}
