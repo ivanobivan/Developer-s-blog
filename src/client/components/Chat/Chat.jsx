@@ -37,6 +37,10 @@ export class Chat extends React.Component {
             socket.on('send_user_list', userPull => {
                 this.props.setUserPull(userPull);
             });
+            socket.on('send_room_name', room => {
+                this.props.addRoom(room);
+                this.changeActiveRoom(room);
+            });
             this.props.initializeSocket();
         }
     }

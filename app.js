@@ -25,7 +25,7 @@ app.use(bodyParser.urlencoded({
 }));
 app.use('/node_modules', express.static(__dirname + '/node_modules'));
 app.use("/public", express.static(path.resolve("public")));
-if(serverType === 'local') {
+if (serverType === 'local') {
     const compiler = webpack(config);
     const middleware = webpackMiddleware(compiler, {
         publicPath: config.output.publicPath,
@@ -95,6 +95,7 @@ app.post('/logout', (req, res) => {
 const server = http.createServer(app);
 const io = socketIo.listen(server);
 const userPull = [];
+const roomPull = [];
 io.on('connection', socket => {
 
     console.log('a user connected');
@@ -109,8 +110,18 @@ io.on('connection', socket => {
         }
     });
     socket.on('subscribe', (room) => {
-        if(room) {
-            socket.join(room);
+        if (room) {
+            const roomNames = room.split("+");
+            const roomExist = roomPull.find(element =>
+                element.firstName === roomNames[0] && element.secondName === roomNames[1] ||
+                element.firstName === roomNames[1] && element.secondName === roomNames[0]
+            );
+            if (roomExist) {
+                socket.join(roomExist.firstName + "+" + roomExist.secondName);
+            } else {
+                roomPull.push({firstName: roomNames[0], secondName: roomNames[1]});
+                socket.join(room);
+            }
         }
     });
     socket.on('unsubscribe', (room) => {
@@ -127,7 +138,7 @@ io.on('connection', socket => {
     });
 });
 const mongoConnect = mongoose.connection.readyState;
-console.log("Mongoose connection = " + mongoConnect );
+console.log("Mongoose connection = " + mongoConnect);
 if (mongoConnect !== 1 && mongoConnect !== 2) {
     console.log("Error connection with MongoDB: " + mongoConnect);
     process.exit(1);
