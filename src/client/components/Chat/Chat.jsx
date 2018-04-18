@@ -55,7 +55,12 @@ export class Chat extends React.Component {
     }
 
     sendMessage = (message) => {
-        this.props.sendMessage(message, this.props.server.username);
+        socket.emit('send_message', {
+            message:message,
+            username:this.props.server.username,
+            room: this.state.activeRoom
+        });
+        //this.props.sendMessage(message, this.props.server.username);
     };
 
     render() {
@@ -104,7 +109,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        sendMessage: (msg, username) => dispatch(sendMessage(msg, username)),
+        //sendMessage: (msg, username) => dispatch(sendMessage(msg, username)),
         addMessage: req => dispatch(addMessage(req)),
         setUserPull: name => dispatch(setUserPull(name)),
         addRoom: room => dispatch(addRoom(room)),

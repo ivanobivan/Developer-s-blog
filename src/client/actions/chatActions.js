@@ -17,16 +17,17 @@ if (process.env.SERVER_TYPE === 'public') {
 
 
 
-export const sendMessage = (message, username) => {
+/*export const sendMessage = (message, username, room) => {
     socket.emit('send_message', {
         message:message,
-        username:username
+        username:username,
+        room: room
     });
     return {
         type: SEND_MESSAGE,
         message: message
     }
-};
+};*/
 export const addMessage = req => {
     return {
         type: FORWARD_MESSAGE,

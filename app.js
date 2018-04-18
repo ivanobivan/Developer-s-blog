@@ -99,7 +99,7 @@ io.on('connection', socket => {
 
     console.log('a user connected');
     socket.on('send_message', res => {
-        io.in(res.room).emit('forward_message', res.message);
+        io.in(res.room).emit('forward_message', res);
     });
     socket.on('get_users_list', username => {
         if (username && userPull.indexOf(username) === -1) {
@@ -109,7 +109,9 @@ io.on('connection', socket => {
         }
     });
     socket.on('subscribe', (room) => {
-        socket.join(room);
+        if(room) {
+            socket.join(room);
+        }
     });
     socket.on('unsubscribe', (room) => {
         socket.leave(room);

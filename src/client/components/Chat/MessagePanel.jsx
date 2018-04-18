@@ -12,7 +12,7 @@ export default class MessagePanel extends React.Component {
 
     render() {
         const {activeRoom,roomPull} = this.props;
-        const activeMessagePull = roomPull.filter(elem => elem.name = activeRoom)[0];
+        const activeMessagePull = roomPull.find(elem => elem.name === activeRoom);
         return (
             <div className="messagePanel__chatSide">
                 <RoomPullPanel

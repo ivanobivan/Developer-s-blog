@@ -10,10 +10,11 @@ export default class UserPanel extends React.Component {
     addRoom = (event) => {
         const {roomPull} = this.props;
         const roomName = event.target.innerText.trim();
-        const pull = roomPull.filter(elem => elem.name === roomName);
-        if(!pull.length) {
-            this.props.changeActiveRoom(roomName);
+        const pull = roomPull.find(elem => elem.name === roomName);
+        if(!pull && roomName !== this.props.username) {
             this.props.addRoom(roomName);
+            this.props.changeActiveRoom(roomName);
+            this.props.socket.emit('subscribe', roomName);
         }
     };
 
