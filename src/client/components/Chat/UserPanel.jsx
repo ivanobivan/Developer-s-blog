@@ -20,6 +20,10 @@ export default class UserPanel extends React.Component {
         }
     };
 
+    clearMessagePull = () => {
+        this.props.clearMessagePull(this.props.activeRoom)
+    };
+
     render() {
         return (
             <div id="usersPanel__chat" >
@@ -40,7 +44,7 @@ export default class UserPanel extends React.Component {
                     <div className="noUsers__usersPanel">NO USERS</div>
                 }
                 <div className="bottomBar__usersPanel">
-                    <FontAwesome name='trash-o' size='2x' title="Clear chat" onClick={this.props.clearMessagePull}/>
+                    <FontAwesome name='trash-o' size='2x' title="Delete messages" onClick={this.clearMessagePull}/>
                 </div>
 
             </div>

@@ -37,6 +37,8 @@ const chatReducer = (state = initialState, action) => {
                 roomPull: state.roomPull
             };
         case CLEAR_MESSAGE_PULL:
+            const room = state.roomPull.find(elem => elem.name = action.room);
+            room.messagePull = [];
             return {
                 ...state,
                 messagePull: []

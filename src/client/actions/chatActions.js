@@ -47,9 +47,10 @@ export const setUserPull = userPull => {
         userPull: userPull
     }
 };
-export const clearMessagePull = () => {
+export const clearMessagePull = (room) => {
     return {
-        type:CLEAR_MESSAGE_PULL
+        type:CLEAR_MESSAGE_PULL,
+        room: room
     }
 };
 export const addRoom = room => {

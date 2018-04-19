@@ -89,6 +89,7 @@ export class Chat extends React.Component {
                         addRoom={this.props.addRoom}
                         roomPull={this.props.chat.roomPull}
                         changeActiveRoom={this.changeActiveRoom}
+                        activeRoom={this.state.activeRoom}
                     />
                 </ScrollArea>
                 <div className="chatSide__chat">
@@ -128,7 +129,7 @@ const mapDispatchToProps = dispatch => {
         setUserPull: name => dispatch(setUserPull(name)),
         addRoom: room => dispatch(addRoom(room)),
         checkUser: () => dispatch(checkUser()),
-        clearMessagePull: () => dispatch(clearMessagePull()),
+        clearMessagePull: room => dispatch(clearMessagePull(room)),
         push: location => dispatch(push(location))
     };
 };
