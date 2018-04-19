@@ -113,14 +113,16 @@ io.on('connection', socket => {
         if (room) {
             const roomNames = room.split("+");
             const roomExist = roomPull.find(element =>
-                element.firstName === roomNames[0] && element.secondName === roomNames[1] ||
-                element.firstName === roomNames[1] && element.secondName === roomNames[0]
+                element === roomNames[0] + "+" + roomNames[1] ||
+                element === roomNames[1] + "+" + roomNames[0]
             );
             if (roomExist) {
-                socket.join(roomExist.firstName + "+" + roomExist.secondName);
+                socket.join(roomExist);
+                socket.emit('send_room_name',roomExist);
             } else {
-                roomPull.push({firstName: roomNames[0], secondName: roomNames[1]});
+                roomPull.push(room);
                 socket.join(room);
+                socket.emit('send_room_name',room);
             }
         }
     });
