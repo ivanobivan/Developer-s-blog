@@ -13,15 +13,13 @@ export default class UserPanel extends React.Component {
         const pull = roomPull.find(elem => elem.name === roomName);
         if(!pull && roomName !== username) {
             const room = roomName + '+' + username;
-            //this.props.addRoom(room);
-            //this.props.changeActiveRoom(room);
             this.props.socket.emit('subscribe', room);
         }
     };
 
     render() {
         return (
-            <div id="usersPanel__chat">
+            <div id="usersPanel__chat" >
                 {this.props.userPull && this.props.userPull.length ?
                     this.props.userPull.map((username, index) => {
                         return (

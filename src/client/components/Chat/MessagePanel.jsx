@@ -1,5 +1,4 @@
 import React from 'react';
-import RoomPullPanel from './RoomPullPanel'
 export default class MessagePanel extends React.Component {
 
     scrollToBottom = () => {
@@ -15,11 +14,6 @@ export default class MessagePanel extends React.Component {
         const activeMessagePull = roomPull.find(elem => elem.name === activeRoom);
         return (
             <div className="messagePanel__chatSide">
-                <RoomPullPanel
-                    roomPull={roomPull}
-                    activeRoom={activeRoom}
-                    changeActiveRoom={this.props.changeActiveRoom}
-                />
                 {activeMessagePull.messagePull.map((elem, index) => {
                     return (
                         <div key={index} className="oneMessage__messagePanel">

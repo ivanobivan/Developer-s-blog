@@ -7,11 +7,10 @@ import {
 } from "../constants/chatConstants";
 
 const initialState = {
-    //messagePull: [],
     userPull: [],
     roomPull: [
         {
-            name: 'common',
+            name: 'common+',
             type: 'public',
             messagePull: []
         }

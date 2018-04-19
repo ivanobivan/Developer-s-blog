@@ -1,7 +1,8 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import socketIOClient from 'socket.io-client'
-import {sendMessage,
+import {
+    sendMessage,
     addMessage,
     setUserPull,
     clearMessagePull,
@@ -10,6 +11,7 @@ import {sendMessage,
 import UserPanel from './UserPanel'
 import InputPanel from './InputPanel'
 import MessagePanel from './MessagePanel'
+import RoomPullPanel from './RoomPullPanel'
 import ScrollArea from 'react-scrollbar'
 import {checkUser} from "../../actions/serverActions";
 import {push} from "react-router-redux";
@@ -28,7 +30,7 @@ export class Chat extends React.Component {
         super(props);
         this.state = {
             errorMessageLength: '',
-            activeRoom: 'common'
+            activeRoom: 'common+'
         };
         if (!this.props.socketWasInitialized) {
             socket.on('forward_message', (req) => {
@@ -38,9 +40,13 @@ export class Chat extends React.Component {
                 this.props.setUserPull(userPull);
             });
             socket.on('send_room_name', room => {
-                this.props.addRoom(room);
-                this.changeActiveRoom(room);
+                if(room !== "common+") {
+                    this.props.addRoom(room);
+                }
+                /*todo isMounted() function*/
+                /*this.changeActiveRoom(room)*/
             });
+            socket.emit('subscribe', "common+");
             this.props.initializeSocket();
         }
     }
@@ -60,11 +66,10 @@ export class Chat extends React.Component {
 
     sendMessage = (message) => {
         socket.emit('send_message', {
-            message:message,
-            username:this.props.server.username,
+            message: message,
+            username: this.props.server.username,
             room: this.state.activeRoom
         });
-        //this.props.sendMessage(message, this.props.server.username);
     };
 
     render() {
@@ -87,6 +92,11 @@ export class Chat extends React.Component {
                     />
                 </ScrollArea>
                 <div className="chatSide__chat">
+                    <RoomPullPanel
+                        roomPull={this.props.chat.roomPull}
+                        activeRoom={this.state.activeRoom}
+                        changeActiveRoom={this.changeActiveRoom}
+                    />
                     <MessagePanel
                         env={env}
                         messagePull={this.props.chat.messagePull}
