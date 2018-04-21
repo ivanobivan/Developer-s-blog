@@ -97,15 +97,17 @@ const io = socketIo.listen(server);
 const userPull = [];
 const roomPull = [];
 io.on('connection', socket => {
-
     console.log('a user connected');
     socket.on('send_message', res => {
         io.in(res.room).emit('forward_message', res);
     });
     socket.on('get_users_list', username => {
-        if (username && userPull.indexOf(username) === -1) {
+        if (username && userPull.findIndex(elem => elem.username === username) < 0) {
             socket.client.username = username;
-            userPull.push(username);
+            userPull.push({
+                username: username,
+                id: socket.id
+            });
             io.emit('send_user_list', userPull)
         }
     });
@@ -118,11 +120,17 @@ io.on('connection', socket => {
             );
             if (roomExist) {
                 socket.join(roomExist);
-                socket.emit('send_room_name',roomExist);
+                socket.emit('send_room_name', roomExist);
             } else {
                 roomPull.push(room);
                 socket.join(room);
-                socket.emit('send_room_name',room);
+                socket.emit('send_room_name', room);
+                if (roomNames[0] && room !== "common+") {
+                    const user = userPull.find(elem => elem.username === roomNames[0]);
+                    const userSocket = socket.server.sockets.sockets[user.id];
+                    userSocket.join(room);
+                    userSocket.emit('connect_other_user', room);
+                }
             }
         }
     });
@@ -132,8 +140,8 @@ io.on('connection', socket => {
     socket.on('disconnect', () => {
         console.log('user disconnected');
         const name = socket.client.username;
-        const isInPull = userPull.indexOf(name);
-        if (isInPull !== -1) {
+        const isInPull = userPull.findIndex(elem => elem.username === name);
+        if (name && isInPull >= 0) {
             userPull.splice(isInPull, 1);
             io.emit('send_user_list', userPull)
         }

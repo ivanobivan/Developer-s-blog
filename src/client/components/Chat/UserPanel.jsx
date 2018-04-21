@@ -6,16 +6,20 @@ export default class UserPanel extends React.Component {
     componentWillMount() {
         this.props.socket.emit('get_users_list', this.props.username);
     }
+
     addRoom = (event) => {
-        const {roomPull,username} = this.props;
+        const {roomPull, username} = this.props;
         const friendName = event.target.innerText.trim();
         const roomExist = roomPull.find(element =>
             element.name === friendName + "+" + username ||
             element.name === username + "+" + friendName
         );
-        if(!roomExist && friendName !== username) {
+        if (!roomExist && friendName !== username) {
             const room = friendName + '+' + username;
             this.props.socket.emit('subscribe', room);
+        } else if (friendName !== username) {
+            this.props.addRoom(roomExist.name, !roomExist.visibility);
+            this.props.changeActiveRoom(roomExist.name);
         }
     };
 
@@ -25,7 +29,7 @@ export default class UserPanel extends React.Component {
 
     render() {
         return (
-            <div id="usersPanel__chat" >
+            <div id="usersPanel__chat">
                 {this.props.userPull && this.props.userPull.length ?
                     this.props.userPull.map((username, index) => {
                         return (

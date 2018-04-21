@@ -12,7 +12,7 @@ const initialState = {
     roomPull: [
         {
             name: 'common+',
-            type: 'public',
+            visibility: true,
             messagePull: []
         }
     ]
@@ -28,7 +28,7 @@ const chatReducer = (state = initialState, action) => {
                     username: action.req.username,
                     message: action.req.message
                 }];
-            state.roomPull.slice(index,1).push(currentRoomPull);
+            state.roomPull.slice(index, 1).push(currentRoomPull);
             /*const slicePull = state.messagePull.length > 1000 ? state.messagePull.slice(0, 100) :
                 state.messagePull;*/
             return {
@@ -39,25 +39,32 @@ const chatReducer = (state = initialState, action) => {
             const room = state.roomPull.find(elem => elem.name === action.room);
             const indexRoom = state.roomPull.findIndex(elem => elem.name === action.room);
             room.messagePull = [];
-            state.roomPull.slice(indexRoom,1).push(room);
+            state.roomPull.slice(indexRoom, 1).push(room);
             return {
                 ...state,
                 roomPull: state.roomPull
             };
         case SET_USER_PULL:
+            const userPull = action.userPull.map(elem => elem.username);
             return {
                 ...state,
-                userPull: action.userPull
+                userPull: userPull
             };
         case ADD_ROOM:
             return {
                 ...state,
-                roomPull: [...state.roomPull, {name: action.room, type: 'private', messagePull: []}]
+                roomPull: [
+                    ...state.roomPull,
+                    {
+                        name: action.room,
+                        visibility: action.visibility, messagePull: []
+                    }
+                ]
             };
         case CHANGE_ACTIVE_ROOM :
             return {
                 ...state,
-                activeRoom:action.room
+                activeRoom: action.room
             };
         default:
             return state;

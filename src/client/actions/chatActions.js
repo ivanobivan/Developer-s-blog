@@ -13,7 +13,7 @@ let socket = null;
 if (process.env.SERVER_TYPE === 'public') {
     socket = socketIOClient('http://185.117.155.32:5050');
 } else if(process.env.SERVER_TYPE === "local") {
-    socket = socketIOClient('http://127.0.0.1:5050');
+    socket = socketIOClient('http://192.168.1.2:5050');
 }
 
 export const changeActiveRoom = (room) => {
@@ -48,9 +48,10 @@ export const clearMessagePull = (room) => {
         room: room
     }
 };
-export const addRoom = room => {
+export const addRoom = (room,visibility) => {
     return {
         type: ADD_ROOM,
-        room: room
+        room: room,
+        visibility: visibility
     }
 };

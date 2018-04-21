@@ -21,6 +21,7 @@ export default class RoomPullPanel extends React.Component {
                 {this.props.roomPull.map((elem, index) => {
                     const activeStyle = activeRoom === elem.name ? {"backgroundColor": "#30a6d5"} : {};
                     return (
+                        elem.visibility &&
                         <div
                             key={index}
                             ref={elem.name.trim()}
