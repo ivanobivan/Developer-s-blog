@@ -122,7 +122,7 @@ const mapDispatchToProps = dispatch => {
         addMessage: req => dispatch(addMessage(req)),
         changeActiveRoom: room => dispatch(changeActiveRoom(room)),
         setUserPull: name => dispatch(setUserPull(name)),
-        addRoom: (room, visibility) => dispatch(addRoom(room, visibility)),
+        addRoom: (room, visibility,friendName) => dispatch(addRoom(room, visibility,friendName)),
         checkUser: () => dispatch(checkUser()),
         clearMessagePull: room => dispatch(clearMessagePull(room)),
         push: location => dispatch(push(location))

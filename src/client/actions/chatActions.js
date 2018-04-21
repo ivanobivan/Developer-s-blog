@@ -48,10 +48,11 @@ export const clearMessagePull = (room) => {
         room: room
     }
 };
-export const addRoom = (room,visibility) => {
+export const addRoom = (room,visibility,friendName) => {
     return {
         type: ADD_ROOM,
         room: room,
-        visibility: visibility
+        visibility: visibility,
+        friendName:friendName
     }
 };

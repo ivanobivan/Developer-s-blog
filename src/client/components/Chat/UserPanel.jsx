@@ -17,8 +17,8 @@ export default class UserPanel extends React.Component {
         if (!roomExist && friendName !== username) {
             const room = friendName + '+' + username;
             this.props.socket.emit('subscribe', room);
-        } else if (friendName !== username) {
-            this.props.addRoom(roomExist.name, !roomExist.visibility);
+        } else if (friendName !== username && !roomExist.visibility) {
+            this.props.addRoom(roomExist.name, !roomExist.visibility, friendName);
             this.props.changeActiveRoom(roomExist.name);
         }
     };

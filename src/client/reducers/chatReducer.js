@@ -32,9 +32,9 @@ const chatReducer = (state = initialState, action) => {
             state.roomPull.slice(index, 1).push(currentRoomPull);
             const sender = state.userPull.find(elem => elem.username === username);
             const senderIndex = state.userPull.findIndex(elem => elem.username === username);
-            if(!currentRoomPull.visibility) {
+            if (!currentRoomPull.visibility) {
                 sender.notReadMessages = currentRoomPull.messagePull.length;
-                state.userPull.slice(senderIndex,1).push(sender);
+                state.userPull.slice(senderIndex, 1).push(sender);
             }
             /*const slicePull = state.messagePull.length > 1000 ? state.messagePull.slice(0, 100) :
                 state.messagePull;*/
@@ -58,15 +58,29 @@ const chatReducer = (state = initialState, action) => {
                 userPull: action.userPull
             };
         case ADD_ROOM:
+            const roomCurrent = state.roomPull.find(elem => elem.name === action.room);
+            let newRoom = null;
+            if (roomCurrent) {
+                const roomIndex = state.roomPull.findIndex(elem => elem.name === action.room);
+                roomCurrent.visibility = action.visibility;
+                const sender = state.userPull.find(elem=> elem.username === action.friendName);
+                const senderIndex = state.userPull.findIndex(elem=> elem.username === action.friendName);
+                sender.notReadMessages = 0;
+                state.userPull.slice(senderIndex,1).push(senderIndex);
+                state.roomPull.slice(roomIndex, 1).push(roomCurrent);
+            } else {
+                newRoom = {
+                    name: action.room,
+                    visibility: action.visibility,
+                    messagePull: [],
+                    notReadMessages: 0
+                };
+                state.roomPull.push(newRoom);
+            }
             return {
                 ...state,
-                roomPull: [
-                    ...state.roomPull,
-                    {
-                        name: action.room,
-                        visibility: action.visibility, messagePull: []
-                    }
-                ]
+                roomPull: state.roomPull,
+                userPull: state.userPull
             };
         case CHANGE_ACTIVE_ROOM :
             return {
