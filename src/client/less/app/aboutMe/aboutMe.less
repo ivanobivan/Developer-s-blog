@@ -1,17 +1,11 @@
 @import "../../mixins";
 
 #aboutMe__root {
-  .animated_background();
   .height_with_toolbar();
-  height: 100vh;
-  p {
-    .default_font();
-    padding: 15px;
-  }
-  .stack__aboutMe {
-    .list_style();
-  }
-  .announcements__aboutMe {
-    .list_style();
+  .h1_h2_h3_p;
+  h3 {
+    border-top: 1px solid rgba(0,0,0,0.2);
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+    background: lightpink;
   }
 }
