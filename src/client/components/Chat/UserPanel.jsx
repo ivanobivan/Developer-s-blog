@@ -31,15 +31,24 @@ export default class UserPanel extends React.Component {
         return (
             <div id="usersPanel__chat">
                 {this.props.userPull && this.props.userPull.length ?
-                    this.props.userPull.map((username, index) => {
+                    this.props.userPull.map((elem, index) => {
                         return (
-                            <div key={index}
-                                 className="userNameItem__usersPanel"
-                                 onClick={this.addRoom}
+                            <div
+                                className="userNameItem__usersPanel"
+                                key={index}
                             >
-                                <div className="username__usersPanel">
-                                    {username}
+                                <div
+                                    className="clickWrapper__userNameItem"
+                                    onClick={this.addRoom}
+                                >
+                                    <div className="username__usersPanel">
+                                        {elem.username}
+                                    </div>
                                 </div>
+                                {elem.notReadMessages ?
+                                    <div className="notReadMessages__username">{elem.notReadMessages}</div>
+                                    : null
+                                }
                             </div>
                         )
                     })

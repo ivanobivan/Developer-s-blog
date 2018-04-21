@@ -21,34 +21,41 @@ const initialState = {
 const chatReducer = (state = initialState, action) => {
     switch (action.type) {
         case FORWARD_MESSAGE:
-            const currentRoomPull = state.roomPull.find(e => e.name === action.req.room);
-            const index = state.roomPull.findIndex(e => e.name === action.req.room);
+            const {username, message, room} = action.req;
+            const currentRoomPull = state.roomPull.find(e => e.name === room);
+            const index = state.roomPull.findIndex(e => e.name === room);
             currentRoomPull.messagePull = [...currentRoomPull.messagePull,
                 {
-                    username: action.req.username,
-                    message: action.req.message
+                    username: username,
+                    message: message
                 }];
             state.roomPull.slice(index, 1).push(currentRoomPull);
+            const sender = state.userPull.find(elem => elem.username === username);
+            const senderIndex = state.userPull.findIndex(elem => elem.username === username);
+            if(!currentRoomPull.visibility) {
+                sender.notReadMessages = currentRoomPull.messagePull.length;
+                state.userPull.slice(senderIndex,1).push(sender);
+            }
             /*const slicePull = state.messagePull.length > 1000 ? state.messagePull.slice(0, 100) :
                 state.messagePull;*/
             return {
                 ...state,
-                roomPull: state.roomPull
+                roomPull: state.roomPull,
+                userPull: state.userPull
             };
         case CLEAR_MESSAGE_PULL:
-            const room = state.roomPull.find(elem => elem.name === action.room);
+            const roomForClear = state.roomPull.find(elem => elem.name === action.room);
             const indexRoom = state.roomPull.findIndex(elem => elem.name === action.room);
-            room.messagePull = [];
-            state.roomPull.slice(indexRoom, 1).push(room);
+            roomForClear.messagePull = [];
+            state.roomPull.slice(indexRoom, 1).push(roomForClear);
             return {
                 ...state,
                 roomPull: state.roomPull
             };
         case SET_USER_PULL:
-            const userPull = action.userPull.map(elem => elem.username);
             return {
                 ...state,
-                userPull: userPull
+                userPull: action.userPull
             };
         case ADD_ROOM:
             return {
