@@ -4,7 +4,8 @@ import {
     GET_USERS_LIST,
     SET_USER_PULL,
     CLEAR_MESSAGE_PULL,
-    ADD_ROOM
+    ADD_ROOM,
+    CHANGE_ACTIVE_ROOM
 } from "../constants/chatConstants";
 import socketIOClient from "socket.io-client";
 
@@ -12,22 +13,16 @@ let socket = null;
 if (process.env.SERVER_TYPE === 'public') {
     socket = socketIOClient('http://185.117.155.32:5050');
 } else if(process.env.SERVER_TYPE === "local") {
-    socket = socketIOClient('http://192.168.1.4:5050');
+    socket = socketIOClient('http://127.0.0.1:5050');
 }
 
-
-
-/*export const sendMessage = (message, username, room) => {
-    socket.emit('send_message', {
-        message:message,
-        username:username,
-        room: room
-    });
+export const changeActiveRoom = (room) => {
     return {
-        type: SEND_MESSAGE,
-        message: message
+        type: CHANGE_ACTIVE_ROOM,
+        room: room
     }
-};*/
+};
+
 export const addMessage = req => {
     return {
         type: FORWARD_MESSAGE,

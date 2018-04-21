@@ -6,7 +6,6 @@ export default class UserPanel extends React.Component {
     componentWillMount() {
         this.props.socket.emit('get_users_list', this.props.username);
     }
-
     addRoom = (event) => {
         const {roomPull,username} = this.props;
         const friendName = event.target.innerText.trim();

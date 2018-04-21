@@ -3,11 +3,13 @@ import {
     FORWARD_MESSAGE,
     SET_USER_PULL,
     CLEAR_MESSAGE_PULL,
-    ADD_ROOM
+    ADD_ROOM,
+    CHANGE_ACTIVE_ROOM
 } from "../constants/chatConstants";
 
 const initialState = {
     userPull: [],
+    activeRoom: "common+",
     roomPull: [
         {
             name: 'common+',
@@ -52,6 +54,11 @@ const chatReducer = (state = initialState, action) => {
             return {
                 ...state,
                 roomPull: [...state.roomPull, {name: action.room, type: 'private', messagePull: []}]
+            };
+        case CHANGE_ACTIVE_ROOM :
+            return {
+                ...state,
+                activeRoom:action.room
             };
         default:
             return state;

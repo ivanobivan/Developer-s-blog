@@ -2,11 +2,11 @@ import React from 'react'
 import {connect} from 'react-redux'
 import socketIOClient from 'socket.io-client'
 import {
-    sendMessage,
     addMessage,
     setUserPull,
     clearMessagePull,
-    addRoom
+    addRoom,
+    changeActiveRoom
 } from '../../actions/chatActions'
 import UserPanel from './UserPanel'
 import InputPanel from './InputPanel'
@@ -21,7 +21,7 @@ let socket = null;
 if (process.env.SERVER_TYPE === 'public') {
     socket = socketIOClient('http://185.117.155.32:5050');
 } else if (process.env.SERVER_TYPE === "local") {
-    socket = socketIOClient('http://192.168.1.4:5050');
+    socket = socketIOClient('http://127.0.0.1:5050');
 }
 
 
@@ -29,8 +29,7 @@ export class Chat extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            errorMessageLength: '',
-            activeRoom: 'common+'
+            errorMessageLength: ''
         };
         if (!this.props.socketWasInitialized) {
             socket.on('forward_message', (req) => {
@@ -40,35 +39,28 @@ export class Chat extends React.Component {
                 this.props.setUserPull(userPull);
             });
             socket.on('send_room_name', room => {
-                if(room !== "common+") {
+                if (room !== "common+") {
                     this.props.addRoom(room);
+                    this.props.changeActiveRoom(room);
                 }
-                /*todo isMounted() function*/
-                /*this.changeActiveRoom(room)*/
             });
             socket.emit('subscribe', "common+");
             this.props.initializeSocket();
         }
     }
 
-    changeActiveRoom = (room) => {
-        this.setState({activeRoom: room})
-    };
-
     componentDidMount() {
         const {username, level} = this.props.server;
-        const {activeRoom} = this.state;
         if (!username || level === 'unknown') {
             this.props.push('/');
         }
-        socket.emit('room', activeRoom);
     }
 
     sendMessage = (message) => {
         socket.emit('send_message', {
             message: message,
             username: this.props.server.username,
-            room: this.state.activeRoom
+            room: this.props.chat.activeRoom
         });
     };
 
@@ -88,22 +80,22 @@ export class Chat extends React.Component {
                         clearMessagePull={this.props.clearMessagePull}
                         addRoom={this.props.addRoom}
                         roomPull={this.props.chat.roomPull}
-                        changeActiveRoom={this.changeActiveRoom}
-                        activeRoom={this.state.activeRoom}
+                        changeActiveRoom={this.props.changeActiveRoom}
+                        activeRoom={this.props.chat.activeRoom}
                     />
                 </ScrollArea>
                 <div className="chatSide__chat">
                     <RoomPullPanel
                         roomPull={this.props.chat.roomPull}
-                        activeRoom={this.state.activeRoom}
-                        changeActiveRoom={this.changeActiveRoom}
+                        activeRoom={this.props.chat.activeRoom}
+                        changeActiveRoom={this.props.changeActiveRoom}
                     />
                     <MessagePanel
                         env={env}
                         messagePull={this.props.chat.messagePull}
                         roomPull={this.props.chat.roomPull}
-                        activeRoom={this.state.activeRoom}
-                        changeActiveRoom={this.changeActiveRoom}
+                        activeRoom={this.props.chat.activeRoom}
+                        changeActiveRoom={this.props.changeActiveRoom}
                     />
                     <InputPanel
                         env={env}
@@ -124,8 +116,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        //sendMessage: (msg, username) => dispatch(sendMessage(msg, username)),
         addMessage: req => dispatch(addMessage(req)),
+        changeActiveRoom: room => dispatch(changeActiveRoom(room)),
         setUserPull: name => dispatch(setUserPull(name)),
         addRoom: room => dispatch(addRoom(room)),
         checkUser: () => dispatch(checkUser()),
