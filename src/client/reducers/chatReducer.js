@@ -39,11 +39,13 @@ const chatReducer = (state = initialState, action) => {
                 roomPull: state.roomPull
             };
         case CLEAR_MESSAGE_PULL:
-            const room = state.roomPull.find(elem => elem.name = action.room);
+            const room = state.roomPull.find(elem => elem.name === action.room);
+            const indexRoom = state.roomPull.findIndex(elem => elem.name === action.room);
             room.messagePull = [];
+            state.roomPull.slice(indexRoom,1).push(room);
             return {
                 ...state,
-                messagePull: []
+                roomPull: state.roomPull
             };
         case SET_USER_PULL:
             return {
