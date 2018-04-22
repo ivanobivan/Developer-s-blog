@@ -35,8 +35,11 @@ export class Chat extends React.Component {
             socket.on('forward_message', (req) => {
                 this.props.addMessage(req);
             });
-            socket.on('send_user_list', userPull => {
-                this.props.setUserPull(userPull);
+            socket.on('send_user_list', res => {
+                this.props.setUserPull(res.userPull);
+                if (res.activeRooms && res.activeRooms.length) {
+                    res.activeRooms.forEach(elem => socket.emit('subscribe', elem));
+                }
             });
             socket.on('send_room_name', room => {
                 if (room !== "common+") {
@@ -47,6 +50,7 @@ export class Chat extends React.Component {
             socket.on('connect_other_user', room => {
                 this.props.addRoom(room, false);
             });
+
             socket.emit('subscribe', "common+");
             this.props.initializeSocket();
         }
@@ -122,7 +126,7 @@ const mapDispatchToProps = dispatch => {
         addMessage: req => dispatch(addMessage(req)),
         changeActiveRoom: room => dispatch(changeActiveRoom(room)),
         setUserPull: name => dispatch(setUserPull(name)),
-        addRoom: (room, visibility,friendName) => dispatch(addRoom(room, visibility,friendName)),
+        addRoom: (room, visibility, friendName) => dispatch(addRoom(room, visibility, friendName)),
         checkUser: () => dispatch(checkUser()),
         clearMessagePull: room => dispatch(clearMessagePull(room)),
         push: location => dispatch(push(location))

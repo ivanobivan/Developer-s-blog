@@ -102,13 +102,24 @@ io.on('connection', socket => {
         io.in(res.room).emit('forward_message', res);
     });
     socket.on('get_users_list', username => {
-        if (username && userPull.findIndex(elem => elem.username === username) < 0) {
+        debugger
+        const index = userPull.findIndex(elem => elem.username === username);
+        if (username && index < 0) {
+            const rooms = [];
+            for (let i in roomPull) {
+                if (roomPull[i].search(`((^${username}\\+)|(\\+${username}$))`) >= 0) {
+                    rooms.push(roomPull[i])
+                }
+            }
             socket.client.username = username;
             userPull.push({
                 username: username,
                 id: socket.id
             });
-            io.emit('send_user_list', userPull)
+            io.emit('send_user_list', {
+                userPull: userPull,
+                activeRooms: rooms
+            })
         }
     });
     socket.on('subscribe', (room) => {
@@ -143,7 +154,7 @@ io.on('connection', socket => {
         const isInPull = userPull.findIndex(elem => elem.username === name);
         if (name && isInPull >= 0) {
             userPull.splice(isInPull, 1);
-            io.emit('send_user_list', userPull)
+            io.emit('send_user_list', {userPull:userPull});
         }
     });
 });
