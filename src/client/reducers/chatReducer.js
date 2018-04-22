@@ -22,32 +22,26 @@ const chatReducer = (state = initialState, action) => {
     switch (action.type) {
         case FORWARD_MESSAGE:
             const {username, message, room} = action.req;
-            const currentRoomPull = state.roomPull.find(e => e.name === room);
-            const index = state.roomPull.findIndex(e => e.name === room);
-            currentRoomPull.messagePull = [...currentRoomPull.messagePull,
+            const pull = findObject(state.roomPull, room, 'name');
+            pull.object.messagePull = [...pull.object.messagePull,
                 {
                     username: username,
                     message: message
                 }];
-            state.roomPull.slice(index, 1).push(currentRoomPull);
-            const sender = state.userPull.find(elem => elem.username === username);
-            const senderIndex = state.userPull.findIndex(elem => elem.username === username);
-            if (!currentRoomPull.visibility) {
-                sender.notReadMessages = currentRoomPull.messagePull.length;
-                state.userPull.slice(senderIndex, 1).push(sender);
+            state.roomPull[pull.index] = pull.object;
+            let sender = findObject(state.userPull, username, 'username');
+            if (!pull.object.visibility) {
+                sender.object.notReadMessages = pull.object.messagePull.length;
+                state.userPull[sender.index] = sender.object;
             }
-            /*const slicePull = state.messagePull.length > 1000 ? state.messagePull.slice(0, 100) :
-                state.messagePull;*/
             return {
                 ...state,
                 roomPull: state.roomPull,
                 userPull: state.userPull
             };
         case CLEAR_MESSAGE_PULL:
-            const roomForClear = state.roomPull.find(elem => elem.name === action.room);
-            const indexRoom = state.roomPull.findIndex(elem => elem.name === action.room);
-            roomForClear.messagePull = [];
-            state.roomPull.slice(indexRoom, 1).push(roomForClear);
+            const clearPull = findObject(state.roomPull, action.room, "name");
+            state.roomPull[clearPull.index].messagePull = [];
             return {
                 ...state,
                 roomPull: state.roomPull
@@ -58,24 +52,20 @@ const chatReducer = (state = initialState, action) => {
                 userPull: action.userPull
             };
         case ADD_ROOM:
-            const roomCurrent = state.roomPull.find(elem => elem.name === action.room);
-            let newRoom = null;
-            if (roomCurrent) {
-                const roomIndex = state.roomPull.findIndex(elem => elem.name === action.room);
-                roomCurrent.visibility = action.visibility;
-                const sender = state.userPull.find(elem=> elem.username === action.friendName);
-                const senderIndex = state.userPull.findIndex(elem=> elem.username === action.friendName);
-                sender.notReadMessages = 0;
-                state.userPull.slice(senderIndex,1).push(senderIndex);
-                state.roomPull.slice(roomIndex, 1).push(roomCurrent);
+            const appPull = findObject(state.roomPull, action.room, 'name');
+            if (appPull) {
+                appPull.object.visibility = action.visibility;
+                state.roomPull[appPull.index] = appPull.object;
+                const sender = findObject(state.userPull, action.friendName, 'username');
+                sender.object.notReadMessages = 0;
+                state.userPull[sender.index] = sender.object;
             } else {
-                newRoom = {
+                state.roomPull.push({
                     name: action.room,
                     visibility: action.visibility,
                     messagePull: [],
                     notReadMessages: 0
-                };
-                state.roomPull.push(newRoom);
+                });
             }
             return {
                 ...state,
@@ -89,6 +79,17 @@ const chatReducer = (state = initialState, action) => {
             };
         default:
             return state;
+    }
+};
+
+const findObject = (pull, name, prefix) => {
+    for (let i in pull) {
+        if (pull[i][prefix] === name) {
+            return {
+                object: pull[i],
+                index: i
+            }
+        }
     }
 };
 

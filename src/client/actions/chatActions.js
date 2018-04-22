@@ -12,7 +12,7 @@ import socketIOClient from "socket.io-client";
 let socket = null;
 if (process.env.SERVER_TYPE === 'public') {
     socket = socketIOClient('http://185.117.155.32:5050');
-} else if(process.env.SERVER_TYPE === "local") {
+} else if (process.env.SERVER_TYPE === "local") {
     socket = socketIOClient('http://192.168.1.2:5050');
 }
 
@@ -44,15 +44,15 @@ export const setUserPull = userPull => {
 };
 export const clearMessagePull = (room) => {
     return {
-        type:CLEAR_MESSAGE_PULL,
+        type: CLEAR_MESSAGE_PULL,
         room: room
     }
 };
-export const addRoom = (room,visibility,friendName) => {
+export const addRoom = (room, visibility, friendName) => {
     return {
         type: ADD_ROOM,
         room: room,
         visibility: visibility,
-        friendName:friendName
+        friendName: friendName
     }
 };
