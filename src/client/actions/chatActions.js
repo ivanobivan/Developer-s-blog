@@ -5,7 +5,8 @@ import {
     SET_USER_PULL,
     CLEAR_MESSAGE_PULL,
     ADD_ROOM,
-    CHANGE_ACTIVE_ROOM
+    CHANGE_ACTIVE_ROOM,
+    DELETE_ROOM
 } from "../constants/chatConstants";
 import socketIOClient from "socket.io-client";
 
@@ -56,3 +57,9 @@ export const addRoom = (room, visibility, friendName) => {
         friendName: friendName
     }
 };
+export const deleteRoom = (room) => {
+    return {
+        type:DELETE_ROOM,
+        room:room
+    }
+}

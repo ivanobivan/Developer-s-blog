@@ -3,7 +3,8 @@ import {
     SET_USER_PULL,
     CLEAR_MESSAGE_PULL,
     ADD_ROOM,
-    CHANGE_ACTIVE_ROOM
+    CHANGE_ACTIVE_ROOM,
+    DELETE_ROOM
 } from "../constants/chatConstants";
 
 const initialState = {
@@ -21,13 +22,13 @@ const initialState = {
 const chatReducer = (state = initialState, action) => {
     switch (action.type) {
         case FORWARD_MESSAGE:
-            const {username, message, room} = action.req;
+            const { username, message, room } = action.req;
             const pull = findObject(state.roomPull, room, 'name');
             pull.object.messagePull = [...pull.object.messagePull,
-                {
-                    username: username,
-                    message: message
-                }];
+            {
+                username: username,
+                message: message
+            }];
             state.roomPull[pull.index] = pull.object;
             let sender = findObject(state.userPull, username, 'username');
             if (!pull.object.visibility) {
@@ -72,10 +73,20 @@ const chatReducer = (state = initialState, action) => {
                 roomPull: state.roomPull,
                 userPull: state.userPull
             };
-        case CHANGE_ACTIVE_ROOM :
+        case CHANGE_ACTIVE_ROOM:
             return {
                 ...state,
                 activeRoom: action.room
+            };
+        case DELETE_ROOM:
+            const indexRoom = state.roomPull.findIndex(elem => elem.name === action.room);
+            if(indexRoom >= 0) {
+                state.roomPull.splice(indexRoom, 1)
+            }
+            return {
+                ...state,
+                roomPull: state.roomPull,
+                activeRoom: 'common+'
             };
         default:
             return state;

@@ -6,7 +6,8 @@ import {
     setUserPull,
     clearMessagePull,
     addRoom,
-    changeActiveRoom
+    changeActiveRoom,
+    deleteRoom
 } from '../../actions/chatActions'
 import UserPanel from './UserPanel'
 import InputPanel from './InputPanel'
@@ -71,6 +72,11 @@ export class Chat extends React.Component {
             room: this.props.chat.activeRoom
         });
     };
+    
+    closeRoom = (room) => {
+        socket.emit('unsubscribe',room);
+        this.props.deleteRoom(room);
+    };
 
     render() {
         return (
@@ -97,6 +103,7 @@ export class Chat extends React.Component {
                         roomPull={this.props.chat.roomPull}
                         activeRoom={this.props.chat.activeRoom}
                         changeActiveRoom={this.props.changeActiveRoom}
+                        closeRoom={this.closeRoom}
                     />
                     <MessagePanel
                         env={env}
@@ -130,6 +137,7 @@ const mapDispatchToProps = dispatch => {
         addRoom: (room, visibility, friendName) => dispatch(addRoom(room, visibility, friendName)),
         checkUser: () => dispatch(checkUser()),
         clearMessagePull: room => dispatch(clearMessagePull(room)),
+        deleteRoom: room => dispatch(deleteRoom(room)),
         push: location => dispatch(push(location))
     };
 };

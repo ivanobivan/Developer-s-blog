@@ -11,15 +11,17 @@ export default class RoomPullPanel extends React.Component {
     };
 
     closeRoom = (event) => {
+        const room = event.target.dataset.info;
+        this.props.closeRoom(room);
         event.preventDefault();
     };
 
     render() {
-        const {activeRoom} = this.props;
+        const { activeRoom } = this.props;
         return (
             <div className="roomPanel__messagePanel">
                 {this.props.roomPull.map((elem, index) => {
-                    const activeStyle = activeRoom === elem.name ? {"backgroundColor": "#30a6d5"} : {};
+                    const activeStyle = activeRoom === elem.name ? { "backgroundColor": "#30a6d5" } : {};
                     return (
                         elem.visibility &&
                         <div
@@ -30,12 +32,15 @@ export default class RoomPullPanel extends React.Component {
                             onClick={this.changeActiveRoom}
                         >
                             {elem.name.trim()}
-                            <FontAwesome
-                                className="closeRoom__roomPanel"
-                                name='close'
-                                title="Leave room"
-                                onClick={this.closeRoom}
-                            />
+                            {elem.name.trim() !== 'common+' &&
+                                <FontAwesome
+                                    className="closeRoom__roomPanel"
+                                    name='close'
+                                    title="Leave room"
+                                    data-info={elem.name.trim()}
+                                    onClick={this.closeRoom}
+                                />
+                            }
                         </div>
                     )
                 })}

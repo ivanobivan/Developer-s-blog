@@ -102,7 +102,6 @@ io.on('connection', socket => {
         io.in(res.room).emit('forward_message', res);
     });
     socket.on('get_users_list', username => {
-        debugger
         const index = userPull.findIndex(elem => elem.username === username);
         if (username && index < 0) {
             const rooms = [];
@@ -146,6 +145,10 @@ io.on('connection', socket => {
         }
     });
     socket.on('unsubscribe', (room) => {
+        const index = roomPull.findIndex(elem => elem === room);
+        if(index >= 0) {
+            roomPull.splice(index,1);
+        }
         socket.leave(room);
     });
     socket.on('disconnect', () => {
