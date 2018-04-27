@@ -1,5 +1,5 @@
 import React from 'react'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import socketIOClient from 'socket.io-client'
 import {
     addMessage,
@@ -13,15 +13,15 @@ import InputPanel from './InputPanel'
 import MessagePanel from './MessagePanel'
 import RoomPullPanel from './RoomPullPanel'
 import ScrollArea from 'react-scrollbar'
-import {checkUser} from "../../actions/serverActions";
-import {push} from "react-router-redux";
+import { checkUser } from "../../actions/serverActions";
+import { push } from "react-router-redux";
 
 const env = process.env.SERVER_TYPE;
 let socket = null;
 if (process.env.SERVER_TYPE === 'public') {
     socket = socketIOClient('http://185.117.155.32:5050');
 } else if (process.env.SERVER_TYPE === "local") {
-    socket = socketIOClient('http://192.168.1.2:5050');
+    socket = socketIOClient('http://192.168.1.4:5050');
 }
 
 
@@ -37,7 +37,8 @@ export class Chat extends React.Component {
             });
             socket.on('send_user_list', res => {
                 this.props.setUserPull(res.userPull);
-                if (res.activeRooms && res.activeRooms.length) {
+                if (res.activeRooms && res.activeRooms.length &&
+                    this.props.chat.roomPull.length - 1 < res.activeRooms.length) {
                     res.activeRooms.forEach(elem => socket.emit('subscribe', elem));
                 }
             });
@@ -57,7 +58,7 @@ export class Chat extends React.Component {
     }
 
     componentDidMount() {
-        const {username, level} = this.props.server;
+        const { username, level } = this.props.server;
         if (!username || level === 'unknown') {
             this.props.push('/');
         }
