@@ -1,12 +1,14 @@
 import React from 'react'
-import FontAwesome from 'react-fontawesome';
 
 export default class RoomPullPanel extends React.Component {
 
     changeActiveRoom = (event) => {
-        const text = event.target.innerText.trim();
-        if (text && this.props.activeRoom !== text) {
-            this.props.changeActiveRoom(text)
+        const dataCross = Boolean(event.target.dataset.cross);
+        if (!dataCross) {
+            const text = event.target.dataset.info;
+            if (text && this.props.activeRoom !== text) {
+                this.props.changeActiveRoom(text)
+            }
         }
     };
 
@@ -17,29 +19,29 @@ export default class RoomPullPanel extends React.Component {
     };
 
     render() {
-        const { activeRoom } = this.props;
+        const {activeRoom} = this.props;
         return (
             <div className="roomPanel__messagePanel">
                 {this.props.roomPull.map((elem, index) => {
-                    const activeStyle = activeRoom === elem.name ? { "backgroundColor": "#30a6d5" } : {};
+                    const activeStyle = activeRoom === elem.name ? {"backgroundColor": "#30a6d5"} : {};
                     return (
                         elem.visibility &&
                         <div
                             key={index}
-                            ref={elem.name.trim()}
+                            data-info={elem.name.trim()}
                             className="titleRoom__roomPanel"
                             style={activeStyle}
                             onClick={this.changeActiveRoom}
                         >
                             {elem.name.trim()}
                             {elem.name.trim() !== 'common+' &&
-                                <FontAwesome
-                                    className="closeRoom__roomPanel"
-                                    name='close'
-                                    title="Leave room"
-                                    data-info={elem.name.trim()}
-                                    onClick={this.closeRoom}
-                                />
+                            <span
+                                className="closeRoom__roomPanel"
+                                title="Leave room"
+                                data-info={elem.name.trim()}
+                                data-cross={true}
+                                onClick={this.closeRoom}
+                            >&#215;</span>
                             }
                         </div>
                     )

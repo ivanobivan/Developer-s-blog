@@ -1,5 +1,4 @@
 import React from 'react';
-import FontAwesome from 'react-fontawesome';
 
 export default class UserPanel extends React.Component {
 
@@ -56,7 +55,7 @@ export default class UserPanel extends React.Component {
                     <div className="noUsers__usersPanel">NO USERS</div>
                 }
                 <div className="bottomBar__usersPanel">
-                    <FontAwesome name='trash-o' size='2x' title="Delete messages" onClick={this.clearMessagePull}/>
+                    <div className="trashBasket" title="Delete messages" onClick={this.clearMessagePull}>&#128465;</div>
                 </div>
 
             </div>

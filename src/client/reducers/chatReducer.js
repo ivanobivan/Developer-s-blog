@@ -22,18 +22,20 @@ const initialState = {
 const chatReducer = (state = initialState, action) => {
     switch (action.type) {
         case FORWARD_MESSAGE:
-            const { username, message, room } = action.req;
+            const {username, message, room} = action.req;
             const pull = findObject(state.roomPull, room, 'name');
-            pull.object.messagePull = [...pull.object.messagePull,
-            {
-                username: username,
-                message: message
-            }];
-            state.roomPull[pull.index] = pull.object;
-            let sender = findObject(state.userPull, username, 'username');
-            if (!pull.object.visibility) {
-                sender.object.notReadMessages = pull.object.messagePull.length;
-                state.userPull[sender.index] = sender.object;
+            if (pull) {
+                pull.object.messagePull = [...pull.object.messagePull,
+                    {
+                        username: username,
+                        message: message
+                    }];
+                state.roomPull[pull.index] = pull.object;
+                let sender = findObject(state.userPull, username, 'username');
+                if (!pull.object.visibility) {
+                    sender.object.notReadMessages = pull.object.messagePull.length;
+                    state.userPull[sender.index] = sender.object;
+                }
             }
             return {
                 ...state,
@@ -80,7 +82,7 @@ const chatReducer = (state = initialState, action) => {
             };
         case DELETE_ROOM:
             const indexRoom = state.roomPull.findIndex(elem => elem.name === action.room);
-            if(indexRoom >= 0) {
+            if (indexRoom >= 0) {
                 state.roomPull.splice(indexRoom, 1)
             }
             return {

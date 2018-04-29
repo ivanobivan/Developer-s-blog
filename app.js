@@ -146,10 +146,16 @@ io.on('connection', socket => {
     });
     socket.on('unsubscribe', (room) => {
         const index = roomPull.findIndex(elem => elem === room);
-        if(index >= 0) {
-            roomPull.splice(index,1);
+        if (index >= 0) {
+            roomPull.splice(index, 1);
+            io.in(room).emit('forward_message', {
+                username: 'server',
+                message: "The other user has been unsubscribe and does not see your messages." +
+                "Please open the room again to write to him.",
+                room: room
+            });
+            socket.leave(room);
         }
-        socket.leave(room);
     });
     socket.on('disconnect', () => {
         console.log('user disconnected');
@@ -157,7 +163,7 @@ io.on('connection', socket => {
         const isInPull = userPull.findIndex(elem => elem.username === name);
         if (name && isInPull >= 0) {
             userPull.splice(isInPull, 1);
-            io.emit('send_user_list', {userPull:userPull});
+            io.emit('send_user_list', {userPull: userPull});
         }
     });
 });
