@@ -12,9 +12,15 @@ module.exports = new PassportLocalStrategy(
             if (!user) {
                 return done(null, false, {message: 'Incorrect username.'});
             }
-            if (!user.comparePassword(password)) {
-                return done(null, false, {message: 'Incorrect password.'});
-            }
-            return done(null, user,{path: '/'});
+            user.comparePassword(password, (err, match) => {
+                if (err) {
+                    return done(err);
+                }
+                if (!match) {
+                    return done(null, false, {message: 'Incorrect password.'});
+                } else {
+                    return done(null, user, {path: '/'});
+                }
+            });
         });
     });
