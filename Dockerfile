@@ -1,12 +1,12 @@
-FROM node:latest
-RUN npm install webpack -g
+FROM keymetrics/pm2:latest-alpine
+RUN npm install webpack babel-cli pm2 -g
 WORKDIR /tmp
 ADD package.json /tmp/package.json
+ADD pm2.json /tmp/pm2.json
+ENV NPM_CONFIG_LOGLEVEL warn
 RUN npm config set registry https://registry.npmjs.org/ && npm install
 WORKDIR /usr/src/app
 ADD . /usr/src/app
-RUN cp -a /tmp/node_modules /usr/src/app/
-RUN webpack
-ENV NODE_ENV=production
-CMD [ "node_modules/.bin/babel-node","app.js" ]
-EXPOSE 5050
+RUN cp -a /tmp/node_modules /usr/src/app/ && webpack
+CMD [ "pm2-runtime","--json","pm2.json" ]
+EXPOSE 5050 43554

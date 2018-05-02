@@ -1,18 +1,15 @@
 {
   "apps": [
     {
-      "name": "developer-blog",
+      "name": "blog",
       "script": "./app.js",
-      "watch": true,
+      "watch": false,
       "interpreter": "babel-node",
       "log_date_format": "YYY-MM-DD HH:mm Z",
-      "max_restarts" : "3",
+      "max_restarts" : "10",
       "restart_delay" : "10000",
       "autorestart" : false,
       "env": {
-        "NODE_ENV": "development"
-      },
-      "env_production": {
         "NODE_ENV": "production"
       }
     }

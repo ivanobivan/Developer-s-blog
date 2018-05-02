@@ -7,6 +7,7 @@ services:
     image: developer_blog
     ports:
       - "5050:5050"
+      - "43554:43554"
     environment:
       - MONGO_URI=mongodb://mongo/blog
       - PORT=5050

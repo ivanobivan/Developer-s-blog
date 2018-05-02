@@ -25,7 +25,10 @@ app.use(bodyParser.urlencoded({
 }));
 app.use('/node_modules', express.static(__dirname + '/node_modules'));
 app.use("/public", express.static(path.resolve("public")));
-if (process.env.NODE_ENV === 'production') {
+
+const NODE_ENV = process.env.NODE_ENV || 'production';
+
+if (NODE_ENV !== 'production') {
     const compiler = webpack(config);
     const middleware = webpackMiddleware(compiler, {
         publicPath: config.output.publicPath,
@@ -186,7 +189,7 @@ io.on('connection', socket => {
     });
 });
 
-server.listen(5050, '0.0.0.0', err => {
+server.listen(port, '0.0.0.0', err => {
     if (err) {
         console.log(err);
     }
