@@ -1,5 +1,5 @@
 import React from 'react'
-import { connect } from 'react-redux'
+import {connect} from 'react-redux'
 import socketIOClient from 'socket.io-client'
 import {
     addMessage,
@@ -14,16 +14,11 @@ import InputPanel from './InputPanel'
 import MessagePanel from './MessagePanel'
 import RoomPullPanel from './RoomPullPanel'
 import ScrollArea from 'react-scrollbar'
-import { checkUser } from "../../actions/serverActions";
-import { push } from "react-router-redux";
+import {checkUser} from "../../actions/serverActions";
+import {push} from "react-router-redux";
 
-const env = process.env.SERVER_TYPE;
-let socket = null;
-if (process.env.SERVER_TYPE === 'public') {
-    socket = socketIOClient('http://185.117.155.32:5050');
-} else if (process.env.SERVER_TYPE === "local") {
-    socket = socketIOClient('http://192.168.1.2:5050');
-}
+const socket_host = process.env.SOCKET || "127.0.0.1";
+const socket = socketIOClient(`http://${socket_host}:5050`);
 
 
 export class Chat extends React.Component {
@@ -59,7 +54,7 @@ export class Chat extends React.Component {
     }
 
     componentDidMount() {
-        const { username, level } = this.props.server;
+        const {username, level} = this.props.server;
         if (!username || level === 'unknown') {
             this.props.push('/');
         }
@@ -72,9 +67,9 @@ export class Chat extends React.Component {
             room: this.props.chat.activeRoom
         });
     };
-    
+
     closeRoom = (room) => {
-        socket.emit('unsubscribe',room);
+        socket.emit('unsubscribe', room);
         this.props.deleteRoom(room);
     };
 
@@ -87,7 +82,6 @@ export class Chat extends React.Component {
                     horizontal={false}
                 >
                     <UserPanel
-                        env={env}
                         userPull={this.props.chat.userPull}
                         socket={socket}
                         username={this.props.server.username}
@@ -106,14 +100,12 @@ export class Chat extends React.Component {
                         closeRoom={this.closeRoom}
                     />
                     <MessagePanel
-                        env={env}
                         messagePull={this.props.chat.messagePull}
                         roomPull={this.props.chat.roomPull}
                         activeRoom={this.props.chat.activeRoom}
                         changeActiveRoom={this.props.changeActiveRoom}
                     />
                     <InputPanel
-                        env={env}
                         sendMessage={this.sendMessage}
                     />
                 </div>

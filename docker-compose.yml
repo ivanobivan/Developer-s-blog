@@ -1,0 +1,29 @@
+version: "3"
+services:
+  web:
+    build: .
+    container_name: "developer-blog"
+    restart: always
+    image: developer_blog
+    ports:
+      - "5050:5050"
+    environment:
+      - MONGO_URI=mongodb://mongo/blog
+      - PORT=5050
+      - SECRET=secret
+    links:
+      - mongo
+    depends_on:
+      - mongo
+    volumes:
+      - .:/usr/src/app
+  mongo:
+    image: mongo:latest
+    container_name: "mongo"
+    environment:
+      - MONGO_DATA_DIR=/data/db
+      - MONGO_LOG_DIR=/dev/null
+    volumes:
+       - ./data/db:/data/db
+    ports:
+      - "27017:27017"

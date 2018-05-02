@@ -16,17 +16,14 @@ class Toolbar extends React.Component {
                 <a onClick={this.goToTheURL} name="/">Home</a>
                 <a onClick={this.goToTheURL} name='/posts'>Posts</a>
                 {level === "unknown" ?
-                    <a onClick={this.goToTheURL} name='/userform/logIn'>Log in</a>
-                    : null
+                    <a onClick={this.goToTheURL} name='/userform/logIn'>Log in</a> : null
                 }
                 <a onClick={this.goToTheURL} name='/aboutme'>About</a>
                 {level === "admin" ?
-                    <a onClick={this.goToTheURL} name='/admin'>Admin</a>
-                    : this.props.env === 'storybook' ? <a onClick={this.goToTheURL} name='/admin'>Admin</a> : null
+                    <a onClick={this.goToTheURL} name='/admin'>Admin</a> : null
                 }
                 {level !== "unknown" ?
-                    <a onClick={this.goToTheURL} name="/chat">Chat</a>
-                    : this.props.env === 'storybook' ? <a onClick={this.goToTheURL} name="/chat">Chat</a> : null
+                    <a onClick={this.goToTheURL} name="/chat">Chat</a> : null
                 }
             </nav>
         )

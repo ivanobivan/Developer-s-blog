@@ -14,7 +14,7 @@ const configureStore = (history) => {
         rootReducer,
         composeWithDevTools(
             applyMiddleware(thunk),
-            applyMiddleware(logger),
+            //applyMiddleware(logger),
             applyMiddleware(sagaMiddleware),
             applyMiddleware(routeMiddleware),
             //persistState()

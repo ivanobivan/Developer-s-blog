@@ -1,7 +1,7 @@
 {
   "apps": [
     {
-      "name": "Blog5050",
+      "name": "developer-blog",
       "script": "./app.js",
       "watch": true,
       "interpreter": "babel-node",
@@ -10,12 +10,10 @@
       "restart_delay" : "10000",
       "autorestart" : false,
       "env": {
-        "NODE_ENV": "development",
-        "SERVER_TYPE": "local"
+        "NODE_ENV": "development"
       },
       "env_production": {
-        "NODE_ENV": "production",
-        "SERVER_TYPE": "public"
+        "NODE_ENV": "production"
       }
     }
   ]

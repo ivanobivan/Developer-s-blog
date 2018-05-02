@@ -3,7 +3,6 @@ import {connect} from 'react-redux'
 import {push} from 'react-router-redux'
 import {checkUser, logOut} from '../actions/serverActions'
 
-const env = process.env.SERVER_TYPE;
 
 export class Home extends React.Component {
 
@@ -16,9 +15,7 @@ export class Home extends React.Component {
     };
 
     componentDidMount() {
-        if (env !== "storybook") {
-            this.props.checkUser();
-        }
+        this.props.checkUser();
     }
 
     logOutUser = () => {

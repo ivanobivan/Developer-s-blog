@@ -4,8 +4,6 @@ import {getUser} from '../../actions/adminActions'
 import {push} from 'react-router-redux'
 import {checkUser} from "../../actions/serverActions";
 
-const env = process.env.SERVER_TYPE;
-
 class Admin extends React.Component {
 
     constructor(props) {

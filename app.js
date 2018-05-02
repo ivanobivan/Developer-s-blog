@@ -12,12 +12,12 @@ import passport from 'passport';
 import mongoose from 'mongoose'
 import socketIo from 'socket.io'
 /*------------------------------------CONSTANTS----------------------------------------------------*/
-const serverType = process.env.SERVER_TYPE || "local";
-const port = serverConfig.port;
+const port = process.env.PORT || 5050;
 const app = express();
 
 /*------------------------------------REQUIREMENTS----------------------------------------------------*/
-require('./src/server/models').connect(serverConfig.dbUri);
+const mongo = process.env.MONGO_URI || serverConfig.dbUri;
+require('./src/server/models').connect(mongo);
 /*------------------------------------OPTIONS----------------------------------------------------*/
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -25,7 +25,7 @@ app.use(bodyParser.urlencoded({
 }));
 app.use('/node_modules', express.static(__dirname + '/node_modules'));
 app.use("/public", express.static(path.resolve("public")));
-if (serverType === 'local') {
+if (process.env.NODE_ENV === 'production') {
     const compiler = webpack(config);
     const middleware = webpackMiddleware(compiler, {
         publicPath: config.output.publicPath,
@@ -46,8 +46,11 @@ const localSignupStrategy = require('./src/server/passport/local-signup');
 const localLoginStrategy = require('./src/server/passport/local-login');
 passport.use('local-signup', localSignupStrategy);
 passport.use('local-login', localLoginStrategy);
+
+const secretWord = process.env.SECRET || "secret";
+
 app.use(session({
-    secret: "secret",
+    secret: secretWord,
     resave: false,
     saveUninitialized: true
 }));
@@ -76,6 +79,21 @@ app.use("/admin", adminRoutes);
 /*------------------------------------REQUESTS----------------------------------------------------*/
 app.get('/', function response(req, res) {
     fs.readFile(__dirname + '/index.html', (err, data) => {
+        if (!data) {
+            data = "<!DOCTYPE html>\n" +
+                "<html lang=\"en\">\n" +
+                "<head>\n" +
+                "    <meta charset=\"UTF-8\">\n" +
+                "    <title>Developer's Blog</title>\n" +
+                "</head>\n" +
+                "<body>\n" +
+                "<div id=\"client\"></div>\n" +
+                "<script src=\"public/client.js\"></script>\n" +
+                "<div id=\"admin\"></div>\n" +
+                "<script src=\"public/admin.js\"></script>\n" +
+                "</body>\n" +
+                "</html>\n";
+        }
         res.writeHead(200, {
             'Content-Type': 'text/html',
             'Content-Length': data.length
@@ -167,15 +185,8 @@ io.on('connection', socket => {
         }
     });
 });
-const mongoConnect = mongoose.connection.readyState;
-console.log("Mongoose connection = " + mongoConnect);
-if (mongoConnect !== 1 && mongoConnect !== 2) {
-    console.log("Error connection with MongoDB: " + mongoConnect);
-    process.exit(1);
-}
 
-
-server.listen(port, '0.0.0.0', err => {
+server.listen(5050, '0.0.0.0', err => {
     if (err) {
         console.log(err);
     }
