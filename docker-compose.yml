@@ -19,6 +19,7 @@ services:
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
+      - /usr/src/app/public
   mongo:
     image: mongo:latest
     container_name: "mongo"
