@@ -8,5 +8,5 @@ RUN npm config set registry https://registry.npmjs.org/ && npm install
 WORKDIR /usr/src/app
 ADD . /usr/src/app
 RUN cp -a /tmp/node_modules /usr/src/app/ && npm run build:prod
-CMD [ "pm2-runtime","--json","pm2.json" ]
 EXPOSE 5050 43554
+CMD [ "pm2-runtime","--json","pm2.json" ]
