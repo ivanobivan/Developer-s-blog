@@ -11,7 +11,7 @@ services:
     environment:
       - MONGO_URI=mongodb://mongo/blog
       - PORT=5050
-      - SECRET=secret
+	  - SECRET=secret
     links:
       - mongo
     depends_on:
