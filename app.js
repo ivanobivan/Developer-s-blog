@@ -4,7 +4,7 @@ import http from 'http'
 import express from 'express';
 import webpack from 'webpack';
 import webpackMiddleware from 'webpack-dev-middleware';
-import config from './webpack.config.js';
+import config from './webpack.prod.config.js';
 import serverConfig from './src/server/config';
 import bodyParser from 'body-parser';
 import session from 'express-session';

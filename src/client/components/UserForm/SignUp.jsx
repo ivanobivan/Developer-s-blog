@@ -37,22 +37,26 @@ class SignUp extends React.Component {
         return (
             <div id="signUp__userForm__root">
                 <p>Sign Up</p>
-                <input type='text' autoFocus
-                       name="username" value={this.state.username} onChange={this.handleChangeName}
-                       placeholder="Username*"
-                       maxLength="12"
-                       minLength="6"
-                       pattern="^[\wа-яё]{6,12}$"
-                       required
-                />
-                <input type='password' name="username" value={this.state.password}
-                       onChange={this.handleChangePassword}
-                       placeholder="Password*"
-                       maxLength="12"
-                       minLength="6"
-                       pattern="^[\wа-яё]{6,12}$"
-                       required
-                />
+                <form>
+                    <input type='text' autoFocus
+                           name="username" value={this.state.username} onChange={this.handleChangeName}
+                           autoComplete="username"
+                           placeholder="Username*"
+                           maxLength="12"
+                           minLength="6"
+                           pattern="^[\wа-яё]{6,12}$"
+                           required
+                    />
+                    <input type='password' name="password" value={this.state.password}
+                           autoComplete="current-password"
+                           onChange={this.handleChangePassword}
+                           placeholder="Password*"
+                           maxLength="12"
+                           minLength="6"
+                           pattern="^[\wа-яё]{6,12}$"
+                           required
+                    />
+                </form>
                 <button type="submit" className="signUpButton__signUp" onClick={this.handleSubmit}>sign up</button>
                 <div className="errorsWrapper__signUp">
                     {signUpFail ? <div className="dbAnswer__signUp">Answer from DB<br/> [{signUpFail}]</div> : null}

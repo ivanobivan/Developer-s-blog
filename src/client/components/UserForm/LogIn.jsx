@@ -38,6 +38,7 @@ class Login extends React.Component {
                 <p>Log in</p>
                 <form>
                     <input type='text' name="username" autoFocus value={this.state.username}
+                           autoComplete="username"
                            onChange={this.handleChangeName}
                            placeholder="Username*"
                            maxLength="12"
@@ -46,6 +47,7 @@ class Login extends React.Component {
                            required
                     />
                     <input type='password' name='password' value={this.state.password}
+                           autoComplete="current-password"
                            onChange={this.handleChangePassword}
                            placeholder="Password*"
                            maxLength="12"
@@ -77,4 +79,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default  connect(mapStateToProps, mapDispatchToProps)(Login);
