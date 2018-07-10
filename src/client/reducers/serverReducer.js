@@ -1,3 +1,4 @@
+/* eslint-disable no-case-declarations */
 import {
     USER_LEVEL,
     USER_NAME,
@@ -5,15 +6,15 @@ import {
     SIGN_UP,
     LOG_IN,
     LOG_OUT
-} from "../constants/serverConstants";
+} from '../constants/serverConstants';
 
 const initialState = {
     username: null,
-    level: "unknown",
+    level: 'unknown',
     serverError: {},
-    signUpFailure: "",
-    logInFailure: "",
-    logoutRes: ""
+    signUpFailure: '',
+    logInFailure: '',
+    logoutRes: ''
 };
 
 const serverReducer = (state = initialState, action) => {
@@ -54,7 +55,7 @@ const serverReducer = (state = initialState, action) => {
             return {
                 ...state,
                 logoutRes: action.logoutRes,
-                level: "unknown",
+                level: 'unknown',
                 username: null
             };
         default:

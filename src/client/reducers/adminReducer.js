@@ -1,11 +1,11 @@
 import {
     GET_USER,
     USER_FAILURE
-} from "../constants/adminConstants"
+} from '../constants/adminConstants';
 
 const initialState = {
     userData: null,
-    requestError: ""
+    requestError: ''
 };
 
 const adminReducer = (state = initialState, action) => {
@@ -19,7 +19,7 @@ const adminReducer = (state = initialState, action) => {
                 requestError: action.requestError
             };
         default:
-            return state
+            return state;
     }
 };
 
