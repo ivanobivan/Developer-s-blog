@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import http from 'http'
+import http from 'http';
 import express from 'express';
 import webpack from 'webpack';
 import webpackMiddleware from 'webpack-dev-middleware';
@@ -9,8 +9,8 @@ import serverConfig from './src/server/config';
 import bodyParser from 'body-parser';
 import session from 'express-session';
 import passport from 'passport';
-import mongoose from 'mongoose'
-import socketIo from 'socket.io'
+import mongoose from 'mongoose';
+import socketIo from 'socket.io';
 /*------------------------------------CONSTANTS----------------------------------------------------*/
 const port = process.env.PORT || 5050;
 const app = express();

@@ -3,15 +3,15 @@ const webpack = require('webpack');
 
 module.exports = {
     mode: 'development',
-    devtool: "inline-source-map",
+    devtool: 'inline-source-map',
     entry: {
-        client: "./src/client/app.jsx",
-        admin: "./src/admin/app.jsx"
+        scriptDo: './src/client/app.jsx',
+        scriptDoTwo: './src/admin/app.jsx'
     },
     output: {
         path: path.resolve(__dirname, './public'),
         publicPath: '/public/',
-        filename: "[name].js"
+        filename: '[name].js'
     },
     watch: true,
     watchOptions: {
@@ -19,7 +19,18 @@ module.exports = {
         poll: 1000
     },
     resolve: {
-        extensions: ['.js', '.jsx','.css','less']
+        extensions: ['.js', '.jsx', '.css', 'less']
+    },
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                commons: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: 'vendor.bundle',
+                    chunks: 'all'
+                }
+            }
+        }
     },
     module: {
         rules: [

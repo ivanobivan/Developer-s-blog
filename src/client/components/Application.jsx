@@ -13,6 +13,7 @@ import Chat from './Chat/Chat'
 import configureStore from "../store/configureStore"
 import createHistory from "history/createHashHistory";
 import "../less/app/application.less";
+
 const history = createHistory();
 const store = configureStore(history);
 

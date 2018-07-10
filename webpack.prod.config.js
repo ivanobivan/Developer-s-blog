@@ -1,16 +1,26 @@
 const path = require('path');
-
 module.exports = {
     mode: 'production',
     entry: {
-        client: './src/client/app.jsx',
-        admin: './src/admin/app.jsx'
+        scriptDo: './src/client/app.jsx',
+        scriptDoTwo: './src/admin/app.jsx'
     },
     output: {
         path: path.resolve(__dirname, './public'),
         publicPath: '/public/',
         filename: '[name].js',
         chunkFilename: '[name].bundle.js',
+    },
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                commons: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: 'vendor',
+                    chunks: 'all'
+                }
+            }
+        }
     },
     resolve: {
         extensions: ['.js', '.jsx', '.css', 'less']
