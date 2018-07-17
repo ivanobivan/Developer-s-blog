@@ -4,7 +4,7 @@ import {Route} from 'react-router'
 import {ConnectedRouter} from 'react-router-redux'
 import UserForm from './UserForm/UserForm'
 import Toolbar from './Toolbar'
-import Posts from './Posts'
+import Posts from './Posts/Posts'
 import Home from "./Home"
 import Admin from "./Admin/Admin"
 import AboutMe from './AboutMe/AboutMe'

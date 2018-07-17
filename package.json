@@ -10,13 +10,16 @@
     "build:check": "node_modules/.bin/webpack --display-modules --progress --colors --config=./webpack.dev.config",
     "start": "node_modules/.bin/babel-node --inspect app.js",
     "start:prod": "babel-node app.js",
-    "storybook": "start-storybook -h 0.0.0.0 -p 9001 -c .storybook",
-    "lint": "./node_modules/.bin/eslint"
+    "storybook": "start-storybook -p 9009",
+    "lint": "./node_modules/.bin/eslint",
+    "build-storybook": "build-storybook"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "react": "^16.4.1",
+    "react-dnd": "^5.0.0",
+    "react-dnd-html5-backend": "^5.0.1",
     "react-dom": "^16.4.1",
     "react-loadable": "^5.4.0",
     "react-redux": "^5.0.6",
@@ -28,8 +31,12 @@
     "socket.io-client": "^2.1.1"
   },
   "devDependencies": {
-    "@storybook/addon-a11y": "^3.4.8",
-    "@storybook/react": "^3.4.8",
+    "@storybook/addon-actions": "4.0.0-alpha.12",
+    "@storybook/addon-info": "4.0.0-alpha.12",
+    "@storybook/addon-knobs": "4.0.0-alpha.12",
+    "@storybook/addon-options": "4.0.0-alpha.12",
+    "@storybook/addons": "4.0.0-alpha.12",
+    "@storybook/react": "4.0.0-alpha.12",
     "ajv": "^6.5.2",
     "autoprefixer": "^7.2.5",
     "axios": "^0.17.1",
@@ -44,6 +51,7 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "babel-register": "^6.26.0",
+    "babel-runtime": "^6.26.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "connect-flash": "^0.1.1",

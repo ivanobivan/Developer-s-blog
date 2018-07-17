@@ -1,17 +1,65 @@
-const Dotenv = require('dotenv-webpack');
+const path = require('path');
 const webpack = require('webpack');
-const NODE_ENV = process.env.NODE_ENV || "development";
+
 module.exports = {
-    module: require('../config/module'),
-    plugins: [
-        new Dotenv(),
-        new webpack.DefinePlugin({
-            'process.env': {
-                NODE_ENV: JSON.stringify(NODE_ENV)
+    mode: 'development',
+    devtool: 'inline-source-map',
+    entry: {
+        scriptDo: './src/client/app.jsx',
+        scriptDoTwo: './src/admin/app.jsx'
+    },
+    output: {
+        path: path.resolve(__dirname, './public'),
+        publicPath: '/public/',
+        filename: '[name].js'
+    },
+    resolve: {
+        extensions: ['.js', '.jsx', '.css', 'less']
+    },
+    /*optimization: {
+        splitChunks: {
+            cacheGroups: {
+                commons: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: 'vendor.bundle',
+                    chunks: 'all'
+                }
             }
-        }),
-        new webpack.EnvironmentPlugin([
-            "NODE_ENV"
-        ])
-    ]
+        }
+    },*/
+    module: {
+        rules: [
+            {
+                test: /\.(js|jsx)?$/,
+                exclude: [/node_modules/],
+                loader: 'babel-loader'
+            },
+
+            {
+                test: /\.(less|css)$/,
+                use: [
+                    {
+                        loader: 'style-loader'
+                    },
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            url: false
+                        }
+                    },
+                    {
+                        loader: 'postcss-loader'
+                    },
+                    {
+                        loader: 'less-loader'
+                    }
+                ]
+            },
+            {
+                test: /\.(jpe|jpg|woff|woff2|eot|ttf|svg)(\?.*$|$)/,
+                exclude: /node_modules/,
+                loader: 'url-loader'
+            },
+        ]
+    }
 };
