@@ -13,7 +13,7 @@ const squareTarget = {
     },
 
     drop(props) {
-        console.log(props.x, props.y)
+        console.log(props.x, props.y);
         props.setPosition(props.x, props.y);
     }
 };
@@ -27,6 +27,22 @@ function collect(connect, monitor) {
 }
 
 class BoardSquare extends Component {
+
+    renderOverlay(color) {
+        return (
+            <div style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                height: '100%',
+                width: '100%',
+                zIndex: 1,
+                opacity: 0.5,
+                backgroundColor: color,
+            }}/>
+        );
+    }
+
     render() {
         const {x, y, connectDropTarget, isOver, canDrop} = this.props;
         const black = (x + y) % 2 === 1;
@@ -40,18 +56,9 @@ class BoardSquare extends Component {
                 <Square black={black}>
                     {this.props.children}
                 </Square>
-                {isOver &&
-                <div style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    height: '100%',
-                    width: '100%',
-                    zIndex: 1,
-                    opacity: 0.5,
-                    backgroundColor: isOver ? canDrop ? 'green' : 'red' : 'yellow',
-                }}/>
-                }
+                {isOver && !canDrop && this.renderOverlay('red')}
+                {!isOver && canDrop && this.renderOverlay('yellow')}
+                {isOver && canDrop && this.renderOverlay('green')}
             </div>
         );
     }
