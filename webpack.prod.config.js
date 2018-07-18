@@ -2,8 +2,7 @@ const path = require('path');
 module.exports = {
     mode: 'production',
     entry: {
-        scriptDo: './src/client/app.jsx',
-        scriptDoTwo: './src/admin/app.jsx'
+        scriptDo: './src/client/app.jsx'
     },
     output: {
         path: path.resolve(__dirname, './public'),

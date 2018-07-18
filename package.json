@@ -10,7 +10,7 @@
     "build:check": "node_modules/.bin/webpack --display-modules --progress --colors --config=./webpack.dev.config",
     "start": "node_modules/.bin/babel-node --inspect app.js",
     "start:prod": "babel-node app.js",
-    "storybook": "start-storybook -p 9009",
+    "storybook": "start-storybook s ./node_modules, ./static  -p 9009",
     "lint": "./node_modules/.bin/eslint",
     "build-storybook": "build-storybook"
   },

@@ -4,7 +4,7 @@ import {Route} from 'react-router'
 import {ConnectedRouter} from 'react-router-redux'
 import UserForm from './UserForm/UserForm'
 import Toolbar from './Toolbar'
-import Posts from './Posts/Posts'
+import ChessBoard from './Chess/ChessBoard'
 import Home from "./Home"
 import Admin from "./Admin/Admin"
 import AboutMe from './AboutMe/AboutMe'
@@ -39,7 +39,7 @@ export default class Application extends React.Component {
                         <Toolbar/>
                         <Route exact path='/' component={Home}/>
                         <Route path="/userform" component={UserForm}/>
-                        <Route path="/posts" component={Posts}/>
+                        <Route path="/posts" component={ChessBoard}/>
                         <Route path="/aboutme" component={AboutMe}/>
                         <Route path="/admin" component={Admin}/>
                         <Route path="/serverError" component={ServerError}/>

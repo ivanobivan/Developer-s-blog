@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import Square from './Square';
 import Knight from './Knight';
 import {DragDropContext} from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
@@ -15,7 +14,6 @@ class Board extends Component {
     renderSquare(i) {
         const x = i % 8;
         const y = Math.floor(i / 8);
-
         return (
             <div key={i}
                  style={{width: '12.5%', height: '12.5%'}}
@@ -25,7 +23,7 @@ class Board extends Component {
                     x={x}
                     y={y}
                     setPosition={this.setPosition}
-                    disablePoint={this.props.disablePoint}
+                    knightPosition={this.props.knightPosition}
                 >
                     {this.renderPiece(x, y)}
                 </BoardSquare>
@@ -36,7 +34,7 @@ class Board extends Component {
     renderPiece(x, y) {
         const [knightX, knightY] = this.props.knightPosition;
         if (x === knightX && y === knightY) {
-            return <Knight/>;
+            return <Knight image={this.props.image}/>;
         }
     }
 
@@ -48,13 +46,7 @@ class Board extends Component {
 
         return (
             <div
-                id='posts_root'
-                style={{
-                    width: '100%',
-                    height: '100vh',
-                    display: 'flex',
-                    flexWrap: 'wrap'
-                }}>
+                id='posts_root'>
                 {squares}
             </div>
         );

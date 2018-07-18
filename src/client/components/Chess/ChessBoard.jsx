@@ -1,8 +1,9 @@
 import React from 'react'
 import {connect} from "react-redux";
 import Board from "./Board";
+import {checkPoint} from "../../api/api";
 
-class Posts extends React.Component {
+class ChessBoard extends React.Component {
 
     constructor(props) {
         super(props);
@@ -11,16 +12,11 @@ class Posts extends React.Component {
         }
     }
 
-    disablePoint = (dx, dy) => {
-        return (Math.abs(dx) === 2 && Math.abs(dy) === 1) ||
-            (Math.abs(dx) === 1 && Math.abs(dy) === 2)
-    };
-
     setPosition = (toX, toY) => {
         const [x, y] = this.state.knightPosition;
         const dx = toX - x;
         const dy = toY - y;
-        if (this.disablePoint(dx,dy)) {
+        if (checkPoint(dx,dy,this.state.knightPosition)) {
             this.setState({
                 knightPosition: [toX, toY]
             })
@@ -33,7 +29,7 @@ class Posts extends React.Component {
         return <Board
             knightPosition={this.state.knightPosition}
             setPosition={this.setPosition}
-            disablePoint={this.disablePoint}
+            image={this.props.image}
         />
     }
 
@@ -47,4 +43,4 @@ const mapDispatchToProps = dispatch => {
     return {};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Posts);
+export default connect(mapStateToProps, mapDispatchToProps)(ChessBoard);
