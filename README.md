@@ -1,4 +1,4 @@
-# Developer blog
+# My react-sandbox
 ## Welcome to my githib repository
 
 ### Application
@@ -14,6 +14,7 @@ The mongodb is neccesary for work, then you should to use it or use docker.
 $ cd Developer-s-blog
 $ npm install
 $ systemctl start mongo
+$ npm run build:prod
 $ npm start
 ```
 After this you may look for your application on:
@@ -31,6 +32,3 @@ $ python3 start.py
 $ sudo docker-compose build
 $ sudo docker-compose up
 ```
-License
-----
-MIT
