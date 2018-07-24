@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 export default class Square extends Component {
     render() {
-        const { black } = this.props;
+        const {black} = this.props;
         const fill = black ? 'black' : 'white';
         const stroke = black ? 'white' : 'black';
 
