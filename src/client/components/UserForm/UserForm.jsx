@@ -1,9 +1,9 @@
 import React from 'react';
 import {connect} from 'react-redux'
-import SignUp from './SignUp';
-import LogIn from './LogIn';
+import InputField from './InputField';
 import {Route} from 'react-router'
 import {push} from "react-router-redux";
+
 
 
 export class UserForm extends React.Component {
@@ -18,8 +18,10 @@ export class UserForm extends React.Component {
                 <div className="formWrapper__userForm">
                     <button onClick={this.goToTheURL} name='/userform/signup'>Sign Up</button>
                     <button onClick={this.goToTheURL} name='/userform/login'>Log in</button>
-                    <Route path='/userform/login' component={LogIn}/>
-                    <Route path='/userform/signup' component={SignUp}/>
+                    <Route path='/userform/signup' component={InputField}/>
+                    <Route exact path='/userform/login' render={(props) => (
+                        <InputField {...props} login />
+                    )}/>
                 </div>
             </div>
         )

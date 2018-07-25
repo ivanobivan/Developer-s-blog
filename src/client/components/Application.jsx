@@ -40,7 +40,7 @@ const ServerErrorComponent = Loadable ({
 });
 
 const ChessBoardComponent = Loadable ({
-    loader: () => import('./Server/ServerError'),
+    loader: () => import('./Chess/ChessBoard'),
     loading: Loading,
 });
 

@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from "react-redux";
 import Board from "./Board";
 import {checkPoint} from "../../api/api";
+import ErrorBoundary from '../ErrorBoundary'
 
 class ChessBoard extends React.Component {
 
@@ -16,7 +17,7 @@ class ChessBoard extends React.Component {
         const [x, y] = this.state.knightPosition;
         const dx = toX - x;
         const dy = toY - y;
-        if (checkPoint(dx,dy,this.state.knightPosition)) {
+        if (checkPoint(dx, dy, this.state.knightPosition)) {
             this.setState({
                 knightPosition: [toX, toY]
             })
@@ -26,11 +27,15 @@ class ChessBoard extends React.Component {
     };
 
     render() {
-        return <Board
-            knightPosition={this.state.knightPosition}
-            setPosition={this.setPosition}
-            image={this.props.image}
-        />
+        return (
+            <ErrorBoundary>
+                <Board
+                    knightPosition={this.state.knightPosition}
+                    setPosition={this.setPosition}
+                    image={this.props.image}
+                />
+            </ErrorBoundary>
+        )
     }
 
 }
