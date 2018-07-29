@@ -2,6 +2,7 @@ import React from 'react';
 import {changelocation, checkUser, logOut} from '../../actions/serverActions';
 import {connect} from 'react-redux';
 import {push} from 'react-router-redux';
+import Link from "./Link";
 
 let pushed = null;
 const goToTheURL = (event, props) => {
@@ -10,20 +11,20 @@ const goToTheURL = (event, props) => {
 
 const Toolbar = (props) => {
     pushed = props.push;
-    const level = props.server.level;
+    const {server, COMPONENT} = props;
     return (
         <nav id="toolbar__root">
-            <a onClick={goToTheURL} data-link="/">Home</a>
-            <a onClick={goToTheURL} data-link='/posts'>Posts</a>
-            {level === 'unknown' ?
-                <a onClick={goToTheURL} data-link='/userform/logIn'>Log in</a> : null
+            <Link handler={goToTheURL} link={COMPONENT.HOME} name='Home'/>
+            <Link handler={goToTheURL} link={COMPONENT.POSTS} name='Posts'/>
+            {server.level === 'unknown' &&
+            <Link handler={goToTheURL} link={COMPONENT.USERFORM} name='Log In'/>
             }
-            <a onClick={goToTheURL} data-link='/aboutme'>About</a>
-            {level === 'admin' ?
-                <a onClick={goToTheURL} data-link='/admin'>Admin</a> : null
+            <Link handler={goToTheURL} link={COMPONENT.ABOUTME} name='About'/>
+            {server.level === 'admin' &&
+            <Link handler={goToTheURL} link={COMPONENT.ADMIN} name='Admin'/>
             }
-            {level !== 'unknown' ?
-                <a onClick={goToTheURL} data-link="/chat">Chat</a> : null
+            {server.level !== 'unknown' &&
+            <Link handler={goToTheURL} link={COMPONENT.CHAT} name='Chat'/>
             }
         </nav>
     );

@@ -21,11 +21,23 @@ export const KNIGHT = 'KNIGHT';
 /*
 * SERVER CONSTANTS
 * */
-export const USER_LEVEL =  'USER_LEVEL';
-export const USER_NAME =  'USER_NAME';
-export const SERVER_ERROR =  'SERVER_ERROR';
-export const SIGN_UP =  'SIGN_UP';
-export const LOG_IN =  'LOG_IN';
-export const LOG_OUT =  'LOG_OUT';
+export const USER_LEVEL = 'USER_LEVEL';
+export const USER_NAME = 'USER_NAME';
+export const SERVER_ERROR = 'SERVER_ERROR';
+export const SIGN_UP = 'SIGN_UP';
+export const LOG_IN = 'LOG_IN';
+export const LOG_OUT = 'LOG_OUT';
 
+/*
+* COMPONENTS CONSTANTS
+* */
 
+export const COMPONENT = {
+    HOME: '/',
+    USERFORM: '/userform',
+    POSTS: '/posts',
+    ABOUTME: '/aboutme',
+    ADMIN: '/admin',
+    SERVER_ERROR: '/servererror',
+    CHAT: '/chat'
+};

@@ -7,6 +7,7 @@ import Toolbar from './Toolbar/Toolbar'
 import Chat from './Chat/Chat'
 import configureStore from "../store/configureStore"
 import createHistory from "history/createHashHistory";
+import {COMPONENT} from "../constants/const";
 import "../less/app/application.less";
 
 const history = createHistory();
@@ -65,7 +66,7 @@ export default class Application extends React.Component {
                 <ConnectedRouter history={history}>
                     <main>
                         <Toolbar
-
+                            COMPONENT={COMPONENT}
                         />
                         <Route exact path='/' component={HomeComponent}/>
                         <Route path="/userform" component={UserFormComponent}/>
