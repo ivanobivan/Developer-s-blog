@@ -3,7 +3,7 @@ import {Provider} from "react-redux";
 import {Route} from 'react-router'
 import {ConnectedRouter} from 'react-router-redux'
 import Loadable from 'react-loadable';
-import Toolbar from './Toolbar'
+import Toolbar from './Toolbar/Toolbar'
 import Chat from './Chat/Chat'
 import configureStore from "../store/configureStore"
 import createHistory from "history/createHashHistory";
@@ -64,7 +64,9 @@ export default class Application extends React.Component {
             <Provider store={store}>
                 <ConnectedRouter history={history}>
                     <main>
-                        <Toolbar/>
+                        <Toolbar
+
+                        />
                         <Route exact path='/' component={HomeComponent}/>
                         <Route path="/userform" component={UserFormComponent}/>
                         <Route path="/posts" component={ChessBoardComponent}/>
@@ -80,6 +82,3 @@ export default class Application extends React.Component {
         )
     }
 }
-
-
-

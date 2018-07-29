@@ -1,8 +1,8 @@
 import {
     GET_USER,
     USER_FAILURE
-} from "../constants/adminConstants"
-import {SERVER_ERROR} from "../constants/serverConstants"
+} from "../constants/const"
+import {SERVER_ERROR} from "../constants/const"
 import axios from 'axios'
 import {push} from "react-router-redux";
 

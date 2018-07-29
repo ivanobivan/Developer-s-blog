@@ -5,7 +5,7 @@ import {
 	SIGN_UP,
 	LOG_IN,
 	LOG_OUT
-} from '../constants/serverConstants';
+} from '../constants/const';
 import axios from 'axios';
 import {push} from 'react-router-redux';
 

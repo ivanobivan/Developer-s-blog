@@ -6,7 +6,7 @@ import {
     ADD_ROOM,
     CHANGE_ACTIVE_ROOM,
     DELETE_ROOM
-} from '../constants/chatConstants';
+} from '../constants/const';
 
 const initialState = {
     userPull: [],

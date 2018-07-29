@@ -6,10 +6,6 @@ import {checkUser, logOut} from '../actions/serverActions'
 
 export class Home extends React.Component {
 
-    constructor(props) {
-        super(props);
-    }
-
     goToTheURL = event => {
         this.props.push(event.target.attributes.name.nodeValue)
     };

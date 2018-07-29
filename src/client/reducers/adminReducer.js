@@ -1,7 +1,7 @@
 import {
     GET_USER,
     USER_FAILURE
-} from '../constants/adminConstants';
+} from '../constants/const';
 
 const initialState = {
     userData: null,

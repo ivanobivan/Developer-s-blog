@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {DragSource} from 'react-dnd';
-import {ItemTypes} from '../../constants/dndConstants';
+import {KNIGHT} from '../../constants/const';
 
 
 
@@ -42,4 +42,4 @@ class Knight extends Component {
     }
 }
 
-export default  DragSource(ItemTypes.KNIGHT, knightSource, collect)(Knight);
+export default  DragSource(KNIGHT, knightSource, collect)(Knight);

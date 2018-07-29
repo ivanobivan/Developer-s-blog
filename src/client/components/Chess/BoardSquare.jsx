@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Square from './Square';
-import {ItemTypes} from '../../constants/dndConstants';
+import {KNIGHT} from '../../constants/const';
 import {DropTarget} from 'react-dnd';
 import {checkPoint} from "../../api/api";
 
@@ -64,4 +64,4 @@ class BoardSquare extends Component {
     }
 }
 
-export default DropTarget(ItemTypes.KNIGHT, squareTarget, collect)(BoardSquare);
+export default DropTarget(KNIGHT, squareTarget, collect)(BoardSquare);

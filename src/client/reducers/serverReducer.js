@@ -6,7 +6,7 @@ import {
     SIGN_UP,
     LOG_IN,
     LOG_OUT
-} from '../constants/serverConstants';
+} from '../constants/const';
 
 const initialState = {
     username: null,
