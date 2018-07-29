@@ -1,17 +1,10 @@
 import React from 'react';
-import {changelocation, checkUser, logOut} from '../../actions/serverActions';
-import {connect} from 'react-redux';
-import {push} from 'react-router-redux';
+import {changelocation,} from '../../actions/serverActions';
 import Link from "./Link";
 
-let pushed = null;
-const goToTheURL = (event, props) => {
-    pushed(event.target.dataset.link);
-};
 
 const Toolbar = (props) => {
-    pushed = props.push;
-    const {server, COMPONENT} = props;
+    const {server, COMPONENT, goToTheURL} = props;
     return (
         <nav id="toolbar__root">
             <Link handler={goToTheURL} link={COMPONENT.HOME} name='Home'/>
@@ -31,16 +24,4 @@ const Toolbar = (props) => {
 
 };
 
-const mapStateToProps = state => {
-    return {
-        server: state.server
-    };
-};
-
-const mapDispatchToProps = dispatch => {
-    return {
-        push: location => dispatch(push(location)),
-    };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Toolbar);
+export default Toolbar;

@@ -34,7 +34,7 @@ export const LOG_OUT = 'LOG_OUT';
 
 export const COMPONENT = {
     HOME: '/',
-    USERFORM: '/userform',
+    USERFORM: '/userform/login',
     POSTS: '/posts',
     ABOUTME: '/aboutme',
     ADMIN: '/admin',
