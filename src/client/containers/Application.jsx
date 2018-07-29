@@ -6,6 +6,8 @@ import "../less/app/application.less";
 import {checkUser, logOut, switchComponent} from "../actions/serverActions";
 import {connect} from "react-redux";
 import AboutMe from "../components/AboutMe/AboutMe";
+import {Home} from "../components/Home";
+import {UserForm} from "../components/UserForm/UserForm";
 
 
 const Loading = () => <div>Loading...</div>;
@@ -61,15 +63,15 @@ class Application extends React.Component {
         let component = null;
         switch (server.currentPage) {
             case 'home': {
-                component = HomeComponent;
+                component = <Home/>;
                 break
             }
             case 'userForm': {
-                component = UserFormComponent;
+                component = <UserForm/>;
                 break
             }
             case 'aboutMe': {
-                component = AboutMeComponent;
+                component = <AboutMe/>;
                 break
             }
             default : {
