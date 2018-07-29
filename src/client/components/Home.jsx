@@ -26,8 +26,7 @@ export class Home extends React.Component {
         const level = this.props.server.level;
         return (
             <div id="home__root">
-                <h1>Welcome to my page</h1>
-                <h2>Please, push the buttons</h2>
+                <h1>Welcome</h1>
                 <div className="buttonGroup__home">
                     <button onClick={this.goToTheURL} name="/posts">View posts</button>
                     {level === 'unknown' ?

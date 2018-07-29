@@ -35,7 +35,7 @@ export default class Application extends React.Component {
         return (
             <Provider store={store}>
                 <ConnectedRouter history={history}>
-                    <div>
+                    <main>
                         <Toolbar/>
                         <Route exact path='/' component={Home}/>
                         <Route path="/userform" component={UserForm}/>
@@ -46,7 +46,7 @@ export default class Application extends React.Component {
                         <Route path="/chat" render={() =>
                             <Chat socketWasInitialized={this.state.socketWasInitialized}
                                   initializeSocket={this.initializeSocket}/>}/>
-                    </div>
+                    </main>
                 </ConnectedRouter>
             </Provider>
         )

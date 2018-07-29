@@ -3,6 +3,6 @@ import ReactDom from 'react-dom';
 import Application from './components/Application';
 
 ReactDom.render(
-    <Application/>,
-    document.getElementById('client')
+	<Application/>,
+	document.getElementById('client')
 );
