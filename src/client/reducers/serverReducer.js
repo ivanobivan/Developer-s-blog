@@ -5,10 +5,12 @@ import {
     SERVER_ERROR,
     SIGN_UP,
     LOG_IN,
-    LOG_OUT
+    LOG_OUT,
+    SWITCH_COMPONENT
 } from '../constants/const';
 
 const initialState = {
+    currentPage: '',
     username: null,
     level: 'unknown',
     serverError: {},
@@ -58,6 +60,12 @@ const serverReducer = (state = initialState, action) => {
                 level: 'unknown',
                 username: null
             };
+        case SWITCH_COMPONENT: {
+            return {
+                ...state,
+                currentPage: action.page
+            };
+        }
         default:
             return state;
     }

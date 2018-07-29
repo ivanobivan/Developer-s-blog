@@ -21,6 +21,7 @@ export const KNIGHT = 'KNIGHT';
 /*
 * SERVER CONSTANTS
 * */
+export const SWITCH_COMPONENT = 'SWITCH_COMPONENT';
 export const USER_LEVEL = 'USER_LEVEL';
 export const USER_NAME = 'USER_NAME';
 export const SERVER_ERROR = 'SERVER_ERROR';
@@ -32,12 +33,26 @@ export const LOG_OUT = 'LOG_OUT';
 * COMPONENTS CONSTANTS
 * */
 
-export const COMPONENT = {
-    HOME: '/',
-    USERFORM: '/userform/login',
-    POSTS: '/posts',
-    ABOUTME: '/aboutme',
-    ADMIN: '/admin',
-    SERVER_ERROR: '/servererror',
-    CHAT: '/chat'
-};
+export const COMPONENT = [
+    {
+        name: 'home'
+    },
+    {
+        name: 'userForm'
+    },
+    {
+        name: 'post'
+    },
+    {
+        name: 'aboutMe'
+    },
+    {
+        name: 'admin'
+    },
+    {
+        name: 'error'
+    },
+    {
+        name: 'chat'
+    }
+];

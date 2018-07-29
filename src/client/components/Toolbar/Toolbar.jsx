@@ -1,24 +1,21 @@
 import React from 'react';
-import {changelocation,} from '../../actions/serverActions';
-import Link from "./Link";
-
+import {changelocation} from '../../actions/serverActions';
+import {COMPONENT} from '../../constants/const';
 
 const Toolbar = (props) => {
-    const {server, COMPONENT, goToTheURL} = props;
+    const {server, switchComponent} = props;
     return (
         <nav id="toolbar__root">
-            <Link handler={goToTheURL} link={COMPONENT.HOME} name='Home'/>
-            <Link handler={goToTheURL} link={COMPONENT.POSTS} name='Posts'/>
-            {server.level === 'unknown' &&
-            <Link handler={goToTheURL} link={COMPONENT.USERFORM} name='Log In'/>
-            }
-            <Link handler={goToTheURL} link={COMPONENT.ABOUTME} name='About'/>
-            {server.level === 'admin' &&
-            <Link handler={goToTheURL} link={COMPONENT.ADMIN} name='Admin'/>
-            }
-            {server.level !== 'unknown' &&
-            <Link handler={goToTheURL} link={COMPONENT.CHAT} name='Chat'/>
-            }
+            {COMPONENT.map((e, i) => {
+                return (
+                    <a
+                        key={i}
+                        onClick={switchComponent}
+                        data-link={e.name}
+                    >
+                        {e.name.toUpperCase()}
+                    </a>);
+            })}
         </nav>
     );
 

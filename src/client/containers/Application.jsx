@@ -1,13 +1,11 @@
 import React from 'react';
-import {Route} from 'react-router'
 import Loadable from 'react-loadable';
 import Toolbar from '../components/Toolbar/Toolbar'
-import Chat from '../components/Chat/Chat'
 import {COMPONENT} from "../constants/const";
 import "../less/app/application.less";
-import {push} from "react-router-redux";
-import {checkUser, logOut} from "../actions/serverActions";
+import {checkUser, logOut, switchComponent} from "../actions/serverActions";
 import {connect} from "react-redux";
+import AboutMe from "../components/AboutMe/AboutMe";
 
 
 const Loading = () => <div>Loading...</div>;
@@ -50,33 +48,49 @@ class Application extends React.Component {
         sessionStorage.setItem("loaded", true);
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
-    }
-
     initializeSocket = () => {
         this.setState({socketWasInitialized: true})
     };
 
-    goToTheURL = (event) => {
-        this.props.push(event.target.dataset.link);
+    switchComponent = (event) => {
+        this.props.switchComponent(event.target.dataset.link);
     };
 
     render() {
+        const {server} = this.props;
+        let component = null;
+        switch (server.currentPage) {
+            case 'home': {
+                component = HomeComponent;
+                break
+            }
+            case 'userForm': {
+                component = UserFormComponent;
+                break
+            }
+            case 'aboutMe': {
+                component = AboutMeComponent;
+                break
+            }
+            default : {
+                break
+            }
+        }
         return (
             <main>
                 <Toolbar
-                    COMPONENT={COMPONENT}
-                    server={this.props.server}
-                    goToTheURL={this.goToTheURL}
+                    server={server}
+                    switchComponent={this.switchComponent}
                 />
-                <Route exact path='/' component={HomeComponent}/>
+                {component}
+                {/*<Route exact path='/' component={HomeComponent}/>
                 <Route path="/userform" component={UserFormComponent}/>
                 <Route path="/posts" component={ChessBoardComponent}/>
                 <Route path="/aboutme" component={AboutMeComponent}/>
                 <Route path="/admin" component={AdminComponent}/>
                 <Route path="/chat" render={() =>
                     <Chat socketWasInitialized={this.state.socketWasInitialized}
-                          initializeSocket={this.initializeSocket}/>}/>
+                          initializeSocket={this.initializeSocket}/>}/>*/}
             </main>
         )
     }
@@ -90,9 +104,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        push: location => dispatch(push(location)),
         checkUser: () => dispatch(checkUser()),
-        logOut: () => dispatch(logOut())
+        logOut: () => dispatch(logOut()),
+        switchComponent: page => dispatch(switchComponent(page))
     };
 };
 
