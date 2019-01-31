@@ -1,0 +1,33 @@
+@import "../mixins";
+
+#home__root {
+  .height_with_toolbar();
+  z-index: 0;
+  position: relative;
+  h1, h2 {
+    .default_font(normal, 22px);
+    text-align: center;
+    position: absolute;
+    top: 20%;
+    right: 0;
+    left: 0;
+    color: white;
+  }
+  h2 {
+    top: 25%;
+  }
+  .buttonGroup__home {
+    display: flex;
+    justify-content: space-around;
+    flex-flow: row wrap;
+    height: 100%;
+    align-items: flex-end;
+
+    button {
+      display: block;
+      margin-bottom: 20px;
+      .button(auto, 0);
+    }
+  }
+  .animated_background();
+}

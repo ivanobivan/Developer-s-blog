@@ -1,0 +1,25 @@
+@import '../../mixins';
+
+.inputPanel__chatSide {
+  display: flex;
+  input {
+    flex:9;
+    font: normal 24px Arial, sans-serif;
+    padding-left: 5px;
+  }
+  button {
+    .button(200px,unset,unset);
+    flex:1;
+    margin: unset;
+    height: inherit;
+    &:hover {
+      background: lightpink;
+    }
+  };
+  .errorWrapper__chat {
+    .tooltip_wrapper_preset();
+    .errorMessageLength__chat {
+      .tooltip_preset(#ff50fe);
+    }
+  }
+}

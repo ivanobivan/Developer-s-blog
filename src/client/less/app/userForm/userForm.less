@@ -1,0 +1,32 @@
+@import "../../mixins";
+@import "signUp";
+@import "logIn";
+
+@form_height: 300px;
+@form_width: 500px;
+#userForm__root {
+  .height_with_toolbar();
+  .animated_background();
+  .formWrapper__userForm {
+    margin: auto;
+    width: @form_width;
+    height: @form_height;
+    box-shadow: 1px 1px 10px rgba(0,0,0,0.2);
+    background-color: white;
+    position: absolute;
+    top:calc(~"0% + @{form_height}/2");
+    left: calc(~"50% - @{form_width}/2");
+    display: flex;
+    align-items: start;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  button {
+    .button;
+    display: inline-block;
+    border-radius: 0;
+    flex: 1;
+    margin: 0 auto ;
+    border: none;
+  }
+}

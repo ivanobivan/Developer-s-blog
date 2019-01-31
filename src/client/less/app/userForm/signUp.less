@@ -1,0 +1,21 @@
+@import "../../mixins";
+
+#signUp__userForm__root {
+  .default_font(normal;16px;monospace;black);
+  .custom_form();
+  width: 100%;
+  .signUpButton__signUp {
+    display: block;
+    border-radius: 5px;
+  }
+
+  .errorsWrapper__signUp {
+    .tooltip_wrapper_preset();
+    .dbAnswer__signUp {
+      .tooltip_preset(#fdff6b);
+    }
+    .wrongNameOrPass__signUp {
+      .tooltip_preset(#5bff86);
+    }
+  }
+}

@@ -1,0 +1,26 @@
+.messagePanel__chatSide{
+  flex: 11;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  .oneMessage__messagePanel {
+    display: flex;
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+    padding: 10px;
+    font: normal 14px Arial, sans-serif;
+    &:hover {
+      background-color: #ffdff1;
+    }
+    &:active {
+      background-color: lightpink;
+    }
+    .name__oneMessage {
+      &::after {
+        content: '::';
+        margin-left: 5px;
+      }
+    }
+    .value__oneMessage {
+      margin-left: 5px;
+    }
+  }
+}

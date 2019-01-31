@@ -1,0 +1,20 @@
+@import "../../mixins";
+
+#logIn__userForm__root {
+  .default_font(normal;16px;monospace;black);
+  .custom_form();
+  width: 100%;
+  .logInButton__logIn {
+    display: block;
+    border-radius: 5px;
+  }
+  .errorsWrapper__logIn {
+    .tooltip_wrapper_preset();
+    .dbAnswer__logIn {
+      .tooltip_preset(#fdff6b);
+    }
+    .wrongNameOrPass__logIn {
+      .tooltip_preset(#5bff86);
+    }
+  }
+}
