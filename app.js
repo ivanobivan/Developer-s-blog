@@ -17,7 +17,7 @@ const app = express();
 
 /*------------------------------------REQUIREMENTS----------------------------------------------------*/
 const mongo = process.env.MONGO_URI || serverConfig.dbUri;
-//require('./src/server/models').connect(mongo);
+require('./src/server/models').connect(mongo);
 /*------------------------------------OPTIONS----------------------------------------------------*/
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
