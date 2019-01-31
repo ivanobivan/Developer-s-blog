@@ -1,5 +1,4 @@
-import React from 'react'
-import {connect} from "react-redux";
+import React from 'react';
 
 class Description extends React.Component {
 
@@ -11,19 +10,8 @@ class Description extends React.Component {
                 <p>I am glad to see you on this page
                     Please, add this page in favorites and follow the development</p>
             </div>
-        )
+        );
     }
 }
-const mapStateToProps = state => {
-    return {
 
-    };
-};
-
-const mapDispatchToProps = dispatch => {
-    return {
-
-    };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Description);
+export default Description;
