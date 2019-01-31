@@ -5,6 +5,7 @@ import express from 'express';
 import webpack from 'webpack';
 import webpackMiddleware from 'webpack-dev-middleware';
 import config from './webpack.prod.config.js';
+import serverConfig from './src/server/config';
 import bodyParser from 'body-parser';
 import session from 'express-session';
 import passport from 'passport';
@@ -15,7 +16,7 @@ const port = process.env.PORT || 5050;
 const app = express();
 
 /*------------------------------------REQUIREMENTS----------------------------------------------------*/
-const mongo = process.env.MONGO_URI || "mongodb://localhost:27017/blog";
+const mongo = process.env.MONGO_URI || serverConfig.dbUri;
 require('./src/server/models').connect(mongo);
 /*------------------------------------OPTIONS----------------------------------------------------*/
 app.use(bodyParser.json());

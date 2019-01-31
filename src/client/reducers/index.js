@@ -1,8 +1,8 @@
-import {routerReducer} from 'react-router-redux';
-import serverReducer from './serverReducer';
-import adminReducer from './adminReducer';
-import chatReducer from './chatReducer';
-import {combineReducers} from 'redux';
+import {routerReducer} from 'react-router-redux'
+import serverReducer from "./serverReducer";
+import adminReducer from './adminReducer'
+import chatReducer from './chatReducer'
+import {combineReducers} from "redux";
 
 const rootReducer = combineReducers({
     server: serverReducer,
@@ -10,5 +10,5 @@ const rootReducer = combineReducers({
     chat: chatReducer,
     router: routerReducer
 });
-export default rootReducer;
+export default rootReducer     ;
 

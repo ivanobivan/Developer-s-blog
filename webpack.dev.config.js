@@ -5,7 +5,8 @@ module.exports = {
     mode: 'development',
     devtool: 'inline-source-map',
     entry: {
-        scriptDo: './src/client/app.jsx'
+        scriptDo: './src/client/app.jsx',
+        scriptDoTwo: './src/admin/app.jsx'
     },
     output: {
         path: path.resolve(__dirname, './public'),

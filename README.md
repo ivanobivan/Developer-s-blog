@@ -1,5 +1,5 @@
-# My react-sandbox
-## Welcome to my github repository
+# Developer blog
+## Welcome to my githib repository
 
 ### Application
 You can find the application:
@@ -9,12 +9,11 @@ You can find the application:
 
 Install the  dependencies and start the server.
 You need the node js npm and mongodb.
-The mongodb is necessary for work, then you should to use it or use docker.
+The mongodb is neccesary for work, then you should to use it or use docker.
 ```sh
 $ cd Developer-s-blog
 $ npm install
-$ sudo systemctl start mongod.service
-$ npm run build:prod
+$ systemctl start mongo
 $ npm start
 ```
 After this you may look for your application on:
@@ -32,3 +31,6 @@ $ python3 start.py
 $ sudo docker-compose build
 $ sudo docker-compose up
 ```
+License
+----
+MIT

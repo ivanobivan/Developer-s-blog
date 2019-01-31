@@ -1,4 +1,3 @@
-/* eslint-disable no-case-declarations */
 import {
     FORWARD_MESSAGE,
     SET_USER_PULL,
@@ -6,11 +5,11 @@ import {
     ADD_ROOM,
     CHANGE_ACTIVE_ROOM,
     DELETE_ROOM
-} from '../constants/const';
+} from "../constants/chatConstants";
 
 const initialState = {
     userPull: [],
-    activeRoom: 'common+',
+    activeRoom: "common+",
     roomPull: [
         {
             name: 'common+',
@@ -44,7 +43,7 @@ const chatReducer = (state = initialState, action) => {
                 userPull: state.userPull
             };
         case CLEAR_MESSAGE_PULL:
-            const clearPull = findObject(state.roomPull, action.room, 'name');
+            const clearPull = findObject(state.roomPull, action.room, "name");
             state.roomPull[clearPull.index].messagePull = [];
             return {
                 ...state,
@@ -84,7 +83,7 @@ const chatReducer = (state = initialState, action) => {
         case DELETE_ROOM:
             const indexRoom = state.roomPull.findIndex(elem => elem.name === action.room);
             if (indexRoom >= 0) {
-                state.roomPull.splice(indexRoom, 1);
+                state.roomPull.splice(indexRoom, 1)
             }
             return {
                 ...state,
@@ -102,7 +101,7 @@ const findObject = (pull, name, prefix) => {
             return {
                 object: pull[i],
                 index: i
-            };
+            }
         }
     }
 };

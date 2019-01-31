@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from "react-redux";
 import {logIn} from "../../actions/serverActions";
 
-class InputField extends React.Component {
+class Login extends React.Component {
 
     constructor(props) {
         super(props);
@@ -32,17 +32,12 @@ class InputField extends React.Component {
 
 
     render() {
-        const {login} = this.props;
-        const serverError = login ? this.props.server.logInFailure : this.props.server.signUpFailure;
-        const holder = login ? 'Log in' : 'Sign Up';
+        const loginFail = this.props.server.logInFailure;
         return (
             <div id="logIn__userForm__root">
-                <p>{holder}</p>
+                <p>Log in</p>
                 <form>
-                    <input type='text'
-                           name="username"
-                           autoFocus
-                           value={this.state.username}
+                    <input type='text' name="username" autoFocus value={this.state.username}
                            autoComplete="username"
                            onChange={this.handleChangeName}
                            placeholder="Username*"
@@ -51,9 +46,7 @@ class InputField extends React.Component {
                            pattern="^[\wа-яё]{6,12}$"
                            required
                     />
-                    <input type='password'
-                           name='password'
-                           value={this.state.password}
+                    <input type='password' name='password' value={this.state.password}
                            autoComplete="current-password"
                            onChange={this.handleChangePassword}
                            placeholder="Password*"
@@ -65,7 +58,7 @@ class InputField extends React.Component {
                     <button type="submit" className="logInButton__logIn" onClick={this.handleSubmit}>Log in</button>
                 </form>
                 <div className="errorsWrapper__logIn">
-                    {serverError ? <div className="dbAnswer__logIn">Answer from DB<br/> [{serverError}]</div> : null}
+                    {loginFail ? <div className="dbAnswer__logIn">Answer from DB<br/> [{loginFail}]</div> : null}
                     {this.state.signUpMessage ?
                         <div className="wrongNameOrPass__logIn">{this.state.signUpMessage}</div> : null}
                 </div>
@@ -74,10 +67,9 @@ class InputField extends React.Component {
     }
 }
 
-const mapStateToProps = (state, router) => {
+const mapStateToProps = state => {
     return {
-        server: state.server,
-        router: router
+        server: state.server
     };
 };
 
@@ -87,4 +79,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default  connect(mapStateToProps, mapDispatchToProps)(InputField);
+export default  connect(mapStateToProps, mapDispatchToProps)(Login);

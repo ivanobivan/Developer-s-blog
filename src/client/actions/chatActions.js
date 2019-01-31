@@ -5,7 +5,7 @@ import {
     ADD_ROOM,
     CHANGE_ACTIVE_ROOM,
     DELETE_ROOM
-} from "../constants/const";
+} from "../constants/chatConstants";
 
 
 export const changeActiveRoom = (room) => {

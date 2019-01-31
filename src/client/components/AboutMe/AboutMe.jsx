@@ -1,44 +1,34 @@
-import {ThemeContext, themes} from '../../Theme/context';
-import Button from './Button';
 import React from 'react';
+import {connect} from 'react-redux'
+import {push} from 'react-router-redux'
+import {Stack} from './Stack'
+import {Announcements} from './Announcements'
 
-function Toolbar(props) {
-	return (
-		<Button onClick={props.changeTheme} value='TEST'/>
-	);
+export class AboutMe extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        return (
+            <div id="aboutMe__root">
+                <h1>Welcome to the page about me</h1>
+                <h3>This page is under development</h3>
+                <p>I am glad to see you on this page
+                    Please, add this page in favorites and follow the development</p>
+            </div>
+        )
+    }
 }
 
-class AboutMe extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			theme: themes.light,
-		};
+const mapStateToProps = state => {
+    return {};
+};
 
-		this.toggleTheme = () => {
-			this.setState(state => ({
-				theme:
-                    state.theme === themes.dark
-                    	? themes.light
-                    	: themes.dark,
-			}));
-		};
-	}
+const mapDispatchToProps = dispatch => {
+    return {
+        push: location => dispatch(push(location))
+    };
+};
 
-	render() {
-		return (
-			<div id="aboutMe__root">
-				<ThemeContext.Provider value={this.state.theme}>
-					<Toolbar changeTheme={this.toggleTheme}/>
-				</ThemeContext.Provider>
-				<div>
-					<Button
-						value='TEST'
-					/>
-				</div>
-			</div>
-		);
-	}
-}
-
-export default AboutMe;
+export default connect(mapStateToProps, mapDispatchToProps)(AboutMe);
