@@ -1,36 +1,36 @@
-# Developer blog
-## Welcome to my githib repository
-
-### Application
-You can find the application:
-### [http://kls-master.ru:5050](kls-master.ru:5050)
-
+## React-chat-IO
+small application inspired by socket.io
 ### Installation
-
-Install the  dependencies and start the server.
-You need the node js npm and mongodb.
-The mongodb is neccesary for work, then you should to use it or use docker.
+##### Manually
+Please, install firstly:
+1. nodejs 
+2. npm 
+3. mongodb
+4. After that, do next things
 ```sh
-$ cd Developer-s-blog
+$ cd <directory>
 $ npm install
-$ systemctl start mongo
+$ systemctl start mongo (if you use systemd or statrt db by hands)
 $ npm start
 ```
-After this you may look for your application on:
+##### Docker
+Please, install firstly:
+1. docker
+2. docker-compose
+3. After that, do next things
+```sh
+$ cd <directory>
+$ docker-compose build (possible you should start it with sudo command)
+$ docker-compose up
+```
+After this, please check next address
+```sh
+localhost:5050
+```
+You can visit [Website](https://ivanobivan.github.io/react-chat-io/#/)
 
-```sh
-127.0.0.1:5050
-```
-### Docker
-If you want, you may run the docker container.
-You need docker and docker-compose for this.
-The project have a python script for start container with custom options, if you want, you may to run it.
-```sh
-$ cd Developer-s-blog
-$ python3 start.py
-$ sudo docker-compose build
-$ sudo docker-compose up
-```
+You can ask something in [Chat](https://kls-teamworkspace.slack.com/)
+
 License
 ----
 MIT
