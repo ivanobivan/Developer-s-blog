@@ -17,7 +17,7 @@ import ScrollArea from 'react-scrollbar'
 import {checkUser} from "../../actions/serverActions";
 import {push} from "react-router-redux";
 
-const socket = socketIOClient("http://192.168.1.4:5050");
+const socket = socketIOClient("https://ivanobivan.github.io/react-chat-io/#/");
 
 
 export class Chat extends React.Component {
