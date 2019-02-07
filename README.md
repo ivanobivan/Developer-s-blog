@@ -11,7 +11,8 @@ Please, install firstly:
 $ cd <directory>
 $ npm install
 $ systemctl start mongo (if you use systemd or statrt db by hands)
-$ npm start
+$ npm run build:prod 
+$ npm start (server work only http protocol)
 ```
 ##### Docker
 Please, install firstly:
